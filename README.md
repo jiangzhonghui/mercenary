@@ -16,3 +16,4 @@ Accounts read/write validation
 - adergham
 - FlorentD
 - yamsellem
+- dimitri
