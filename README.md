@@ -1,5 +1,18 @@
-mercenary
-=========
+Mercenaries
+===========
+
+Team
+----
+
+- bguerout
+- adergham
+- FlorentD
+- yamsellem
+- dimapod
+- sophietk
+
+Server
+------
 
 Install, deploy and test web server:
 
@@ -10,11 +23,12 @@ node server.js
 node tests/it.js
 ```
 
-Accounts read/write validation
+Webapp
+------
 
-- bguerout
-- adergham
-- FlorentD
-- yamsellem
-- dimapod
-- sophietk
+Just launch page webapp/index.html
+
+Android App
+-----------
+
+...
