@@ -26,7 +26,8 @@ node tests/it.js
 Webapp
 ------
 
-Just launch page webapp/index.html
+Just launch page `webapp/index.html`
+Or open http://localhost:3000 if you have already started the server.
 
 Android App
 -----------

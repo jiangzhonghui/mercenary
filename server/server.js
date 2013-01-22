@@ -3,7 +3,7 @@ var express = require('express')
   , db = require('mongojs').connect('mercenary', ['items']);
 
 app.use(express.bodyParser());
-app.use(express.static(__dirname));
+app.use(express.static(__dirname + '/../webapp'));
 
 require('./routes/item')(app, db);
 
