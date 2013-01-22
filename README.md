@@ -4,7 +4,7 @@ mercenary
 Install, deploy and test web server:
 
 ```
-cd webapp
+cd server
 npm install
 node server.js
 node tests/it.js
@@ -16,4 +16,5 @@ Accounts read/write validation
 - adergham
 - FlorentD
 - yamsellem
-- dimitri
+- dimapod
+- sophietk
