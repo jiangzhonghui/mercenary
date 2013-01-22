@@ -9,3 +9,6 @@ npm install
 node server.js
 node tests/it.js
 ```
+
+Accounts read/write validation
+bguerout
