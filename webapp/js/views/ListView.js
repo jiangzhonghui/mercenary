@@ -17,7 +17,7 @@ define(['text!./list.mustache', 'models/ItemCollection'], function (template, It
             var self = this;
 
             this.items.models.forEach(function (item) {
-                self.$('#items-list').append('<li><span class="author">' + item.get('from_user') + ' : </span>' + item.get('text') + '</li>');
+                self.$('#items-list').append('<li><span class="author">' + item.get('artist_name') + ' : </span>' + item.get('title') + '</li>');
             });
         }
     });

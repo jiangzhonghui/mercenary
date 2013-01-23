@@ -27,11 +27,8 @@ requirejs.onError = function (err) {
     console.log(err.requireModules);
 };
 
-requirejs(['Router', 'server/FakeServer', 'jquery', 'underscore', 'backbone', 'hogan'], function (Router, FakeServer) {
+requirejs(['Router', 'jquery', 'underscore', 'backbone', 'hogan'], function (Router) {
     var Mercenary = window.Mercenary = {};
-
-    //Starting fake server to bind REST url
-    FakeServer.start();
 
     _.extend(Backbone.View.prototype, {
         close: function () {
