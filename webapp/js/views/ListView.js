@@ -1,12 +1,18 @@
-define(['text!./list.mustache', 'models/ItemCollection'], function (template, ItemCollection) {
+define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollection'], function (template, row, ItemCollection) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
+        row: Hogan.compile(row),
         initialize: function () {
             this.items = new ItemCollection();
         },
         render: function () {
             this.transition(this.template.render());
+
+            $('#items-table').tablesorter({
+                theme: 'default',
+                widgets: ["zebra"]
+            });
 
             this.items.on('reset', this.displayItems, this);
             this.items.fetch();
@@ -17,8 +23,9 @@ define(['text!./list.mustache', 'models/ItemCollection'], function (template, It
             var self = this;
 
             this.items.models.forEach(function (item) {
-                self.$('#items-list').append('<li><span class="author">' + item.get('artist_name') + ' : </span>' + item.get('title') + '</li>');
+                self.$('#items-table tbody').append(self.row.render(item.toJSON()));
             });
+            $('#items-table').trigger('update');
         }
     });
 });
