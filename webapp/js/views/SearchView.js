@@ -1,4 +1,4 @@
-define(['text!./search.mustache', './ResultView', 'models/ItemCollection'], function (template, ResultView, ItemCollection) {
+define(['text!./search.mustache', './ResultView', './GMapView', 'models/ItemCollection'], function (template, ResultView, GMapView, ItemCollection) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
@@ -14,6 +14,13 @@ define(['text!./search.mustache', './ResultView', 'models/ItemCollection'], func
         render: function () {
             this.transition(this.template.render());
             return this;
+        },
+        renderGMap: function () {
+            this.gmap = new GMapView();
+            var self = this;
+            _.delay(function () {
+                self.gmap.render();
+            }, 1);
         },
         searchItems: function (event) {
             var search = this.$('#searchForm').serializeArray(),
@@ -34,6 +41,13 @@ define(['text!./search.mustache', './ResultView', 'models/ItemCollection'], func
             this.items.fetch({data: $.param(searchWithPage)});
         },
         displayResults: function () {
+            if (!this.gmap) {
+                this.renderGMap();
+            }
+            this.gmap.empty();
+            if (!this.items.isEmpty()) this.gmap.$el.fadeIn();
+            else this.gmap.$el.fadeOut();
+
             this.$('#nbResults').text(this.items.size());
             this.$('.search-infos').hide().fadeIn();
 
