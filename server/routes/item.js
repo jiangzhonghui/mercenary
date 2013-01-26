@@ -1,4 +1,7 @@
-module.exports = function(app, db) {
+module.exports = function(app, db, _) {
+	var DEFAULT_PAGE = 1,
+		DEFAULT_RESULTS_PER_PAGE = 15;
+
 	app.post('/item', function(req, res) {
 		db.items.save(req.body, function(err, item) {
 			res.send(item, 201);
@@ -6,8 +9,23 @@ module.exports = function(app, db) {
 	});
 
 	app.get('/item', function(req, res) {
-		db.items.find({}, function(err, items) {
-			res.send(items);
+		var search = {},
+			page = req.query['page'] || DEFAULT_PAGE,
+			results_per_page = req.query['results_per_page'] || DEFAULT_RESULTS_PER_PAGE;
+
+		console.log('\nNew search with params : ');
+		_.each(req.query, function(queryParam, queryName) {
+			console.log('- ' + queryName + ' like "' + queryParam + '"');
+			if(queryName === 'page' || queryName === 'results_per_page') return;
+			search[queryName] = new RegExp(queryParam, 'i');
+		});
+
+		db.items.find(search).sort({title: 1}).skip((page-1)*results_per_page).limit(results_per_page, function(err, items) {
+			res.send({
+				page: page,
+				results_per_page: results_per_page,
+				results: items
+			});
 		});
 	});
 

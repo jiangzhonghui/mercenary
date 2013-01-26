@@ -6,7 +6,8 @@
     "mongojs": "0.4.x",
     "vows": "0.7.x",
     "assert": "0.4.x",
-    "request": "2.12.x"
+    "request": "2.12.x",
+    "underscore": "1.4.3"
   },
   "engines": {
     "node": ">=0.6"
