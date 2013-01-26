@@ -6,7 +6,8 @@ define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
         routes: {
             '': 'welcome',
             'list': 'list',
-            'search': 'search'
+            'search': 'search',
+            'details/:id': 'details'
         },
         welcome: function () {
             require([ 'views/WelcomeView' ], Mercenary.router.changeView);
@@ -17,11 +18,16 @@ define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
         search: function () {
             require([ 'views/SearchView' ], Mercenary.router.changeView);
         },
-        changeView: function (View) {
+        details: function (itemId) {
+            require([ 'views/DetailsView' ], function (view) {
+                Mercenary.router.changeView(view, {itemId: itemId});
+            });
+        },
+        changeView: function (View, options) {
             if (this.currentView) {
                 this.currentView.close();
             }
-            this.currentView = new View();
+            this.currentView = new View(options);
             this.currentView.render();
         }
     });

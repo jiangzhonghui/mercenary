@@ -1,5 +1,6 @@
 define(function () {
     return Backbone.Model.extend({
-        idAttribute: 'id'
+        idAttribute: '_id',
+        urlRoot: 'item'
     });
 });
