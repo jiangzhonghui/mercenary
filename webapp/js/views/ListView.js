@@ -22,7 +22,7 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollect
         displayItems: function () {
             var self = this;
 
-            this.items.models.forEach(function (item) {
+            this.items.each(function (item) {
                 self.$('#items-table tbody').append(self.row.render(item.toJSON()));
             });
             $('#items-table').trigger('update');

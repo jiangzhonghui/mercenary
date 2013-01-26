@@ -5,17 +5,17 @@ define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
         },
         routes: {
             '': 'welcome',
-            'list': 'list'
+            'list': 'list',
+            'search': 'search'
         },
         welcome: function () {
-            require([ 'views/WelcomeView' ], function (View) {
-                Mercenary.router.changeView(View);
-            });
+            require([ 'views/WelcomeView' ], Mercenary.router.changeView);
         },
         list: function () {
-            require([ 'views/ListView' ], function (View) {
-                Mercenary.router.changeView(View);
-            });
+            require([ 'views/ListView' ], Mercenary.router.changeView);
+        },
+        search: function () {
+            require([ 'views/SearchView' ], Mercenary.router.changeView);
         },
         changeView: function (View) {
             if (this.currentView) {
