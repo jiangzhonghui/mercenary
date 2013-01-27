@@ -1,0 +1,5 @@
+transform a hdf5 file into json and rite in console
+
+lauch with 
+-Dncsa.hdf.hdf5lib.H5.hdf5lib=/Users/jean-eudes/work/xke/xkeFevrier/lib/macosx/libjhdf5.jnilib
+and add one argument which is the file.

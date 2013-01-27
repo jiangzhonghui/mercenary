@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>xkeFevrier</groupId>
+    <artifactId>xkeFevrier</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-mapper-asl</artifactId>
+            <version>1.9.11</version>
+        </dependency>
+        <dependency>
+            <groupId>ncsa.hdf</groupId>
+            <artifactId>netcdf</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/netcdf.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ncsa.hdf</groupId>
+            <artifactId>fits</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/fits.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ncsa.hdf</groupId>
+            <artifactId>jhdf</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jhdf.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ncsa.hdf</groupId>
+            <artifactId>jhdf5</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jhdf5.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>ncsa.hdf</groupId>
+            <artifactId>jhdf5obj</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jhdf5obj.jar</systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>ncsa.hdf</groupId>
+            <artifactId>jhdfobj</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/jhdfobj.jar</systemPath>
+        </dependency>
+    </dependencies>
+
+</project>
