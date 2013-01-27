@@ -20,6 +20,6 @@ Install project
 
 Run project
 -------
-- Clic 'Songs' -> Menu -> IP : 10.0.2.2 (if emulator) or real IP
+- Clic Menu -> Preferences -> IP : 10.0.2.2 (if emulator) or real IP
 - Clic search
 - Pagination -> go to last song and "pull from down"
