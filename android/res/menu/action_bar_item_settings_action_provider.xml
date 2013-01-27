@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- LIST MODE -->
+    <!--<item android:id="@+id/menu_star"-->
+          <!--android:showAsAction="ifRoom|withText"-->
+          <!--android:icon="@drawable/ic_action_star"-->
+          <!--android:title="@string/menu_star"-->
+            <!--/>-->
+
+    <!--<item android:id="@+id/menu_edit"-->
+          <!--android:showAsAction="always|withText"-->
+          <!--android:icon="@drawable/ic_action_edit"-->
+          <!--android:title="@string/menu_edit"-->
+            <!--/>-->
+    <item android:id="@+id/action_search_item"
+          android:icon="@android:drawable/ic_menu_search"
+          android:title="@string/action_bar_search"
+          android:showAsAction="ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
+
+    <item android:id="@+id/menu_synchronisation_item"
+          android:showAsAction="always|withText"
+          android:icon="@drawable/ic_action_refresh"
+          android:title="@string/menu_synchronisation"
+            />
+
+    <!-- EDIT MODE -->
+
+    <item android:id="@+id/menu_preferences_item"
+          android:showAsAction="never|withText"
+          android:icon="@drawable/ic_action_settings"
+          android:title="@string/menu_preferences"
+          android:visible="true"
+            />
+
+    <!--<item android:id="@+id/menu_back"-->
+          <!--android:showAsAction="always|withText"-->
+          <!--android:icon="@drawable/ic_content_undo"-->
+          <!--android:title="@string/menu_edit"-->
+          <!--android:visible="false"-->
+            <!--/>-->
+
+
+</menu>

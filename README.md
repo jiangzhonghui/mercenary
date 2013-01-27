@@ -30,5 +30,7 @@ Start the server and open http://localhost:3000
 
 Android App
 -----------
+See android readme
+
 
 ...
