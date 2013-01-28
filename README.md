@@ -23,6 +23,8 @@ node server.js
 node tests/it.js
 ```
 
+Install [supervisor](https://github.com/isaacs/node-supervisor) for server live refresh
+
 Webapp
 ------
 
@@ -32,5 +34,17 @@ Android App
 -----------
 See android readme
 
+
+Mongo
+-----
+
+Install [Mongo on mac](http://shiftcommathree.com/articles/how-to-install-mongodb-on-os-x)
+
+
+Neo4j
+-----
+
+Install [Neo4j](http://www.neo4j.org/install)
+Use http://localhost:3000/node/static to init graph
 
 ...
