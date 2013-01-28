@@ -1,5 +1,4 @@
-transform a hdf5 file into json and rite in console
+use
 
-lauch with 
--Dncsa.hdf.hdf5lib.H5.hdf5lib=/Users/jean-eudes/work/xke/xkeFevrier/lib/macosx/libjhdf5.jnilib
-and add one argument which is the file.
+mvn assembly:single
+java -Dncsa.hdf.hdf5lib.H5.hdf5lib=/Users/jean-eudes/work/xke/xkeFevrier/lib/macosx/libjhdf5.jnilib -cp lib/*:target/* com.jeaneudes.xebia.xke.fevrier.hdf5_getters /Users/jean-eudes/work/xke/xkeFevrier/src/main/data/MillionSongSubset/data/

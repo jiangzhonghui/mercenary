@@ -1,5 +1,7 @@
 package com.jeaneudes.xebia.xke.fevrier;
 
+import org.jongo.marshall.jackson.id.Id;
+
 public class Song {
 
     private int artist_7digitalid;
@@ -16,6 +18,7 @@ public class Song {
     private String release;
     private int release_7digitalid;
     private double song_hotttnesss;
+    //@Id
     private String song_id;
     private String title;
     private int track_7digitalid;

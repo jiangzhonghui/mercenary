@@ -1,18 +1,45 @@
 package com.jeaneudes.xebia.xke.fevrier;
 
 
+import com.mongodb.DB;
+import com.mongodb.Mongo;
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 import ncsa.hdf.object.h5.H5CompoundDS;
 import ncsa.hdf.object.h5.H5File;
 import ncsa.hdf.object.h5.H5ScalarDS;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.jongo.Jongo;
+import org.jongo.MongoCollection;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.nio.file.*;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 /**
  * Class containing static methods to open a HDF5 song file and access its content.
  */
 public class hdf5_getters {
+
+    static MongoCollection songs;
+
+    static {
+        DB db = null;
+        try {
+            db = new Mongo().getDB("mercenary");
+        } catch (UnknownHostException e) {
+
+
+        }
+
+        Jongo jongo = new Jongo(db);
+        songs = jongo.getCollection("song");
+    }
 
     /**
      * Opens an existing HDF5 file with read only access.
@@ -536,6 +563,9 @@ public class hdf5_getters {
         // data
         H5ScalarDS array = (H5ScalarDS) h5.get("/" + group + "/" + arrayname);
         if (ndims == 1) {
+            if (array.getWidth() == 0) {
+                return null;
+            }
             double[] data = (double[]) array.getData();
             int pos2 = data.length;
             if (songidx + 1 < col.length) pos2 = col[songidx + 1];
@@ -622,7 +652,7 @@ public class hdf5_getters {
      */
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         if (args.length < 1) {
             System.out.println("file 'hdf5_getters.java'");
             System.out.println("T. Bertin-Mahieux (2010) tb2332@columbia.edu");
@@ -633,7 +663,40 @@ public class hdf5_getters {
             System.out.println("   java hdf5_getters <some HDF5 song file>");
             System.exit(0);
         }
-        String filename = args[0];
+
+        List<Path> list = new ArrayList<>();
+
+//        try (DirectoryStream<Path> ds = Files.newDirectoryStream(FileSystems.getDefault().getPath(args[0]), new DirectoryStream.Filter<Path>() {
+//            @Override
+//            public boolean accept(Path entry) throws IOException {
+//                return entry.toFile().isDirectory();
+//            }
+//        })) {
+//            for (Path child : ds) {
+//                System.out.println(child);
+//            }
+//        }
+
+        final List<Path> files = new ArrayList<>();
+        Files.walkFileTree(Paths.get(args[0]), new SimpleFileVisitor<Path>() {
+
+            @Override
+            public FileVisitResult visitFile(Path file, BasicFileAttributes attrs) throws IOException {
+                files.add(file);
+                System.out.println(file);
+                return FileVisitResult.CONTINUE;
+            }
+        });
+
+        for (Path file : files) {
+            parseFileToSong(file.toFile().getAbsolutePath());
+            System.out.println();
+        }
+        //parseFileToSong(args[0]);
+
+    }
+
+    private static void parseFileToSong(String filename) {
         System.out.println("file: " + filename);
         H5File h5 = hdf5_open_readonly(filename);
         Song song = new Song();
@@ -647,6 +710,8 @@ public class hdf5_getters {
             String[] resS;
             int[] resI;
             // metadata
+
+            song.setSong_id(get_song_id(h5));
 
             song.setArtist_familiarity(get_artist_familiarity(h5));
             song.setArtist_hotttnesss(get_artist_hotttnesss(h5));
@@ -803,16 +868,13 @@ public class hdf5_getters {
 //                System.out.println("artists mbtags count, length: " + resI.length);
 //            }
 
-            ObjectMapper mapper = new ObjectMapper();
-            mapper.writeValue(System.out, song);
-
+            songs.save(song);
 
         } catch (Exception e) {
             System.out.println("something went wrong:");
             e.printStackTrace();
         }
         hdf5_close(h5);
-        System.out.println("done, file closed.");
     }
 
 
