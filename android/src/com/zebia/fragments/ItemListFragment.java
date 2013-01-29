@@ -12,8 +12,10 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Toast;
+import com.google.gson.Gson;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
+import com.zebia.MapActivity;
 import com.zebia.R;
 import com.zebia.SettingsActivity;
 import com.zebia.adapter.ItemArrayAdapter;
@@ -24,6 +26,8 @@ import com.zebia.loaders.SerialLoader;
 import com.zebia.model.Item;
 import com.zebia.model.ItemsResponse;
 import com.zebia.utils.Animations;
+
+import java.util.ArrayList;
 
 public class ItemListFragment extends Fragment implements
         AdapterView.OnItemClickListener,
@@ -88,6 +92,7 @@ public class ItemListFragment extends Fragment implements
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.action_bar_item_settings_action_provider, menu);
+        MenuItem mapMenu = menu.findItem(R.id.action_show_map);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search_item).getActionView();
         searchView.setOnQueryTextListener(this);
 
@@ -151,6 +156,21 @@ public class ItemListFragment extends Fragment implements
                 Intent launchPreferencesIntent = new Intent().setClass(getActivity(), SettingsActivity.class);
                 startActivityForResult(launchPreferencesIntent, REQUEST_CODE_PREFERENCES);
                 break;
+
+            case R.id.action_show_map:
+                ArrayList<String> locations = new ArrayList<String>(itemsAdapter.getCount());
+                Bundle bundle = new Bundle();
+                for(int i = 0; i < itemsAdapter.getCount(); i++){
+                    locations.add(new Gson().toJson(itemsAdapter.getItem(i).getLocation()));
+
+                }
+                bundle.putStringArrayList(MapActivity.LIST_OF_LOCATIONS, locations);
+//                bundle.putDouble(MapActivity.LAT, 48.8752495);
+//                bundle.putDouble(MapActivity.LNG, 2.311096);
+                Intent openMapIntent = new Intent(getActivity(), MapActivity.class).putExtras(bundle);
+                startActivity(openMapIntent);
+                break;
+
         }
 
         return true;

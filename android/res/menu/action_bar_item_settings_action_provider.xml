@@ -25,6 +25,12 @@
           android:icon="@drawable/ic_action_refresh"
           android:title="@string/menu_synchronisation"
             />
+    <item android:id="@+id/action_show_map"
+          android:visible="true"
+          android:icon="@drawable/ic_action_locate"
+          android:title="@string/menu_map"
+            />
+
 
     <!-- EDIT MODE -->
 

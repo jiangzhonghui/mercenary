@@ -25,6 +25,7 @@ public class Item {
 	private Date createdAt;
 
 	private boolean sync = false;
+    private Location location;
 
     public Item() {
     }
@@ -100,6 +101,11 @@ public class Item {
         this.textLong = textLong;
         return this;
     }
+
+    public Location getLocation() {
+        return location;
+    }
+
 
     @Override
     public String toString() {

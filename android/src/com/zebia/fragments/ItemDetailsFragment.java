@@ -1,15 +1,22 @@
 package com.zebia.fragments;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import com.google.gson.Gson;
+import com.zebia.MapActivity;
 import com.zebia.R;
 import com.zebia.model.Item;
+
+import java.util.ArrayList;
 
 public class ItemDetailsFragment extends Fragment {
     private int index;
@@ -74,6 +81,21 @@ public class ItemDetailsFragment extends Fragment {
             txFromUser.setText(item.getFromUserName());
             txText.setText(item.getText());
             txTextLong.setText(item.getTextLong());
+
+            ImageButton mapButton = (ImageButton) getView().findViewById(R.id.map_btn);
+            mapButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Bundle bundle = new Bundle();
+                    String location = new Gson().toJson(item.getLocation());
+                    Log.d("zebia", "location "+ location);
+
+                    bundle.putString(MapActivity.ONE_LOCATION, location);
+                    Intent openMapIntent = new Intent(getActivity(), MapActivity.class).putExtras(bundle);
+                    startActivity(openMapIntent);
+
+                }
+            });
         }
     }
 

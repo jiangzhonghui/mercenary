@@ -22,5 +22,7 @@
 
     <string name="item_details_activity">Item Details</string>
     <string name="song_details_activity">Song Details</string>
+    <string name="menu_map">Map</string>
+    <string name="show_on_map">View on Map</string>
 
 </resources>
