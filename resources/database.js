@@ -28,7 +28,7 @@
  ]
 
  **/
-
+var db = require('mongojs').connect('mercenary', ['items']);
 var items = [
     {
         "id": 1,
@@ -18032,9 +18032,11 @@ var items = [
     }
 ];
 
-db.items.remove();
+db.items.remove({}, { safe: true }, function(){
 
-for (i = 0; i < items.length; i++) {
-    var item = items[i];
-    db.items.save(item);
-}
+    for(i = 0; i < items.length; i++) {
+        var item = items[i];
+        db.items.save(item);
+    }
+    process.exit(0);
+});
