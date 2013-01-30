@@ -4,6 +4,9 @@ import org.jongo.marshall.jackson.id.Id;
 
 public class Song {
 
+    @Id
+    private String id;
+
     private int artist_7digitalid;
     private double artist_familiarity;
     private double artist_hotttnesss;
@@ -66,6 +69,14 @@ public class Song {
     private double[] tatums_confidence;
 
     private int year;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public int getYear() {
         return year;

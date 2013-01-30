@@ -71,6 +71,12 @@
             <version>2.10.1</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.elasticsearch</groupId>
+            <artifactId>elasticsearch</artifactId>
+            <version>0.20.2</version>
+        </dependency>
+
     </dependencies>
 
     <build>

@@ -3,21 +3,26 @@ package com.jeaneudes.xebia.xke.fevrier;
 
 import com.mongodb.DB;
 import com.mongodb.Mongo;
+import com.mongodb.WriteResult;
 import ncsa.hdf.hdf5lib.exceptions.HDF5Exception;
 import ncsa.hdf.object.h5.H5CompoundDS;
 import ncsa.hdf.object.h5.H5File;
 import ncsa.hdf.object.h5.H5ScalarDS;
-import org.codehaus.jackson.map.ObjectMapper;
+import org.elasticsearch.action.index.IndexResponse;
+import static org.elasticsearch.common.xcontent.XContentFactory.*;
+import static org.elasticsearch.node.NodeBuilder.nodeBuilder;
+
+import org.elasticsearch.client.Client;
+import org.elasticsearch.node.Node;
 import org.jongo.Jongo;
 import org.jongo.MongoCollection;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.UnknownHostException;
 import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Vector;
 
@@ -27,6 +32,7 @@ import java.util.Vector;
 public class hdf5_getters {
 
     static MongoCollection songs;
+    static Client client;
 
     static {
         DB db = null;
@@ -39,6 +45,9 @@ public class hdf5_getters {
 
         Jongo jongo = new Jongo(db);
         songs = jongo.getCollection("song");
+        Node node = nodeBuilder().node();
+        client = node.client();
+
     }
 
     /**
@@ -607,7 +616,7 @@ public class hdf5_getters {
         // data
         H5ScalarDS array = (H5ScalarDS) h5.get("/" + group + "/" + arrayname);
 
-        if (array.getWidth() != 0) {
+        try {
             int[] data = (int[]) array.getData();
             int pos2 = data.length;
             if (songidx + 1 < col.length) pos2 = col[songidx + 1];
@@ -616,7 +625,7 @@ public class hdf5_getters {
             for (int k = 0; k < res.length; k++)
                 res[k] = data[pos1 + k];
             return res;
-        } else {
+        } catch(HDF5Exception e) {
             return new int[0];
         }
     }
@@ -633,7 +642,7 @@ public class hdf5_getters {
         // data
         H5ScalarDS array = (H5ScalarDS) h5.get("/" + group + "/" + arrayname);
 
-        if (array.getWidth() != 0) {
+        try {
             String[] data = (String[]) array.getData();
             int pos2 = data.length;
             if (songidx + 1 < col.length) pos2 = col[songidx + 1];
@@ -642,7 +651,7 @@ public class hdf5_getters {
             for (int k = 0; k < res.length; k++)
                 res[k] = data[pos1 + k];
             return res;
-        } else {
+        } catch(HDF5Exception e) {
             return new String[0];
         }
     }
@@ -690,14 +699,13 @@ public class hdf5_getters {
 
         for (Path file : files) {
             parseFileToSong(file.toFile().getAbsolutePath());
-            System.out.println();
         }
         //parseFileToSong(args[0]);
 
     }
 
     private static void parseFileToSong(String filename) {
-        System.out.println("file: " + filename);
+        //System.out.println("file: " + filename);
         H5File h5 = hdf5_open_readonly(filename);
         Song song = new Song();
 
@@ -748,6 +756,7 @@ public class hdf5_getters {
 
             resS = get_similar_artists(h5);
             song.setSimilar_artists(resS);
+
 //            if (resS.length != 0) {
 //                System.out.println("similar artists, length: " + resS.length + ", elem 2: " + resS[20]);
 //            }
@@ -869,6 +878,22 @@ public class hdf5_getters {
 //            }
 
             songs.save(song);
+
+
+            IndexResponse response = client.prepareIndex("mercenary2", "song", song.getId())
+                    .setSource(jsonBuilder()
+                            .startObject()
+                            .field("artistName", song.getArtist_name())
+                            .field("title", song.getTitle())
+                            .field("year", song.getYear())
+                            .field("city", song.getArtist_location())
+                            .endObject()
+                    )
+                    .execute()
+                    .actionGet();
+
+
+            System.out.println(song.getId());
 
         } catch (Exception e) {
             System.out.println("something went wrong:");
