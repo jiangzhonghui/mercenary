@@ -7,6 +7,7 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollect
             this.items = new ItemCollection();
         },
         render: function () {
+            this.page = 1;
             this.transition(this.template.render());
 
             $('#items-table').tablesorter({
@@ -15,8 +16,14 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollect
             });
 
             this.items.on('reset', this.displayItems, this);
-            this.items.fetch();
+            this.items.fetch({data: {page: this.page, results_per_page: 30}});
 
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                    this.page++;
+                    this.items.fetch({data: {page: this.page, results_per_page: 30}})
+                }
+            }.bind(this));
             return this;
         },
         displayItems: function () {
@@ -26,6 +33,9 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollect
                 self.$('#items-table tbody').append(self.row.render(item.toJSON()));
             });
             $('#items-table').trigger('update');
+        },
+        close: function () {
+            $(window).off('scroll');
         }
     });
 });
