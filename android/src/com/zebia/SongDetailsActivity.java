@@ -5,10 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
-import com.zebia.adapter.AppSectionsPagerAdapter;
 import com.zebia.adapter.SongDetailsCollectionAdapter;
-import com.zebia.fragments.SongListFragment;
-import com.zebia.model.SongStore;
 
 public class SongDetailsActivity extends FragmentActivity {
 
