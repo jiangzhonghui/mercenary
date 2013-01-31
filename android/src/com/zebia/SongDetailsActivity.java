@@ -6,13 +6,15 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import com.zebia.adapter.AppSectionsPagerAdapter;
+import com.zebia.adapter.SongDetailsCollectionAdapter;
 import com.zebia.fragments.SongListFragment;
 import com.zebia.model.SongStore;
 
 public class SongDetailsActivity extends FragmentActivity {
 
-    private AppSectionsPagerAdapter appSectionsPagerAdapter;
+//    private AppSectionsPagerAdapter appSectionsPagerAdapter;
     private ViewPager viewPager;
+    private SongDetailsCollectionAdapter songDetailsCollectionAdapter;
 
     /**
      * Called when the activity is first created.
@@ -22,21 +24,25 @@ public class SongDetailsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_detail_pager);
 
-        appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+        //appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+        songDetailsCollectionAdapter = new SongDetailsCollectionAdapter(getSupportFragmentManager());
+
 
         int songIndex = 0;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             songIndex = bundle.getInt(SongActivity.CURRENT_SONG_INDEX, 0);
         }
-        appSectionsPagerAdapter.setSong(SongStore.get(songIndex));
+        //appSectionsPagerAdapter.setSong(SongStore.get(songIndex));
+
 
         final ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);
 
         viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(appSectionsPagerAdapter);
-
+        //viewPager.setAdapter(appSectionsPagerAdapter);
+        viewPager.setAdapter(songDetailsCollectionAdapter);
+        viewPager.setCurrentItem(songIndex);
 
         getActionBar().setDisplayShowTitleEnabled(false);
         getActionBar().setHomeButtonEnabled(true);
