@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:paddingLeft="8dp"
+                  android:paddingRight="8dp"
+                  android:paddingTop="4dp"
+                  android:paddingBottom="4dp">
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content">
+
+            <TextView
+                    android:id="@+id/tx_detail_song_song_label"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Song: "
+                    android:textStyle="bold"
+                    android:textSize="14dp"
+                    android:singleLine="true"
+                    android:textColor="#3baeff"
+                    />
+
+            <TextView
+                    android:id="@+id/tx_detail_song_title"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="title"
+                    android:textSize="14dp"
+                    android:singleLine="true"
+                    android:textColor="#3baeff"/>
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/tx_detail_song_details"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Details: "
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:textColor="#f8ff7f"/>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="15dp">
+
+            <TextView
+                    android:id="@+id/tx_detail_song_artist_label"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist: "
+                    android:textSize="14dp"/>
+
+            <TextView
+                    android:id="@+id/tx_detail_song_artist"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Artist name"
+                    android:textSize="14dp"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="15dp">
+
+            <TextView
+                    android:id="@+id/tx_detail_song_release_label"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Album: "
+                    android:textSize="14dp"/>
+
+            <TextView
+                    android:id="@+id/tx_detail_song_release"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Release"
+                    android:textSize="14dp"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="15dp">
+
+            <TextView
+                    android:id="@+id/tx_detail_song_year_label"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Year: "
+                    android:textSize="14dp"/>
+
+            <TextView
+                    android:id="@+id/tx_detail_song_year"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Year"
+                    android:textSize="14dp"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="15dp">
+
+            <TextView
+                    android:id="@+id/tx_detail_song_rating_label"
+                    xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Rating: "
+                    android:textSize="14dp"/>
+
+            <RatingBar android:id="@+id/ratingbar_detail_song_rating"
+                       style="?android:attr/ratingBarStyleSmall"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:numStars="5"
+                       android:rating="2.5"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
