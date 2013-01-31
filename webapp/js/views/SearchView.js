@@ -13,6 +13,7 @@ define(['text!./search.mustache', './ResultView', './GMapView', 'models/ItemColl
         },
         render: function () {
             this.transition(this.template.render());
+            this.restoreSearch();
             return this;
         },
         renderGMap: function () {
@@ -37,6 +38,7 @@ define(['text!./search.mustache', './ResultView', './GMapView', 'models/ItemColl
                 name: "page",
                 value: this.page || 1
             });
+            this.keepSearch();
 
             this.items.fetch({data: $.param(searchWithPage)});
         },
@@ -73,6 +75,21 @@ define(['text!./search.mustache', './ResultView', './GMapView', 'models/ItemColl
         nextResults: function () {
             this.page++;
             this.searchItems();
+        },
+        restoreSearch: function () {
+            if (localStorage.currentSearch) {
+                var currentSearch = $.parseJSON(localStorage.currentSearch);
+                _.each(this.$('#searchForm input'), function (input) {
+                    $(input).val(_.findWhere(currentSearch, {name: $(input).attr('name')}).value);
+                });
+                this.currentSearch = currentSearch;
+                this.page = parseInt(localStorage.searchPage) || 1;
+                this.searchItems();
+            }
+        },
+        keepSearch: function () {
+            localStorage.currentSearch = JSON.stringify(this.currentSearch);
+            localStorage.searchPage = this.page;
         }
     });
 });
