@@ -25,4 +25,6 @@
     <string name="menu_map">Map</string>
     <string name="show_on_map">View on Map</string>
 
+    <string name="dummy_section_text">Section %1d is just a dummy section.</string>
+
 </resources>

@@ -1,8 +1,8 @@
 package com.zebia.fragments;
 
-import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -15,8 +15,6 @@ import com.google.gson.Gson;
 import com.zebia.MapActivity;
 import com.zebia.R;
 import com.zebia.model.Item;
-
-import java.util.ArrayList;
 
 public class ItemDetailsFragment extends Fragment {
     private int index;
@@ -88,7 +86,7 @@ public class ItemDetailsFragment extends Fragment {
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
                     String location = new Gson().toJson(item.getLocation());
-                    Log.d("zebia", "location "+ location);
+                    Log.d("zebia", "location " + location);
 
                     bundle.putString(MapActivity.ONE_LOCATION, location);
                     Intent openMapIntent = new Intent(getActivity(), MapActivity.class).putExtras(bundle);

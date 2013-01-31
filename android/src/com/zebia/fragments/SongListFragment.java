@@ -1,12 +1,12 @@
 package com.zebia.fragments;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.LoaderManager;
 import android.content.Intent;
-import android.content.Loader;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.*;
@@ -65,6 +65,8 @@ public class SongListFragment extends Fragment implements
         }
 
         getActivity().getActionBar().setDisplayShowTitleEnabled(false);
+        getActivity().getActionBar().setHomeButtonEnabled(false);
+        getActivity().getActionBar().setDisplayHomeAsUpEnabled(false);
 
         pullToRefreshListView = (PullToRefreshListView) getView().findViewById(R.id.song_list);
         pullToRefreshListView.setMode(PullToRefreshBase.Mode.DISABLED);
@@ -78,7 +80,8 @@ public class SongListFragment extends Fragment implements
         listView.setOnItemClickListener(this);
 
         // Initialize the Loader.
-        //getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, getBundle(false), this);
+        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
+                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).setForceLoad(false).build(), this);
     }
 
     @Override
@@ -91,6 +94,7 @@ public class SongListFragment extends Fragment implements
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.action_bar_song_settings_action_provider, menu);
         SearchView searchView = (SearchView) menu.findItem(R.id.action_search_song).getActionView();
+        searchView.setQueryHint("Song title");
         searchView.setOnQueryTextListener(this);
 
         this.searchView = searchView;
@@ -164,7 +168,8 @@ public class SongListFragment extends Fragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        onItemSelectedListener.onItemSelected(position, songsAdapter.getItem(position));
+        int itemIndex = position - 1;
+        onItemSelectedListener.onItemSelected(itemIndex, songsAdapter.getItem(itemIndex));
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -189,6 +194,8 @@ public class SongListFragment extends Fragment implements
     @Override
     public void onLoadFinished(Loader<SerialLoader.RestResponse<SongsResponse>> loader, SerialLoader.RestResponse<SongsResponse> data) {
         pullToRefreshListView.onRefreshComplete();
+        getActivity().setProgressBarIndeterminateVisibility(false);
+
         Log.d(LOG_TAG, "Begin onLoadFinished()");
 
         int code = data.getCode();
@@ -231,6 +238,8 @@ public class SongListFragment extends Fragment implements
 
         this.searchQuery = query;
         this.lastLoadedPage = 0;
+
+        getActivity().setProgressBarIndeterminateVisibility(true);
 
         getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
                 new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);

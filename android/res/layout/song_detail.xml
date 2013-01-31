@@ -25,7 +25,7 @@
                     android:layout_height="wrap_content"
                     android:text="Song: "
                     android:textStyle="bold"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:singleLine="true"
                     android:textColor="#3baeff"
                     />
@@ -36,7 +36,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="title"
-                    android:textSize="14dp"
+                    android:textSize="18dp"
                     android:singleLine="true"
                     android:textColor="#3baeff"/>
         </LinearLayout>
@@ -48,7 +48,7 @@
                 android:layout_height="wrap_content"
                 android:text="Details: "
                 android:textStyle="bold"
-                android:textSize="14dp"
+                android:textSize="18dp"
                 android:textColor="#f8ff7f"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -63,7 +63,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Artist: "
-                    android:textSize="14dp"/>
+                    android:textSize="18dp"/>
 
             <TextView
                     android:id="@+id/tx_detail_song_artist"
@@ -71,7 +71,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Artist name"
-                    android:textSize="14dp"/>
+                    android:textSize="18dp"/>
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -86,7 +86,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Album: "
-                    android:textSize="14dp"/>
+                    android:textSize="18dp"/>
 
             <TextView
                     android:id="@+id/tx_detail_song_release"
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Release"
-                    android:textSize="14dp"/>
+                    android:textSize="18dp"/>
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -109,7 +109,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Year: "
-                    android:textSize="14dp"/>
+                    android:textSize="18dp"/>
 
             <TextView
                     android:id="@+id/tx_detail_song_year"
@@ -117,7 +117,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Year"
-                    android:textSize="14dp" />
+                    android:textSize="18dp"/>
+        </LinearLayout>
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                      android:orientation="horizontal"
+                      android:layout_width="wrap_content"
+                      android:layout_height="wrap_content"
+                      android:paddingLeft="15dp">
+
+            <RatingBar android:id="@+id/ratingbar_detail_song_rating"
+                       style="?android:attr/ratingBarStyleIndicator"
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:numStars="5"
+                       android:rating="2.5"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
