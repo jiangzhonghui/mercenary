@@ -10,8 +10,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.zebia.R;
 import com.zebia.model.Song;
+import com.zebia.model.SongStore;
 
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -83,4 +85,28 @@ public class SongArrayAdapter extends ArrayAdapter<Song> {
 
     }
 
+
+    @Override
+    public void add(Song object) {
+        super.add(object);
+        SongStore.add(object);
+    }
+
+    @Override
+    public void addAll(Collection<? extends Song> collection) {
+        super.addAll(collection);
+        SongStore.addAll(collection);
+    }
+
+    @Override
+    public void clear() {
+        super.clear();
+        SongStore.clear();
+    }
+
+    @Override
+    public void remove(Song object) {
+        super.remove(object);
+        SongStore.remove(object);
+    }
 }

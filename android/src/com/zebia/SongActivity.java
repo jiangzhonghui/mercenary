@@ -12,10 +12,9 @@ import com.zebia.fragments.SongListFragment;
 import com.zebia.model.Song;
 
 public class SongActivity extends FragmentActivity implements SongListFragment.OnItemSelectedListener {
-    public static final String SONG_INDEX = "SongIndex";
+    public static final String CURRENT_SONG_INDEX = "SongIndex";
     private boolean mDualPane;
     private int mCurCheckPosition = 0;
-    public static Song currentSong;
 
     /**
      * Called when the activity is first created.
@@ -93,10 +92,8 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
         if (mDualPane) {
             showDetails(index, song);
         } else {
-            currentSong = song; // TODO !
-
             Intent launchSongDetailsIntent = new Intent().setClass(this, SongDetailsActivity.class);
-            launchSongDetailsIntent.putExtra(SONG_INDEX, index);
+            launchSongDetailsIntent.putExtra(CURRENT_SONG_INDEX, index);
             startActivity(launchSongDetailsIntent);
         }
     }

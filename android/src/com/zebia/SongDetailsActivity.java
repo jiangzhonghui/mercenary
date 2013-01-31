@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.view.MenuItem;
 import com.zebia.adapter.AppSectionsPagerAdapter;
 import com.zebia.fragments.SongListFragment;
+import com.zebia.model.SongStore;
 
 public class SongDetailsActivity extends FragmentActivity {
 
@@ -22,7 +23,13 @@ public class SongDetailsActivity extends FragmentActivity {
         setContentView(R.layout.song_detail_pager);
 
         appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-        appSectionsPagerAdapter.setSong(SongActivity.currentSong);
+
+        int songIndex = 0;
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            songIndex = bundle.getInt(SongActivity.CURRENT_SONG_INDEX, 0);
+        }
+        appSectionsPagerAdapter.setSong(SongStore.get(songIndex));
 
         final ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);
