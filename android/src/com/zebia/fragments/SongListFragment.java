@@ -23,7 +23,6 @@ import com.zebia.loaders.SerialLoader;
 import com.zebia.loaders.params.ParamsMapper;
 import com.zebia.loaders.params.RestParamBuilder;
 import com.zebia.loaders.params.SongsParamsMapper;
-import com.zebia.model.Song;
 import com.zebia.model.SongsResponse;
 import com.zebia.utils.Animations;
 

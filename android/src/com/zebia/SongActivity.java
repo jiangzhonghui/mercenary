@@ -9,12 +9,11 @@ import android.view.View;
 import android.view.Window;
 import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongListFragment;
-import com.zebia.model.Song;
 
 public class SongActivity extends FragmentActivity implements SongListFragment.OnItemSelectedListener {
-    public static final String CURRENT_SONG_INDEX = "SongIndex";
     private boolean mDualPane;
     private int mCurCheckPosition = 0;
+    public static final String SONG_INDEX = "song-index";
 
     /**
      * Called when the activity is first created.
@@ -61,7 +60,7 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
             details = new SongDetailsFragment();
 
             Bundle args = new Bundle();
-            args.putInt(SongDetailsFragment.SONG_INDEX, index);
+            args.putInt(SONG_INDEX, index);
             details.setArguments(args);
 
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -92,7 +91,7 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
             showDetails(index);
         } else {
             Intent launchSongDetailsIntent = new Intent().setClass(this, SongDetailsActivity.class);
-            launchSongDetailsIntent.putExtra(CURRENT_SONG_INDEX, index);
+            launchSongDetailsIntent.putExtra(SONG_INDEX, index);
             startActivity(launchSongDetailsIntent);
         }
     }

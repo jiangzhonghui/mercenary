@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import com.zebia.SongActivity;
 import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongDetailsMapFragment;
 import com.zebia.model.Song;
@@ -22,7 +23,7 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 Fragment details = new SongDetailsFragment();
                 Bundle args = new Bundle();
-                args.putInt(SongDetailsFragment.SONG_INDEX, i);
+                args.putInt(SongActivity.SONG_INDEX, i);
                 details.setArguments(args);
                 return details;
 

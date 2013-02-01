@@ -28,7 +28,7 @@ public class SongDetailsActivity extends FragmentActivity {
         int songIndex = 0;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            songIndex = bundle.getInt(SongActivity.CURRENT_SONG_INDEX, 0);
+            songIndex = bundle.getInt(SongActivity.SONG_INDEX, 0);
         }
         //appSectionsPagerAdapter.setSong(SongStore.get(songIndex));
 
