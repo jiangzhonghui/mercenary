@@ -153,7 +153,6 @@ public class SongListFragment extends Fragment implements
                 synchronization();
                 break;
             case R.id.menu_preferences_song:
-                // Launch an activity through intent
                 Intent launchPreferencesIntent = new Intent().setClass(getActivity(), SettingsActivity.class);
                 startActivityForResult(launchPreferencesIntent, REQUEST_CODE_PREFERENCES);
                 break;
@@ -168,8 +167,7 @@ public class SongListFragment extends Fragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        int itemIndex = position - 1;
-        onItemSelectedListener.onItemSelected(itemIndex, songsAdapter.getItem(itemIndex));
+        onItemSelectedListener.onItemSelected(position - 1);
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -254,7 +252,7 @@ public class SongListFragment extends Fragment implements
 
     // Fragment / Activity communication
     public interface OnItemSelectedListener {
-        public void onItemSelected(int index, Song item);
+        public void onItemSelected(int index);
     }
 
     // ---------------------------------------------------------------------------------------------------

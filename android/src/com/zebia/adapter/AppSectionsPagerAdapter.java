@@ -20,12 +20,16 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                return new SongDetailsFragment(-1, song);
+                Fragment details = new SongDetailsFragment();
+                Bundle args = new Bundle();
+                args.putInt(SongDetailsFragment.SONG_INDEX, i);
+                details.setArguments(args);
+                return details;
 
             default:
                 // The other sections of the app are dummy placeholders.
                 Fragment fragment = new SongDetailsMapFragment();
-                Bundle args = new Bundle();
+                args = new Bundle();
                 args.putInt(SongDetailsMapFragment.ARG_SECTION_NUMBER, i + 1);
                 fragment.setArguments(args);
                 return fragment;

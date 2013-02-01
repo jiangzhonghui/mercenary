@@ -10,18 +10,20 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import com.zebia.R;
 import com.zebia.model.Song;
+import com.zebia.model.SongStore;
 
 public class SongDetailsFragment extends Fragment {
+    public static final String SONG_INDEX = "song-index";
     private int index;
     private Song song;
 
     public SongDetailsFragment() {
     }
 
-    public SongDetailsFragment(int index, Song song) {
-        this.index = index;
-        this.song = song;
-    }
+//    public SongDetailsFragment(int index, Song song) {
+//        this.index = index;
+//        this.song = song;
+//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -29,7 +31,11 @@ public class SongDetailsFragment extends Fragment {
             return null;
         }
 
-        if (song != null) {
+        Bundle args = getArguments();
+        index = args.getInt(SongDetailsFragment.SONG_INDEX, -1);
+
+        if (index != -1) {
+            song = SongStore.get(index);
             return inflater.inflate(R.layout.song_detail, container, false);
         } else {
             ScrollView scroller = new ScrollView(getActivity());

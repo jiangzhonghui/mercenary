@@ -47,24 +47,23 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
         }
 
         if (mDualPane) {
-            showDetails(mCurCheckPosition, null);
+            showDetails(mCurCheckPosition);
         }
     }
 
 
-    void showDetails(int index, Song song) {
+    void showDetails(int index) {
         mCurCheckPosition = index;
 
-        // Check what fragment is currently shown, replace if needed.
-        SongDetailsFragment details = (SongDetailsFragment)
-                getSupportFragmentManager().findFragmentById(R.id.details_song);
+        SongDetailsFragment details = (SongDetailsFragment) getSupportFragmentManager().findFragmentById(R.id.details_song);
 
         if (details == null || details.getIndex() != mCurCheckPosition) {
-            // Make new fragment to show this selection.
-            details = new SongDetailsFragment(index, song);
+            details = new SongDetailsFragment();
 
-            // Execute a transaction, replacing any existing fragment
-            // with this one inside the frame.
+            Bundle args = new Bundle();
+            args.putInt(SongDetailsFragment.SONG_INDEX, index);
+            details.setArguments(args);
+
             FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 
@@ -88,9 +87,9 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
 
     // Fragment callback
     @Override
-    public void onItemSelected(int index, Song song) {
+    public void onItemSelected(int index) {
         if (mDualPane) {
-            showDetails(index, song);
+            showDetails(index);
         } else {
             Intent launchSongDetailsIntent = new Intent().setClass(this, SongDetailsActivity.class);
             launchSongDetailsIntent.putExtra(CURRENT_SONG_INDEX, index);
