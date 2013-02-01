@@ -24,20 +24,20 @@ define(['text!./infoWindow.mustache'], function (infoWindowTemplate) {
             };
             this.map = new google.maps.Map(this.el, myOptions);
         },
-        addMarker: function (item) {
+        addMarker: function (song) {
             var self = this;
 
             // Localisation par nom de ville
-            this.geocoder.geocode({ 'address': item.get('city') + ',' + item.get('country')}, function (results, status) {
+            this.geocoder.geocode({ 'address': song.get('artist_location')}, function (results, status) {
                 if (status == google.maps.GeocoderStatus.OK) {
                     var marker = new google.maps.Marker({
-                        title: item.get('title'),
+                        title: song.get('title'),
                         position: results[0].geometry.location,
                         map: self.map,
                         icon: self.imageMarker
                     });
                     google.maps.event.addListener(marker, 'click', function () {
-                        self.infowindow.setContent(self.infoWindowTemplate.render(item.toJSON()));
+                        self.infowindow.setContent(self.infoWindowTemplate.render(song.toJSON()));
                         self.infowindow.open(this.map, marker);
                     });
                     google.maps.event.addListener(marker, 'mouseover', function () {
@@ -48,7 +48,7 @@ define(['text!./infoWindow.mustache'], function (infoWindowTemplate) {
                     });
                     self.currentMarkers.push(marker);
                 } else {
-                    console.log('Localization of ' + item.get('city') + ' not found');
+                    console.log('Localization of ' + song.get('artist_location') + ' not found');
                 }
             });
         },

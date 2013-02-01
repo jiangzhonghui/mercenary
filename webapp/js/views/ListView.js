@@ -1,10 +1,10 @@
-define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollection'], function (template, row, ItemCollection) {
+define(['text!./list.mustache', 'text!./table-row.mustache', 'models/SongCollection'], function (template, row, SongCollection) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
         row: Hogan.compile(row),
         initialize: function () {
-            this.items = new ItemCollection();
+            this.songs = new SongCollection();
         },
         render: function () {
             this.page = 1;
@@ -15,13 +15,13 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollect
                 widgets: ["zebra"]
             });
 
-            this.items.on('reset', this.displayItems, this);
-            this.items.fetch({data: {page: this.page, results_per_page: 30}});
+            this.songs.on('reset', this.displayItems, this);
+            this.songs.fetch({data: {page: this.page, results_per_page: 30}});
 
             $(window).scroll(function () {
                 if ($(window).scrollTop() + $(window).height() == $(document).height()) {
                     this.page++;
-                    this.items.fetch({data: {page: this.page, results_per_page: 30}})
+                    this.songs.fetch({data: {page: this.page, results_per_page: 30}})
                 }
             }.bind(this));
             return this;
@@ -29,8 +29,8 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/ItemCollect
         displayItems: function () {
             var self = this;
 
-            this.items.each(function (item) {
-                self.$('#items-table tbody').append(self.row.render(item.toJSON()));
+            this.songs.each(function (song) {
+                self.$('#items-table tbody').append(self.row.render(song.toJSON()));
             });
             $('#items-table').trigger('update');
         },

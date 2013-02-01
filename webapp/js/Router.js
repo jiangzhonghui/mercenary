@@ -18,9 +18,9 @@ define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
         search: function () {
             require([ 'views/SearchView' ], Mercenary.router.changeView);
         },
-        details: function (itemId) {
+        details: function (songId) {
             require([ 'views/DetailsView' ], function (view) {
-                Mercenary.router.changeView(view, {itemId: itemId});
+                Mercenary.router.changeView(view, {songId: songId});
             });
         },
         changeView: function (View, options) {
