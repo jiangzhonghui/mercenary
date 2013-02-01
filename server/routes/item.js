@@ -1,5 +1,5 @@
-module.exports = function(app, db, _) {
-	var DEFAULT_PAGE = 1,
+module.exports = function (app, db, _, log) {
+    var DEFAULT_PAGE = 1,
 		DEFAULT_RESULTS_PER_PAGE = 15;
 
 	app.post('/item', function(req, res) {
@@ -13,9 +13,7 @@ module.exports = function(app, db, _) {
 			page = req.query['page'] || DEFAULT_PAGE,
 			results_per_page = req.query['results_per_page'] || DEFAULT_RESULTS_PER_PAGE;
 
-		console.log('\nNew search with params : ');
-		_.each(req.query, function(queryParam, queryName) {
-			console.log('- ' + queryName + ' like "' + queryParam + '"');
+        _.each(req.query, function(queryParam, queryName) {
 			if(queryName === 'page' || queryName === 'results_per_page') return;
 			search[queryName] = new RegExp(queryParam, 'i');
 		});
