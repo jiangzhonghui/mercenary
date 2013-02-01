@@ -1,7 +1,7 @@
 var SongQuery = require('../db/queries/SongQuery');
 
 
-module.exports = function (app) {
+module.exports = function (app, logger) {
 
     app.get('/song', function (req, res) {
         var search = {},

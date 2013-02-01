@@ -29,7 +29,7 @@ app.use(logger.express(express));
 
 // uncomment for using ES
 //require('./routes/itemES')(app, db, _, http);
-require('./routes/song')(app);
+require('./routes/song')(app, logger);
 require('./routes/node')(app, request, logger);
 
 app.listen(3000);
