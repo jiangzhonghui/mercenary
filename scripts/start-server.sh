@@ -3,6 +3,7 @@ REPO_DIR=/home/mercenary/mercenary
 LOG_DIR=$REPO_DIR/logs
 
 pushd $REPO_DIR/server
+npm install
 nohup supervisor -n exit server.js </dev/null >> $LOG_DIR/nohup_server.log 2>&1 &
 echo $$ > $LOG_DIR/nodejs.pid
 
