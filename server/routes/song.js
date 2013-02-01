@@ -11,7 +11,9 @@ module.exports = function (app, logger) {
         _.each(req.query, function (queryParam, queryName) {
             if (queryName === 'page' || queryName === 'results_per_page') return;
             search[queryName] = new RegExp(queryParam, 'i');
+            logger.debug('you search with args %s : %s', queryName, search[queryName]);
         });
+
 
         if (page && results_per_page) {
             SongQuery.pagination(search, page, results_per_page, function (songs) {
@@ -20,7 +22,6 @@ module.exports = function (app, logger) {
                     results_per_page: results_per_page,
                     results: songs
                 });
-                return;
             });
         } else {
             SongQuery.findAll(search, function (songs) {
