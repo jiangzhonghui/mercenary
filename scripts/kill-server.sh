@@ -7,8 +7,8 @@ stop_on_error() {
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
   echo "$1"
   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
+  exit 1
  fi
- exit 1
 }
 
 kill -TERM -$(cat $LOG_DIR/nodejs.pid)
