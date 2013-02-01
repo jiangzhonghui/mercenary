@@ -8,8 +8,6 @@ module.exports = function (app, logger) {
             page = req.query['page'],
             results_per_page = req.query['results_per_page'];
 
-        console.log(page, results_per_page);
-
         _.each(req.query, function (queryParam, queryName) {
             if (queryName === 'page' || queryName === 'results_per_page') return;
             search[queryName] = new RegExp(queryParam, 'i');
