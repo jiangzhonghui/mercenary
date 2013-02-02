@@ -281,6 +281,16 @@ body {
     width: 100%;
     border-spacing: 0;
 
+    a {
+        text-decoration: none;
+        color: @grey;
+
+        &:hover {
+            color: @blue-darken;
+            text-decoration: underline;
+        }
+    }
+
     thead {
         font-size: 13px;
         .background-gradient(#ffffff, #f2f2f2);
@@ -455,6 +465,7 @@ body {
     }
 
     .music-styles {
+        display: inline;
         list-style: none;
         font-size: 12px;
         line-height: 18px;
@@ -463,6 +474,10 @@ body {
             display: inline-block;
             border-right: 1px solid @light-grey;
             padding: 0 5px;
+
+            &:first-child {
+                padding-left: 0;
+            }
 
             &:last-child {
                 border-right: none;
