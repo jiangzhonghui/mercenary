@@ -16,9 +16,9 @@ define(['text!./infoWindow.mustache'], function (infoWindowTemplate) {
             this.listenTo(Backbone, 'gmap:add', this.addMarker);
         },
         render: function () {
-            var latlng = new google.maps.LatLng(37.300275, -99.843750); // USA (48.5, 2); // France
+            var latlng = new google.maps.LatLng(25, 10); // (37.300275, -99.843750); // USA (48.5, 2); // France
             var myOptions = {
-                zoom: 4,
+                zoom: 2, // 4,
                 center: latlng,
                 mapTypeId: google.maps.MapTypeId.ROADMAP //ROADMAP HYBRID
             };
@@ -39,12 +39,6 @@ define(['text!./infoWindow.mustache'], function (infoWindowTemplate) {
                     google.maps.event.addListener(marker, 'click', function () {
                         self.infowindow.setContent(self.infoWindowTemplate.render(song.toJSON()));
                         self.infowindow.open(this.map, marker);
-                    });
-                    google.maps.event.addListener(marker, 'mouseover', function () {
-                        marker.setAnimation(google.maps.Animation.BOUNCE);
-                    });
-                    google.maps.event.addListener(self.map, 'click', function () {
-                        marker.setAnimation(null);
                     });
                     self.currentMarkers.push(marker);
                 } else {
