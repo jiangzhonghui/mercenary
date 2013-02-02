@@ -348,10 +348,15 @@ body {
         max-width: 210px;
         font-size: 11px;
 
-        .song-title {
+        .song-title, .song-title a {
             font-size: 14px;
             color: @blue-darken;
             margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .song-title a:hover {
+            text-decoration: underline;
         }
     }
 }
