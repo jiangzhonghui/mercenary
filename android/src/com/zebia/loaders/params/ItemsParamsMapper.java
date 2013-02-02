@@ -16,6 +16,10 @@ public class ItemsParamsMapper implements ParamsMapper {
         uriBuilder.appendPath("items");
 
         String pageToLoad = params.get(SearchParams.PAGE);
+        if (pageToLoad == null) {
+            pageToLoad = "0";
+        }
+
         switch (Integer.parseInt(pageToLoad)) {
             case 1:
                 uriBuilder.appendPath("items-page-1.json");
