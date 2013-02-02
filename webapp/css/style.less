@@ -24,6 +24,12 @@
 	background-image: linear-gradient(@start, @end);
 }
 
+.border-radius(@radius) {
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+    border-radius: @radius;
+}
+
 .border-radius-top(@radius) {
     -webkit-border-top-left-radius: @radius;
     -moz-border-top-left-radius: @radius;
@@ -33,12 +39,6 @@
     border-top-right-radius: @radius;
 }
 
-.border-radius(@radius) {
-    -webkit-border-radius: @radius;
-    -moz-border-radius: @radius;
-    border-radius: @radius;
-}
-
 .border-radius-bottom(@radius) {
 	-webkit-border-bottom-left-radius: @radius;
 	-moz-border-bottom-left-radius: @radius;
@@ -46,6 +46,18 @@
 	-webkit-border-bottom-right-radius: @radius;
 	-moz-border-bottom-right-radius: @radius;
 	border-bottom-right-radius: @radius;
+}
+
+.border-radius-top-left(@radius) {
+    -webkit-border-top-left-radius: @radius;
+    -moz-border-top-left-radius: @radius;
+    border-top-left-radius: @radius;
+}
+
+.border-radius-top-right(@radius) {
+    -webkit-border-top-right-radius: @radius;
+    -moz-border-top-right-radius: @radius;
+    border-top-right-radius: @radius;
 }
 
 .transition-property(@property) {
@@ -106,6 +118,7 @@ body {
 	}
 
 	.logo {
+        margin: 0;
 		padding-top: 10px;
 		@media screen and (max-width: 550px) {
 			width: 143px;
@@ -168,7 +181,7 @@ body {
 					text-transform: lowercase;
 				}
 
-				&.selected {
+				&.active {
 					border: 1px solid #155678;
 					background: #4596CE;
 					text-shadow: 0 1px 1px black;
@@ -198,7 +211,7 @@ body {
 					.transition-timing-function(ease);
 				}
 
-				&.selected a, &:hover a {
+				&.active a, &:hover a {
 					color: white;
 					margin-top: 5px;
 					text-shadow: 1px 1px 3px #555;
@@ -263,9 +276,89 @@ body {
 
 // ListView
 
-#items-list {
-    .author {
-        color: @blue;
+#items-table {
+    font-size: 13px;
+    width: 100%;
+    border-spacing: 0;
+
+    a {
+        text-decoration: none;
+        color: @grey;
+    }
+
+    thead {
+        font-size: 13px;
+        .background-gradient(#ffffff, #f2f2f2);
+
+        th {
+            border: 1px solid @light-grey;
+            border-left: none;
+
+            &:first-child {
+                border-left: 1px solid @light-grey;
+                .border-radius-top-left(10px);
+            }
+            &:last-child {
+                .border-radius-top-right(10px);
+            }
+        }
+    }
+
+    tbody {
+        td {
+            padding: 5px 10px;
+            &:first-child {
+                border-left: 1px solid @light-grey;
+            }
+            &:last-child {
+                border-right: 1px solid @light-grey;
+            }
+            max-width: 200px;
+        }
+
+        tr:hover {
+            background-color: white;
+            color: @blue-darken;
+            cursor: pointer;
+            a {
+                color: @blue-darken;
+                text-decoration: underline;
+            }
+        }
+
+        tr:last-child td {
+            border-bottom: 1px solid @light-grey;
+        }
+
+        .even {
+            background-color: fade(@light-grey, 20%);
+        }
+    }
+
+    .header,
+    .tablesorter-header {
+        background-image: url(data:image/gif;base64,R0lGODlhFQAJAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAkAAAIXjI+AywnaYnhUMoqt3gZXPmVg94yJVQAAOw==);
+        background-position: center right;
+        background-repeat: no-repeat;
+        cursor: pointer;
+        white-space: normal;
+        padding: 8px 20px 8px 4px;
+    }
+    thead .headerSortUp,
+    thead .tablesorter-headerSortUp,
+    thead .tablesorter-headerAsc {
+        background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjI8Bya2wnINUMopZAQA7);
+        border-bottom: @blue 2px solid;
+    }
+    thead .headerSortDown,
+    thead .tablesorter-headerSortDown,
+    thead .tablesorter-headerDesc {
+        background-image: url(data:image/gif;base64,R0lGODlhFQAEAIAAACMtMP///yH5BAEAAAEALAAAAAAVAAQAAAINjB+gC+jP2ptn0WskLQA7);
+        border-bottom: @blue 2px solid;
+    }
+    thead .sorter-false {
+        background-image: none;
+        padding: 4px;
     }
 }
 
@@ -288,26 +381,17 @@ body {
             .border-radius(15px);
             background-color: #ffffff;
             border: 1px solid #cccccc;
-        }
-
-        button {
-            font-size: 14px;
-            padding: 4px 14px;
-            margin-bottom: 0;
-            .border-radius(15px);
-            .background-gradient(lighten(@blue, 10%), @blue-darken);
-            border: none;
-            color: white;
-            cursor: pointer;
-
-            &:hover {
-                .background-gradient(lighten(@blue, 40%), @blue-darken);
+            @media screen and (max-width: 920px) {
+                max-width: 120px;
             }
         }
     }
 
     .search-infos {
         float: right;
+        @media screen and (max-width: 920px) {
+            font-size: 11px;
+        }
 
         & > * {
             display: inline-block;
@@ -315,6 +399,9 @@ body {
 
         .prev, .next {
             margin-bottom: -6px;
+            @media screen and (max-width: 920px) {
+                margin-bottom: -8px;
+            }
             width: 26px;
             height: 26px;
             background-image: url('../img/previous.png');
@@ -348,19 +435,77 @@ body {
         max-width: 210px;
         font-size: 11px;
 
-        .title {
+        .song-title, .song-title a {
             font-size: 14px;
             color: @blue-darken;
             margin-bottom: 10px;
+            text-decoration: none;
+        }
+
+        .song-title a:hover {
+            text-decoration: underline;
         }
     }
 }
 
 // Details
 
+.details-back {
+    float: right;
+}
+
 .details {
     border: 1px solid #d4d4d4;
     .border-radius(4px);
     .background-gradient(#ffffff, #f2f2f2);
     padding: 15px;
+
+    .music {
+        float: right;
+        width: 128px;
+        height: 128px;
+        background-image: url('../img/music.png');
+    }
+
+    .music-styles {
+        display: inline;
+        list-style: none;
+        font-size: 12px;
+        line-height: 18px;
+
+        li {
+            display: inline-block;
+            border-right: 1px solid @light-grey;
+            padding: 0 5px;
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &:last-child {
+                border-right: none;
+            }
+        }
+    }
+}
+
+// Common blue elements
+
+.song-title {
+    color: @blue-darken;
+}
+
+.blue-button {
+    font-size: 14px;
+    padding: 4px 14px;
+    margin-bottom: 0;
+    .border-radius(15px);
+    .background-gradient(lighten(@blue, 10%), @blue-darken);
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        .background-gradient(lighten(@blue, 40%), @blue-darken);
+    }
 }
