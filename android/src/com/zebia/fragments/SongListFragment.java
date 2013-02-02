@@ -82,7 +82,7 @@ public class SongListFragment extends Fragment implements
         // Initialize the Loader.
         Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
                 .putParam(SearchParams.ARTIST_NAME, searchQuery).setForceLoad(false).build();
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
+        //getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
     }
 
     @Override
@@ -201,7 +201,7 @@ public class SongListFragment extends Fragment implements
 
         if (code == 200) {
             lastLoadedPage = data.getData().getPage();
-            Integer totalPages = data.getData().getTotalPages();
+            Integer totalPages = 100; //data.getData().getTotalPages(); // TODO
 
             if (lastLoadedPage == 1) {  // TODO: not good
                 songsAdapter.clear();
