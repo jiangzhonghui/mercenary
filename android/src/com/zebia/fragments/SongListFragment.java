@@ -201,19 +201,19 @@ public class SongListFragment extends Fragment implements
 
         if (code == 200) {
             lastLoadedPage = data.getData().getPage();
-            Integer totalPages = 100; //data.getData().getTotalPages(); // TODO
 
-            if (lastLoadedPage == 1) {  // TODO: not good
+            boolean hasMorePages = data.getData().getResultsPerPage() == data.getData().getResults().size();
+
+            if (lastLoadedPage == 0) {  // TODO: not good
                 songsAdapter.clear();
             }
             songsAdapter.addAll(data.getData().getResults());
 
-            // Is last page
-            PullToRefreshBase.Mode mode = PullToRefreshBase.Mode.DISABLED;
-            if (lastLoadedPage < totalPages) {
-                mode = PullToRefreshBase.Mode.PULL_FROM_END;
+            if (hasMorePages) {
+                pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
+            } else {
+                pullToRefreshListView.setMode(PullToRefreshBase.Mode.DISABLED);
             }
-            pullToRefreshListView.setMode(mode);
 
             Toast.makeText(getActivity(), "Loaded page: " + lastLoadedPage, Toast.LENGTH_SHORT).show();
         } else {
