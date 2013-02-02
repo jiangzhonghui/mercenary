@@ -1,14 +1,6 @@
 Zebia for Android
 =================
 
-Server
-------
-<pre>
-cd webapp 
-npm install connect
-node server.js
-</pre>
-
 Install android sdk
 -------
 - Download Android SDK Tools (see USE AN EXISTING IDE): http://developer.android.com/sdk/index.html
@@ -20,7 +12,7 @@ Install project
 
 Run project
 -------
-- Clic Menu -> Preferences -> IP : 10.0.2.2 (if emulator) or real IP
+- Clic Menu -> Preferences -> (IP : 10.0.2.2 (if emulator) or real IP; Mount point : [empty])
 - Clic search
 - Pagination -> go to last song and "pull from down"
 
