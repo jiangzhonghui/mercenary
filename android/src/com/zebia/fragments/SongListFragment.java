@@ -22,6 +22,7 @@ import com.zebia.adapter.SongArrayAdapter;
 import com.zebia.loaders.SerialLoader;
 import com.zebia.loaders.params.ParamsMapper;
 import com.zebia.loaders.params.RestParamBuilder;
+import com.zebia.loaders.params.SearchParams;
 import com.zebia.loaders.params.SongsParamsMapper;
 import com.zebia.model.SongsResponse;
 import com.zebia.utils.Animations;
@@ -79,8 +80,9 @@ public class SongListFragment extends Fragment implements
         listView.setOnItemClickListener(this);
 
         // Initialize the Loader.
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).setForceLoad(false).build(), this);
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery).setForceLoad(false).build();
+        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
     }
 
     @Override
@@ -238,8 +240,9 @@ public class SongListFragment extends Fragment implements
 
         getActivity().setProgressBarIndeterminateVisibility(true);
 
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery).build();
+        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
 
         return true;
     }
@@ -279,13 +282,15 @@ public class SongListFragment extends Fragment implements
     // ---------------------------------------------------------------------------------------------------
 
     private void synchronization() {
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery).build();
+        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
     }
 
     private void loadNextPage() {
-        Bundle params = new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery)
-                .setPageToLoad(lastLoadedPage + 1).build();
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery)
+                .putParam(SearchParams.PAGE, lastLoadedPage + 1).build();
         getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
     }
 }
