@@ -1,7 +1,7 @@
 global._ = _ = require('underscore');
 
 var express = require('express'),
-    logger = require('./graffiti.js'),
+    logger = require('graffiti'),
     app = express(),
 // uncomment the following when using with ES
 //http = require('http'),
