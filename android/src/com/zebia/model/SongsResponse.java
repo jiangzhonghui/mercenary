@@ -9,7 +9,7 @@ public class SongsResponse {
     private Integer page;
 
     @SerializedName("results_per_page")
-    private Integer resultsPerPage;
+    private Integer resultsPerPage = 15;
 
     //@SerializedName("total_pages")
     //private Integer totalPages;

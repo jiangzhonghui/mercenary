@@ -46,10 +46,10 @@ public class SerialCashDao<T> {
         return gson.fromJson(json, type);
     }
 
-    public void save(T zebiaResponse) {
+    public void save(T object) {
         SQLiteDatabase sqLiteDatabase = storageItemsHelper.getWritableDatabase();
         sqLiteDatabase.delete(ItemEntry.TABLE_NAME, null, null);
-        sqLiteDatabase.insert(ItemEntry.TABLE_NAME, null, serialize(zebiaResponse));
+        sqLiteDatabase.insert(ItemEntry.TABLE_NAME, null, serialize(object));
     }
 
     public T restore() {
