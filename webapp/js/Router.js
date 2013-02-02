@@ -1,7 +1,7 @@
 define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
     return Backbone.Router.extend({
         initialize: function () {
-            new MenuView().render();
+            this.menu = new MenuView().render();
         },
         routes: {
             '': 'welcome',
@@ -11,17 +11,21 @@ define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
         },
         welcome: function () {
             require([ 'views/WelcomeView' ], Mercenary.router.changeView);
+            this.menu.highlight(1);
         },
         list: function () {
             require([ 'views/ListView' ], Mercenary.router.changeView);
+            this.menu.highlight(2);
         },
         search: function () {
             require([ 'views/SearchView' ], Mercenary.router.changeView);
+            this.menu.highlight(3);
         },
         details: function (songId) {
             require([ 'views/DetailsView' ], function (view) {
                 Mercenary.router.changeView(view, {songId: songId});
             });
+            this.menu.highlight();
         },
         changeView: function (View, options) {
             if (this.currentView) {
