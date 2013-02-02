@@ -296,10 +296,10 @@ body {
 
             &:first-child {
                 border-left: 1px solid @light-grey;
-                .border-radius-top-left(5px);
+                .border-radius-top-left(10px);
             }
             &:last-child {
-                .border-radius-top-right(5px);
+                .border-radius-top-right(10px);
             }
         }
     }
@@ -381,11 +381,17 @@ body {
             .border-radius(15px);
             background-color: #ffffff;
             border: 1px solid #cccccc;
+            @media screen and (max-width: 920px) {
+                max-width: 120px;
+            }
         }
     }
 
     .search-infos {
         float: right;
+        @media screen and (max-width: 920px) {
+            font-size: 11px;
+        }
 
         & > * {
             display: inline-block;
@@ -393,6 +399,9 @@ body {
 
         .prev, .next {
             margin-bottom: -6px;
+            @media screen and (max-width: 920px) {
+                margin-bottom: -8px;
+            }
             width: 26px;
             height: 26px;
             background-image: url('../img/previous.png');
