@@ -20,11 +20,12 @@ Run project
 Functionnality Google Maps Api
 -------------------------------
 -------------------------------
-[ 1) Optionnal) Install Google Play Service Sdk via le SDK manager ]
-  1 bis) Add Google-Play-Services_Lib as dependency to project :
+- (Optionnal) Install Google Play Service Sdk via le SDK manager
+- Add Google-Play-Services_Lib as dependency to project :
 With IntelliJ : add a module dependency for sources AND add the   jar as librairy dependency.
+- Run it... But : the functionnality Google Play Services is not includes in emulator ....
+ 
 
- 2) Run it... But : the functionnality Google Play Services is not includes in emulator ....
-If you do'nt have a real device for that, there is a solution : launch an emulator and install 2 .apk :
+If you do'nt have a real device for that, there is a solution : launch an emulator and install 2 .apk
 - See http://nemanjakovacevic.net/blog/2012/12/how-to-make-android-google-maps-v2-work-in-android-emulator/ for explanations
 - Get the apk, see danbrough answer http://stackoverflow.com/questions/13691943/this-app-wont-run-unless-you-update-google-play-services-via-bazaar/13869332#13869332
