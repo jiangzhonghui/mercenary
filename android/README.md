@@ -16,9 +16,10 @@ Run project
 - Clic search
 - Pagination -> go to last song and "pull from down"
 
-
-Functionnality Google Maps Api
 -------------------------------
+
+
+Functionnality Google Maps Api (not working actually)
 -------------------------------
 - (Optionnal) Install Google Play Service Sdk via le SDK manager
 - Add Google-Play-Services_Lib as dependency to project :
