@@ -12,7 +12,7 @@ define(['text!./details.mustache', 'models/SongModel'], function (template, Song
             return this;
         },
         renderSong: function () {
-            this.transition(this.template.render(this.model.toJSON()));
+            this.transition(this.template.render(this.model.forTemplate()));
         }
     });
 });

@@ -6,7 +6,7 @@ define(['text!./result.mustache'], function (template) {
             'click': 'seeDetails'
         },
         render: function () {
-            this.$el.html(this.template.render(this.model.toJSON()));
+            this.$el.html(this.template.render(this.model.forTemplate()));
             Backbone.trigger('gmap:add', this.model);
             return this;
         },
