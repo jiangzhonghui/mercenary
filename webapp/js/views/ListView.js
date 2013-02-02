@@ -7,7 +7,7 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/SongCollect
             this.songs = new SongCollection();
         },
         render: function () {
-            this.page = 1;
+            this.page = 0;
             this.transition(this.template.render());
 
             $('#items-table').tablesorter({
