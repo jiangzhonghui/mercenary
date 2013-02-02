@@ -284,11 +284,6 @@ body {
     a {
         text-decoration: none;
         color: @grey;
-
-        &:hover {
-            color: @blue-darken;
-            text-decoration: underline;
-        }
     }
 
     thead {
@@ -319,6 +314,16 @@ body {
                 border-right: 1px solid @light-grey;
             }
             max-width: 200px;
+        }
+
+        tr:hover {
+            background-color: white;
+            color: @blue-darken;
+            cursor: pointer;
+            a {
+                color: @blue-darken;
+                text-decoration: underline;
+            }
         }
 
         tr:last-child td {

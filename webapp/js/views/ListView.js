@@ -30,7 +30,9 @@ define(['text!./list.mustache', 'text!./table-row.mustache', 'models/SongCollect
             var self = this;
 
             this.songs.each(function (song) {
-                self.$('#items-table tbody').append(self.row.render(song.toJSON()));
+                var $row = $(self.row.render(song.toJSON()));
+                $row.click(function() {Mercenary.router.navigate('details/' + song.id, {trigger: true});});
+                self.$('#items-table tbody').append($row);
             });
             $('#items-table').trigger('update');
         },
