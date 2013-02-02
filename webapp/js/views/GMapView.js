@@ -16,7 +16,7 @@ define(['text!./infoWindow.mustache'], function (infoWindowTemplate) {
             this.listenTo(Backbone, 'gmap:add', this.addMarker);
         },
         render: function () {
-            var latlng = new google.maps.LatLng(25, 10); // (37.300275, -99.843750); // USA (48.5, 2); // France
+            var latlng = new google.maps.LatLng(25, 0); // (37.300275, -99.843750); // USA (48.5, 2); // France
             var myOptions = {
                 zoom: 2, // 4,
                 center: latlng,
