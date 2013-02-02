@@ -25,9 +25,8 @@ app.use(express.static(__dirname + '/../webapp'));
 app.use(express.favicon());
 app.use(logger.express(express));
 
-// uncomment for using ES
-require('./routes/itemES')(app, db, request, logger);
-//require('./routes/song')(app, logger);
+require('./routes/songIdx')(app, db, request, logger);
+require('./routes/song')(app, logger);
 require('./routes/node')(app, request, logger);
 
 app.listen(3000);

@@ -3,6 +3,8 @@ var SongQuery = require('../db/queries/SongQuery');
 
 module.exports = function(app, db, request, logger) {
 
+    var IDX_SEARCH_URL =  "http://localhost:9200/mongoidx/_search";
+
 	var buildFltClause = function(queryName, queryParam){
         var fltClause={
             "flt" : {
@@ -14,7 +16,7 @@ module.exports = function(app, db, request, logger) {
         return fltClause;
     };
 
-	app.get('/song', function(req, res) {
+	app.get('/songIdx', function(req, res) {
 		var search = [],
 			page = req.query['page'],
 			results_per_page = req.query['results_per_page'];
@@ -36,6 +38,7 @@ module.exports = function(app, db, request, logger) {
             requestBody["size"] = results_per_page;
         }
 
+        // if you need to sort data, uncomment the following line at your own risks.
         //requestBody["sort"] = {"id":"asc"};
 
         if(fltclauses.length>0){
@@ -47,7 +50,7 @@ module.exports = function(app, db, request, logger) {
         }
 
         logger.debug(requestBody)
-        request.post({url: 'http://localhost:9200/mongoidx/_search', body: requestBody}, function(err, response, body) {
+        request.post({url: IDX_SEARCH_URL, body: requestBody}, function(err, response, body) {
             var  items = []
             for (var i=0;i<body.hits.hits.length;i++) {
                 items.push(body.hits.hits[i]._source);
@@ -61,28 +64,4 @@ module.exports = function(app, db, request, logger) {
 
 	});
 
-    app.post('/song', function (req, res) {
-        SongQuery.save(req.body, function (song) {
-            res.send(song);
-        })
-    });
-
-    app.get('/song/:id', function (req, res) {
-        SongQuery.findOne(req.param('id'), function (song) {
-            res.send(song);
-        });
-    });
-
-
-    app.put('/song/:id', function (req, res) {
-        SongQuery.update(req.body, function (song) {
-            res.send(song);
-        })
-    });
-
-    app.delete('/song/:id', function (req, res) {
-        SongQuery.remove(req.param('id'), function (song) {
-            res.send(song);
-        })
-    });
 };
