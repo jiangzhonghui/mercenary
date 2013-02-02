@@ -3,8 +3,6 @@ global._ = _ = require('underscore');
 var express = require('express'),
     logger = require('graffiti'),
     app = express(),
-// uncomment the following when using with ES
-//http = require('http'),
     request = require('request').defaults({
         json: true
     }),
@@ -28,8 +26,8 @@ app.use(express.favicon());
 app.use(logger.express(express));
 
 // uncomment for using ES
-//require('./routes/itemES')(app, db, _, http);
-require('./routes/song')(app, logger);
+require('./routes/itemES')(app, db, request, logger);
+//require('./routes/song')(app, logger);
 require('./routes/node')(app, request, logger);
 
 app.listen(3000);
