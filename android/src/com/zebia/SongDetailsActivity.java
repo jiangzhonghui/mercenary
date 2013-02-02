@@ -9,7 +9,6 @@ import com.zebia.adapter.SongDetailsCollectionAdapter;
 
 public class SongDetailsActivity extends FragmentActivity {
 
-//    private AppSectionsPagerAdapter appSectionsPagerAdapter;
     private ViewPager viewPager;
     private SongDetailsCollectionAdapter songDetailsCollectionAdapter;
 
@@ -21,23 +20,18 @@ public class SongDetailsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_detail_pager);
 
-        //appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
         songDetailsCollectionAdapter = new SongDetailsCollectionAdapter(getSupportFragmentManager());
-
 
         int songIndex = 0;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             songIndex = bundle.getInt(SongActivity.SONG_INDEX, 0);
         }
-        //appSectionsPagerAdapter.setSong(SongStore.get(songIndex));
-
 
         final ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        //viewPager.setAdapter(appSectionsPagerAdapter);
+        viewPager = (ViewPager) findViewById(R.id.pager_song_details);
         viewPager.setAdapter(songDetailsCollectionAdapter);
         viewPager.setCurrentItem(songIndex);
 

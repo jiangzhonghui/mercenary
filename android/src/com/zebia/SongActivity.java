@@ -5,8 +5,11 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
+import com.zebia.adapter.AppSectionsPagerAdapter;
+import com.zebia.adapter.SongDetailsCollectionAdapter;
 import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongListFragment;
 
@@ -14,6 +17,8 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
     private boolean mDualPane;
     private int mCurCheckPosition = 0;
     public static final String SONG_INDEX = "song-index";
+
+    private AppSectionsPagerAdapter appSectionsPagerAdapter;
 
     /**
      * Called when the activity is first created.
@@ -23,16 +28,10 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
+        //setContentView(R.layout.song);
         setContentView(R.layout.song);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
-
-        SongListFragment songListFragment = new SongListFragment();
-
-        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.list_song_fragment_layout, songListFragment);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-        ft.commit();
 
         // Check to see if we have a frame in which to embed the details fragment directly in the containing UI.
         View detailsFrame = findViewById(R.id.details_song);
@@ -46,7 +45,18 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
         }
 
         if (mDualPane) {
+            SongListFragment songListFragment = new SongListFragment();
+
+            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.list_song_fragment_layout, songListFragment);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+
             showDetails(mCurCheckPosition);
+        } else {
+            appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+            ViewPager viewPager = (ViewPager) findViewById(R.id.pager_song_list);
+            viewPager.setAdapter(appSectionsPagerAdapter);
         }
     }
 

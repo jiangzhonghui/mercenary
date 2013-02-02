@@ -7,11 +7,10 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.zebia.SongActivity;
 import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongDetailsMapFragment;
+import com.zebia.fragments.SongListFragment;
 import com.zebia.model.Song;
 
 public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
-
-    private Song song;
 
     public AppSectionsPagerAdapter(FragmentManager fm) {
         super(fm);
@@ -21,16 +20,13 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int i) {
         switch (i) {
             case 0:
-                Fragment details = new SongDetailsFragment();
-                Bundle args = new Bundle();
-                args.putInt(SongActivity.SONG_INDEX, i);
-                details.setArguments(args);
-                return details;
+                SongListFragment songListFragment = new SongListFragment();
+                return songListFragment;
 
             default:
                 // The other sections of the app are dummy placeholders.
                 Fragment fragment = new SongDetailsMapFragment();
-                args = new Bundle();
+                Bundle args = new Bundle();
                 args.putInt(SongDetailsMapFragment.ARG_SECTION_NUMBER, i + 1);
                 fragment.setArguments(args);
                 return fragment;
@@ -47,7 +43,4 @@ public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
         return "Section " + (position + 1);
     }
 
-    public void setSong(Song song) {
-        this.song = song;
-    }
 }
