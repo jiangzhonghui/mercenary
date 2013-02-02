@@ -377,21 +377,6 @@ body {
             background-color: #ffffff;
             border: 1px solid #cccccc;
         }
-
-        button {
-            font-size: 14px;
-            padding: 4px 14px;
-            margin-bottom: 0;
-            .border-radius(15px);
-            .background-gradient(lighten(@blue, 10%), @blue-darken);
-            border: none;
-            color: white;
-            cursor: pointer;
-
-            &:hover {
-                .background-gradient(lighten(@blue, 40%), @blue-darken);
-            }
-        }
     }
 
     .search-infos {
@@ -451,6 +436,10 @@ body {
 
 // Details
 
+.details-back {
+    float: right;
+}
+
 .details {
     border: 1px solid #d4d4d4;
     .border-radius(4px);
@@ -486,6 +475,23 @@ body {
     }
 }
 
+// Common blue elements
+
 .song-title {
     color: @blue-darken;
+}
+
+.blue-button {
+    font-size: 14px;
+    padding: 4px 14px;
+    margin-bottom: 0;
+    .border-radius(15px);
+    .background-gradient(lighten(@blue, 10%), @blue-darken);
+    border: none;
+    color: white;
+    cursor: pointer;
+
+    &:hover {
+        .background-gradient(lighten(@blue, 40%), @blue-darken);
+    }
 }
