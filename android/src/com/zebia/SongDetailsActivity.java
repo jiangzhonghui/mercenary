@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import com.zebia.adapter.SongDetailsCollectionAdapter;
 import com.zebia.model.Song;
 import com.zebia.model.SongStore;
+import com.zebia.model.SongWrapper;
 
 public class SongDetailsActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
@@ -69,7 +70,7 @@ public class SongDetailsActivity extends FragmentActivity implements ViewPager.O
     @Override
     public void onPageSelected(int i) {
         Song song = SongStore.get(i);
-        menuMapItem.setVisible(song.hasLocation());
+        menuMapItem.setVisible(new SongWrapper(song).hasLocation());
     }
 
     @Override

@@ -4,11 +4,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import com.zebia.SongActivity;
-import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongDetailsMapFragment;
 import com.zebia.fragments.SongListFragment;
-import com.zebia.model.Song;
 
 public class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 

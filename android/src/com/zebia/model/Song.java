@@ -304,9 +304,4 @@ public class Song {
         this.year = year;
     }
 
-    public boolean hasLocation() {
-        return getArtist_latitude() != null && getArtist_latitude() != 0.0
-                && getArtist_longitude() != null && getArtist_longitude() != 0.0;
-    }
-
 }

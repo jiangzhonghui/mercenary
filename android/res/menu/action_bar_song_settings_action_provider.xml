@@ -9,10 +9,10 @@
           android:queryHint="Songs"
           android:actionViewClass="android.widget.SearchView" />
 
-    <item android:id="@+id/menu_synchronisation_song"
+    <item android:id="@+id/menu_map_songs"
           android:showAsAction="always|withText"
-          android:icon="@drawable/ic_action_refresh"
-          android:title="@string/menu_synchronisation" />
+          android:icon="@drawable/ic_location_map"
+          android:title="@string/menu_map_songs" />
 
     <item android:id="@+id/menu_preferences_song"
           android:showAsAction="never|withText"

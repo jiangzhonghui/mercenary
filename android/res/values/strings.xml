@@ -27,5 +27,6 @@
 
     <string name="dummy_section_text">Section %1d is just a dummy section.</string>
     <string name="menu_song_map">Maps</string>
+    <string name="menu_map_songs">Artists locations</string>
 
 </resources>

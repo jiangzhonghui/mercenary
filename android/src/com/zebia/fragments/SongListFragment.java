@@ -18,6 +18,8 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zebia.R;
 import com.zebia.SettingsActivity;
+import com.zebia.SongActivity;
+import com.zebia.SongMapActivity;
 import com.zebia.adapter.SongArrayAdapter;
 import com.zebia.loaders.SerialLoader;
 import com.zebia.loaders.params.ParamsMapper;
@@ -152,8 +154,11 @@ public class SongListFragment extends Fragment implements
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_synchronisation_song:
-                synchronization();
+            case R.id.menu_map_songs:
+                Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
+                intent.putExtra(SongActivity.SONG_INDEX, -1); // All locations
+                startActivity(intent);
+
                 break;
             case R.id.menu_preferences_song:
                 Intent launchPreferencesIntent = new Intent().setClass(getActivity(), SettingsActivity.class);
