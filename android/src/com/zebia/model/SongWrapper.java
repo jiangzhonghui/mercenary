@@ -5,6 +5,7 @@ import com.google.android.gms.maps.model.LatLng;
 public class SongWrapper {
 
     private Song song;
+    private int index = -1;
 
     public SongWrapper(Song song) {
         this.song = song;
@@ -12,6 +13,7 @@ public class SongWrapper {
 
     public SongWrapper(int index) {
         this.song = SongStore.get(index);
+        this.index = index;
     }
 
     public boolean hasLocation() {
@@ -25,5 +27,9 @@ public class SongWrapper {
 
     public Song getSong() {
         return song;
+    }
+
+    public int getIndex() {
+        return index;
     }
 }

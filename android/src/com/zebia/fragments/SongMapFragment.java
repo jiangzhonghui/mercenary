@@ -1,5 +1,6 @@
 package com.zebia.fragments;
 
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.view.Display;
@@ -8,21 +9,25 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.zebia.SongActivity;
-import com.zebia.model.Song;
+import com.zebia.SongDetailsActivity;
 import com.zebia.model.SongStore;
 import com.zebia.model.SongWrapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class SongMapFragment extends SupportMapFragment {
+public class SongMapFragment extends SupportMapFragment implements GoogleMap.OnInfoWindowClickListener {
 
     private Point size = new Point();
+    private Map<Marker, Integer> markerSongMap = new HashMap<Marker, Integer>();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,13 +46,15 @@ public class SongMapFragment extends SupportMapFragment {
             int songIndex = bundle.getInt(SongActivity.SONG_INDEX);
 
             if (songIndex == -1) {
-                placeSongs(filterWithLocation(SongStore.get()));
+                placeSongs(fetchAllSongsWithLocation());
             } else {
                 List<SongWrapper> songs = new ArrayList<SongWrapper>();
-                songs.add(new SongWrapper(SongStore.get(songIndex)));
+                songs.add(new SongWrapper(songIndex));
                 placeSongs(songs);
             }
         }
+
+        getMap().setOnInfoWindowClickListener(this);
 
     }
 
@@ -73,10 +80,10 @@ public class SongMapFragment extends SupportMapFragment {
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    private List<SongWrapper> filterWithLocation(List<Song> songs) {
+    private List<SongWrapper> fetchAllSongsWithLocation() {
         List<SongWrapper> result = new ArrayList<SongWrapper>();
-        for (Song song : songs) {
-            SongWrapper songWrapper = new SongWrapper(song);
+        for (int i = 0; i < SongStore.get().size(); i++) {
+            SongWrapper songWrapper = new SongWrapper(i);
             if (songWrapper.hasLocation())
                 result.add(songWrapper);
         }
@@ -88,5 +95,15 @@ public class SongMapFragment extends SupportMapFragment {
                 new MarkerOptions().position(songWrapper.getLatLng())
                         .title(songWrapper.getSong().getArtist_name())
                         .snippet(songWrapper.getSong().getTitle()));
+        markerSongMap.put(marker, songWrapper.getIndex());
     }
+
+    @Override
+    public void onInfoWindowClick(Marker marker) {
+        Integer songIndex = markerSongMap.get(marker);
+        Intent launchSongDetailsIntent = new Intent().setClass(getActivity(), SongDetailsActivity.class);
+        launchSongDetailsIntent.putExtra(SongActivity.SONG_INDEX, songIndex);
+        startActivity(launchSongDetailsIntent);
+    }
+
 }
