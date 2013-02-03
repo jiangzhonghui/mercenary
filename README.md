@@ -39,7 +39,14 @@ mongoimport  --db mercenary --collection song --file mercenary.json
 Webapp
 ------
 
-Start the server and open http://localhost:3000
+Start the server and open [localhost:3000](http://localhost:3000)
+
+Launching UI tests :
+```
+cd webapp/tests
+npm install
+node search.js
+```
 
 Android App
 -----------
