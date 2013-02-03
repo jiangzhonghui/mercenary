@@ -59,12 +59,6 @@ Mongo
 Install [Mongo on mac](http://shiftcommathree.com/articles/how-to-install-mongodb-on-os-x)
 
 
-Neo4j
------
-
-Install [Neo4j](http://www.neo4j.org/install)
-Use http://localhost:3000/node/static to init graph
-
 Amazon EC2 / ec2-46-51-153-75.eu-west-1.compute.amazonaws.com
 ---------
 Generate a ssh key and send .pub file to bguerout. 

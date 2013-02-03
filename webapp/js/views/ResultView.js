@@ -1,4 +1,4 @@
-define(['text!./result.mustache'], function (template) {
+define(['text!templates/result.mustache'], function (template) {
     return Backbone.View.extend({
         tagName: 'li',
         template: Hogan.compile(template),

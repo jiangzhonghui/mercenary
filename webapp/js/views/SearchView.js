@@ -1,4 +1,4 @@
-define(['text!./search.mustache', './ResultView', './GMapView', 'models/SongCollection'],
+define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/SongCollection'],
     function (template, ResultView, GMapView, SongCollection) {
         return Backbone.View.extend({
             el: '#body',
