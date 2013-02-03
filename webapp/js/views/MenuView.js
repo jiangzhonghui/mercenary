@@ -5,6 +5,7 @@ define(['text!templates/menu.mustache', 'models/LoginModel'], function (template
         events: {
             'click li': 'changeMenu',
             'click button.in': 'login',
+            'keypress input': 'loginKb',
             'click button.out': 'logout'
         },
         initialize: function () {
@@ -29,6 +30,10 @@ define(['text!templates/menu.mustache', 'models/LoginModel'], function (template
                 $('#login').html(this.model.get('name') + '<button class="out">logout</button>');
             else 
                 $('#login').html('<input></input><button class="in">login</button>');
+        },
+        loginKb: function(event) {
+            if(event.which === 13)
+                this.login(event);
         },
         login: function(event) {
             event.preventDefault();

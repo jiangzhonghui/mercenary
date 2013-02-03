@@ -1,4 +1,4 @@
-module.exports = function(app, logger) {
+module.exports = function(app) {
 	app.post('/login', function(req, res) {
 		res.cookie('rememberme', req.param('name'), { maxAge: 900000, httpOnly: true });
 		res.send({});
@@ -10,7 +10,6 @@ module.exports = function(app, logger) {
 	});
 
 	app.get('/login', function(req, res){
-		logger.info(req.cookies);
 		if(req.cookies && req.cookies.rememberme)
 			res.send({name: req.cookies.rememberme});
 		else {
