@@ -2,32 +2,18 @@ global._ = _ = require('underscore');
 
 var express = require('express'),
     logger = require('graffiti'),
-    app = express(),
-    request = require('request').defaults({
-        json: true
-    }),
-    request = require('request').defaults({json: true}),
-    mongoose = require('mongoose');
-
-var dbURL = 'mongodb://localhost/mercenary';
-mongoose.connect(dbURL);
-mongoose.set('debug', true);
-
-var db = mongoose.connection;
-
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function callback() {
-    console.log('connected to mongodb !');
-});
+    app = express();
 
 app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(express.static(__dirname + '/../webapp'));
 app.use(express.favicon());
 app.use(logger.express(express));
 
-require('./routes/songIdx')(app, db, request, logger);
+require('./routes/mongook')();
+require('./routes/login')(app);
+require('./routes/songIdx')(app, logger);
 require('./routes/song')(app, logger);
 
 app.listen(3000);
 logger.info("Server is listening for connections on port 3000...");
-

@@ -1,7 +1,8 @@
-var SongQuery = require('../db/queries/SongQuery');
+var SongQuery = require('../db/queries/SongQuery')
+    request = require('request').defaults({json: true})
 
 
-module.exports = function(app, db, request, logger) {
+module.exports = function(app, request, logger) {
 
     var IDX_SEARCH_URL =  "http://localhost:9200/mongoidx/_search";
 

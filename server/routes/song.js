@@ -1,5 +1,5 @@
 var SongQuery = require('../db/queries/SongQuery');
-
+var Login = require('./login.js');
 
 module.exports = function (app, logger) {
 
@@ -26,14 +26,14 @@ module.exports = function (app, logger) {
         } else {
             SongQuery.findAll(search, function (songs) {
                 res.send(songs);
-            })
+            });
         }
     });
 
     app.post('/song', function (req, res) {
         SongQuery.save(req.body, function (song) {
             res.send(song);
-        })
+        });
     });
 
     app.get('/song/:id', function (req, res) {
@@ -46,12 +46,16 @@ module.exports = function (app, logger) {
     app.put('/song/:id', function (req, res) {
         SongQuery.update(req.body, function (song) {
             res.send(song);
-        })
+        });
     });
 
     app.delete('/song/:id', function (req, res) {
-        SongQuery.remove(req.param('id'), function (song) {
-            res.send(song);
-        })
+        if(Login.isLogged(req)) {
+            SongQuery.remove(req.param('id'), function (song) {
+                res.send(song);
+            });
+        } else {
+            res.send({}, 401);
+        }
     });
 };
