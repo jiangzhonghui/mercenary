@@ -1,4 +1,4 @@
-define(['text!./infoWindow.mustache'], function (infoWindowTemplate) {
+define(['text!templates/infoWindow.mustache'], function (infoWindowTemplate) {
     return Backbone.View.extend({
         el: '#mapCanvas',
         infoWindowTemplate: Hogan.compile(infoWindowTemplate),

@@ -1,4 +1,4 @@
-define(['text!./list.mustache', 'text!./table-row.mustache', 'models/SongCollection'], function (template, row, SongCollection) {
+define(['text!templates/list.mustache', 'text!templates/table-row.mustache', 'models/SongCollection'], function (template, row, SongCollection) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
