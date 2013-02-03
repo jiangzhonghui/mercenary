@@ -19,8 +19,8 @@ Run project
 -------------------------------
 
 
-Functionnality Google Maps Api (not working actually)
--------------------------------
+Functionnality Google Maps Api
+------------------------------
 - (Optionnal) Install Google Play Service Sdk via le SDK manager
 - Add Google-Play-Services_Lib as dependency to project :
 With IntelliJ : add a module dependency for sources AND add the   jar as librairy dependency.
