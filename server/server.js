@@ -27,7 +27,6 @@ app.use(logger.express(express));
 
 require('./routes/songIdx')(app, db, request, logger);
 require('./routes/song')(app, logger);
-require('./routes/node')(app, request, logger);
 
 app.listen(3000);
 logger.info("Server is listening for connections on port 3000...");
