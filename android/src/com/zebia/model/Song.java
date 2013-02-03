@@ -8,8 +8,8 @@ public class Song {
     private float artist_hotttnesss;
     private float analysis_sample_rate;
     private String artist_id;
-    private float artist_latitude;
-    private float artist_longitude;
+    private Float artist_latitude;
+    private Float artist_longitude;
     private String artist_location;
     private String artist_mbid;
     private float artist_playmeid;
@@ -88,11 +88,11 @@ public class Song {
         this.artist_id = artist_id;
     }
 
-    public float getArtist_latitude() {
+    public Float getArtist_latitude() {
         return artist_latitude;
     }
 
-    public void setArtist_latitude(float artist_latitude) {
+    public void setArtist_latitude(Float artist_latitude) {
         this.artist_latitude = artist_latitude;
     }
 
@@ -104,11 +104,11 @@ public class Song {
         this.artist_location = artist_location;
     }
 
-    public float getArtist_longitude() {
+    public Float getArtist_longitude() {
         return artist_longitude;
     }
 
-    public void setArtist_longitude(float artist_longitude) {
+    public void setArtist_longitude(Float artist_longitude) {
         this.artist_longitude = artist_longitude;
     }
 
@@ -303,4 +303,10 @@ public class Song {
     public void setYear(int year) {
         this.year = year;
     }
+
+    public boolean hasLocation() {
+        return getArtist_latitude() != null && getArtist_latitude() != 0.0
+                && getArtist_longitude() != null && getArtist_longitude() != 0.0;
+    }
+
 }

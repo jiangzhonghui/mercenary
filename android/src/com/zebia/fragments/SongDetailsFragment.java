@@ -76,11 +76,18 @@ public class SongDetailsFragment extends Fragment {
     }
 
     @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.menu_song_details_map).setVisible(hasLocation());
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_song_details_map:
-                Intent launchPreferencesIntent = new Intent().setClass(getActivity(), SongMapActivity.class);
-                startActivity(launchPreferencesIntent);
+                Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
+                intent.putExtra(SongActivity.SONG_INDEX, index);
+                startActivity(intent);
                 break;
         }
 
@@ -93,6 +100,11 @@ public class SongDetailsFragment extends Fragment {
 
     public Song getSong() {
         return song;
+    }
+
+    private boolean hasLocation() {
+        return song.getArtist_latitude() != null && song.getArtist_latitude() != 0.0
+                && song.getArtist_longitude() != null && song.getArtist_longitude() != 0.0;
     }
 
 }
