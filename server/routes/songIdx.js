@@ -2,7 +2,7 @@ var SongQuery = require('../db/queries/SongQuery')
     request = require('request').defaults({json: true})
 
 
-module.exports = function(app, request, logger) {
+module.exports = function(app, logger) {
 
     var IDX_SEARCH_URL =  "http://localhost:9200/mongoidx/_search";
 
@@ -62,7 +62,5 @@ module.exports = function(app, request, logger) {
                 results: items
             });
         });
-
 	});
-
 };
