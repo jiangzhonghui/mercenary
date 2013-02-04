@@ -1,7 +1,7 @@
 global._ = _ = require('underscore');
-
+var isProductionServer = process.env.NODE_ENV === 'prod';
 var express = require('express'),
-    logger = require('graffiti'),
+    logger = require('graffiti')({withColor: !isProductionServer, logLevel: isProductionServer ? 1 : 0}),
     app = express();
 
 app.use(express.bodyParser());
