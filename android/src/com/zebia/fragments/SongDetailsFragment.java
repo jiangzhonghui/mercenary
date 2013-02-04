@@ -1,15 +1,19 @@
 package com.zebia.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ScrollView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import com.zebia.R;
+import com.zebia.SettingsActivity;
+import com.zebia.SongActivity;
+import com.zebia.SongMapActivity;
 import com.zebia.model.Song;
+import com.zebia.model.SongStore;
 
 public class SongDetailsFragment extends Fragment {
     private int index;
@@ -18,9 +22,10 @@ public class SongDetailsFragment extends Fragment {
     public SongDetailsFragment() {
     }
 
-    public SongDetailsFragment(int index, Song song) {
-        this.index = index;
-        this.song = song;
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -29,7 +34,11 @@ public class SongDetailsFragment extends Fragment {
             return null;
         }
 
-        if (song != null) {
+        Bundle args = getArguments();
+        index = args.getInt(SongActivity.SONG_INDEX, -1);
+
+        if (index != -1) {
+            song = SongStore.get(index);
             return inflater.inflate(R.layout.song_detail, container, false);
         } else {
             ScrollView scroller = new ScrollView(getActivity());
@@ -60,12 +69,42 @@ public class SongDetailsFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.action_bar_song_details, menu);
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        menu.findItem(R.id.menu_song_details_map).setVisible(hasLocation());
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_song_details_map:
+                Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
+                intent.putExtra(SongActivity.SONG_INDEX, index);
+                startActivity(intent);
+                break;
+        }
+
+        return true;
+    }
+
     public int getIndex() {
         return index;
     }
 
     public Song getSong() {
         return song;
+    }
+
+    private boolean hasLocation() {
+        return song.getArtist_latitude() != null && song.getArtist_latitude() != 0.0
+                && song.getArtist_longitude() != null && song.getArtist_longitude() != 0.0;
     }
 
 }

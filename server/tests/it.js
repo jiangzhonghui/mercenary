@@ -6,7 +6,7 @@ var vows = require('vows')
 vows.describe('API access').addBatch({
     'get item': { 
         topic: function () {
-            request.get(url + 'item', this.callback);
+            request.get(url + 'song', this.callback);
         },
         'should respond with a 200 OK': function (e, res) {
             assert.equal (res.statusCode, 200);

@@ -25,10 +25,28 @@ node tests/it.js
 
 Install [supervisor](https://github.com/isaacs/node-supervisor) for server live refresh
 
+Resources
+---------
+
+On a dev machine, import a 100-songs json sample in mongo :
+
+```
+cd resources
+unzip mercenary.zip
+mongoimport  --db mercenary --collection song --file mercenary.json
+```
+
 Webapp
 ------
 
-Start the server and open http://localhost:3000
+Start the server and open [localhost:3000](http://localhost:3000)
+
+Launching UI tests :
+```
+cd webapp/tests
+npm install
+node search.js
+```
 
 Android App
 -----------
@@ -40,12 +58,6 @@ Mongo
 
 Install [Mongo on mac](http://shiftcommathree.com/articles/how-to-install-mongodb-on-os-x)
 
-
-Neo4j
------
-
-Install [Neo4j](http://www.neo4j.org/install)
-Use http://localhost:3000/node/static to init graph
 
 Amazon EC2 / ec2-46-51-153-75.eu-west-1.compute.amazonaws.com
 ---------

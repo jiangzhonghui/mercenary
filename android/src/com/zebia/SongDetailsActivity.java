@@ -4,14 +4,18 @@ import android.app.ActionBar;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.MenuItem;
 import com.zebia.adapter.SongDetailsCollectionAdapter;
+import com.zebia.model.Song;
+import com.zebia.model.SongStore;
+import com.zebia.model.SongWrapper;
 
-public class SongDetailsActivity extends FragmentActivity {
+public class SongDetailsActivity extends FragmentActivity implements ViewPager.OnPageChangeListener {
 
-//    private AppSectionsPagerAdapter appSectionsPagerAdapter;
     private ViewPager viewPager;
     private SongDetailsCollectionAdapter songDetailsCollectionAdapter;
+    private MenuItem menuMapItem;
 
     /**
      * Called when the activity is first created.
@@ -21,29 +25,31 @@ public class SongDetailsActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.song_detail_pager);
 
-        //appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
         songDetailsCollectionAdapter = new SongDetailsCollectionAdapter(getSupportFragmentManager());
-
 
         int songIndex = 0;
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            songIndex = bundle.getInt(SongActivity.CURRENT_SONG_INDEX, 0);
+            songIndex = bundle.getInt(SongActivity.SONG_INDEX, 0);
         }
-        //appSectionsPagerAdapter.setSong(SongStore.get(songIndex));
-
 
         final ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);
 
-        viewPager = (ViewPager) findViewById(R.id.pager);
-        //viewPager.setAdapter(appSectionsPagerAdapter);
+        viewPager = (ViewPager) findViewById(R.id.pager_song_details);
         viewPager.setAdapter(songDetailsCollectionAdapter);
         viewPager.setCurrentItem(songIndex);
+        viewPager.setOnPageChangeListener(this);
 
         getActionBar().setDisplayShowTitleEnabled(false);
         getActionBar().setHomeButtonEnabled(true);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menuMapItem = menu.findItem(R.id.menu_song_details_map);
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
@@ -55,5 +61,19 @@ public class SongDetailsActivity extends FragmentActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    public void onPageScrolled(int i, float v, int i2) {
+    }
+
+    @Override
+    public void onPageSelected(int i) {
+        Song song = SongStore.get(i);
+        menuMapItem.setVisible(new SongWrapper(song).hasLocation());
+    }
+
+    @Override
+    public void onPageScrollStateChanged(int i) {
     }
 }

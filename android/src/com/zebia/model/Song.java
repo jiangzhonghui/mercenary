@@ -3,27 +3,81 @@ package com.zebia.model;
 public class Song {
 
     //@SerializedName("from_user_name")
+    private float artist_7digitalid;
+    private float artist_familiarity;
+    private float artist_hotttnesss;
+    private float analysis_sample_rate;
     private String artist_id;
-    private String artist_latitude;
-    private String artist_longitude;
+    private Float artist_latitude;
+    private Float artist_longitude;
     private String artist_location;
+    private String artist_mbid;
+    private float artist_playmeid;
     private String artist_name;
-    //private String[] artist_terms; //Echo Nest tags
-    private String audio_md5;
+    private String release;
+    private int release_7digitalid;
+    private float song_hotttnesss;
+    private String song_id;
+    private String title;
+    private int track_7digitalid;
+    private int nSongs;
+    private float duration;
     private float danceability;
-	private float duration;
-	private float energy;
-	private float loudness;
-	private String release;
-    private String[] similar_artists;
-	private float song_hotttnesss;
-	private String song_id;
-	private float tempo;
-	private String title;
-	private String track_id;
-	private int year;
+    private float end_of_fade_in;
+    private float energy;
+    private float key;
+    private float key_confidence;
+    private float loudness;
+    private float mode;
+    private float mode_confidence;
+    private float start_of_fade_out;
+    private float tempo;
+    private float time_signature;
+    private float time_signature_confidence;
+    private int year;
+    private String _id;
 
     public Song() {
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
+    public float getAnalysis_sample_rate() {
+        return analysis_sample_rate;
+    }
+
+    public void setAnalysis_sample_rate(float analysis_sample_rate) {
+        this.analysis_sample_rate = analysis_sample_rate;
+    }
+
+    public float getArtist_7digitalid() {
+        return artist_7digitalid;
+    }
+
+    public void setArtist_7digitalid(float artist_7digitalid) {
+        this.artist_7digitalid = artist_7digitalid;
+    }
+
+    public float getArtist_familiarity() {
+        return artist_familiarity;
+    }
+
+    public void setArtist_familiarity(float artist_familiarity) {
+        this.artist_familiarity = artist_familiarity;
+    }
+
+    public float getArtist_hotttnesss() {
+        return artist_hotttnesss;
+    }
+
+    public void setArtist_hotttnesss(float artist_hotttnesss) {
+        this.artist_hotttnesss = artist_hotttnesss;
     }
 
     public String getArtist_id() {
@@ -34,11 +88,11 @@ public class Song {
         this.artist_id = artist_id;
     }
 
-    public String getArtist_latitude() {
+    public Float getArtist_latitude() {
         return artist_latitude;
     }
 
-    public void setArtist_latitude(String artist_latitude) {
+    public void setArtist_latitude(Float artist_latitude) {
         this.artist_latitude = artist_latitude;
     }
 
@@ -50,12 +104,20 @@ public class Song {
         this.artist_location = artist_location;
     }
 
-    public String getArtist_longitude() {
+    public Float getArtist_longitude() {
         return artist_longitude;
     }
 
-    public void setArtist_longitude(String artist_longitude) {
+    public void setArtist_longitude(Float artist_longitude) {
         this.artist_longitude = artist_longitude;
+    }
+
+    public String getArtist_mbid() {
+        return artist_mbid;
+    }
+
+    public void setArtist_mbid(String artist_mbid) {
+        this.artist_mbid = artist_mbid;
     }
 
     public String getArtist_name() {
@@ -66,22 +128,12 @@ public class Song {
         this.artist_name = artist_name;
     }
 
-/*
-    public String[] getArtist_terms() {
-        return artist_terms;
+    public float getArtist_playmeid() {
+        return artist_playmeid;
     }
 
-    public void setArtist_terms(String[] artist_terms) {
-        this.artist_terms = artist_terms;
-    }
-*/
-
-    public String getAudio_md5() {
-        return audio_md5;
-    }
-
-    public void setAudio_md5(String audio_md5) {
-        this.audio_md5 = audio_md5;
+    public void setArtist_playmeid(float artist_playmeid) {
+        this.artist_playmeid = artist_playmeid;
     }
 
     public float getDanceability() {
@@ -100,12 +152,36 @@ public class Song {
         this.duration = duration;
     }
 
+    public float getEnd_of_fade_in() {
+        return end_of_fade_in;
+    }
+
+    public void setEnd_of_fade_in(float end_of_fade_in) {
+        this.end_of_fade_in = end_of_fade_in;
+    }
+
     public float getEnergy() {
         return energy;
     }
 
     public void setEnergy(float energy) {
         this.energy = energy;
+    }
+
+    public float getKey() {
+        return key;
+    }
+
+    public void setKey(float key) {
+        this.key = key;
+    }
+
+    public float getKey_confidence() {
+        return key_confidence;
+    }
+
+    public void setKey_confidence(float key_confidence) {
+        this.key_confidence = key_confidence;
     }
 
     public float getLoudness() {
@@ -116,6 +192,30 @@ public class Song {
         this.loudness = loudness;
     }
 
+    public float getMode() {
+        return mode;
+    }
+
+    public void setMode(float mode) {
+        this.mode = mode;
+    }
+
+    public float getMode_confidence() {
+        return mode_confidence;
+    }
+
+    public void setMode_confidence(float mode_confidence) {
+        this.mode_confidence = mode_confidence;
+    }
+
+    public int getnSongs() {
+        return nSongs;
+    }
+
+    public void setnSongs(int nSongs) {
+        this.nSongs = nSongs;
+    }
+
     public String getRelease() {
         return release;
     }
@@ -124,12 +224,12 @@ public class Song {
         this.release = release;
     }
 
-    public String[] getSimilar_artists() {
-        return similar_artists;
+    public int getRelease_7digitalid() {
+        return release_7digitalid;
     }
 
-    public void setSimilar_artists(String[] similar_artists) {
-        this.similar_artists = similar_artists;
+    public void setRelease_7digitalid(int release_7digitalid) {
+        this.release_7digitalid = release_7digitalid;
     }
 
     public float getSong_hotttnesss() {
@@ -148,12 +248,36 @@ public class Song {
         this.song_id = song_id;
     }
 
+    public float getStart_of_fade_out() {
+        return start_of_fade_out;
+    }
+
+    public void setStart_of_fade_out(float start_of_fade_out) {
+        this.start_of_fade_out = start_of_fade_out;
+    }
+
     public float getTempo() {
         return tempo;
     }
 
     public void setTempo(float tempo) {
         this.tempo = tempo;
+    }
+
+    public float getTime_signature() {
+        return time_signature;
+    }
+
+    public void setTime_signature(float time_signature) {
+        this.time_signature = time_signature;
+    }
+
+    public float getTime_signature_confidence() {
+        return time_signature_confidence;
+    }
+
+    public void setTime_signature_confidence(float time_signature_confidence) {
+        this.time_signature_confidence = time_signature_confidence;
     }
 
     public String getTitle() {
@@ -164,12 +288,12 @@ public class Song {
         this.title = title;
     }
 
-    public String getTrack_id() {
-        return track_id;
+    public int getTrack_7digitalid() {
+        return track_7digitalid;
     }
 
-    public void setTrack_id(String track_id) {
-        this.track_id = track_id;
+    public void setTrack_7digitalid(int track_7digitalid) {
+        this.track_7digitalid = track_7digitalid;
     }
 
     public int getYear() {
@@ -179,4 +303,5 @@ public class Song {
     public void setYear(int year) {
         this.year = year;
     }
+
 }

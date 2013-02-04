@@ -1,4 +1,4 @@
-define(['text!./result.mustache'], function (template) {
+define(['text!templates/result.mustache'], function (template) {
     return Backbone.View.extend({
         tagName: 'li',
         template: Hogan.compile(template),
@@ -6,7 +6,7 @@ define(['text!./result.mustache'], function (template) {
             'click': 'seeDetails'
         },
         render: function () {
-            this.$el.html(this.template.render(this.model.toJSON()));
+            this.$el.html(this.template.render(this.model.forTemplate()));
             Backbone.trigger('gmap:add', this.model);
             return this;
         },

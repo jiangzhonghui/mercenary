@@ -1,0 +1,20 @@
+<section>
+    <div class="blue-button details-back">Go back</div>
+    <h2>Song Details</h2>
+
+    <div class="details">
+        <div class="music"></div>
+        <div>Title : <span class="song-title">{{title}}</span></div>
+        <div>Artist : {{artist_name}}</div>
+        <div>Duration : {{duration}}</div>
+        {{#year}}<div>Year : {{year}}</div>{{/year}}
+        <br>
+
+        <h3>Artist</h3>
+
+        <div>Name : {{artist_name}}</div>
+        <div>Artist location : {{artist_location}}</div>
+        <div>Artist terms : <ul class="music-styles">{{#artist_terms}}<li>{{.}}</li>{{/artist_terms}}</ul>
+        </div>
+    </div>
+</section>

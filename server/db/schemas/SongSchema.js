@@ -1,0 +1,46 @@
+var mongoose = require('mongoose')
+    , Type = mongoose.Schema.Types;
+
+var SongSchema = new mongoose.Schema({
+    _id: Type.ObjectId,
+    artist_7digitalid: Number,
+    artist_familiarity: Number,
+    artist_hotttnesss: Number,
+    analysis_sample_rate: Number,
+    artist_id: String,
+    artist_latitude: Number,
+    artist_longitude: Number,
+    artist_location: String,
+    artist_mbid: String,
+    artist_playmeid: Number,
+    artist_name: String,
+    release: String,
+    release_7digitalid: Number,
+    song_hotttnesss: Number,
+    song_id: String,
+    title: String,
+    track_7digitalid: Number,
+    nSongs: Number,
+    artist_mbtags: [String],
+    artist_mbtags_count: [Number],
+    artist_terms: [String],
+    similar_artists: [String],
+    duration: Number,
+    danceability: Number,
+    end_of_fade_in: Number,
+    energy: Number,
+    key: Number,
+    key_confidence: Number,
+    loudness: Number,
+    mode: Number,
+    mode_confidence: Number,
+    start_of_fade_out: Number,
+    tempo: Number,
+    time_signature: Number,
+    time_signature_confidence: Number,
+    segments_timbre: [Number],
+    segments_pitches: [Number],
+    year: Number
+});
+
+module.exports = SongSchema;

@@ -1,0 +1,13 @@
+{
+    "name": "webapp-tests",
+    "description": "UI tests for webapp",
+    "version": "0.0.1",
+    "author": "mercenaires@xebia.fr",
+    "dependencies": {
+        "zombie": ">= 1.4.1",
+        "expect.js": "0.2.0"
+    },
+    "engines": {
+        "node": ">=0.6"
+    }
+}

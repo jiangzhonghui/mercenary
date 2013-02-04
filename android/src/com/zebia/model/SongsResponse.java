@@ -9,10 +9,10 @@ public class SongsResponse {
     private Integer page;
 
     @SerializedName("results_per_page")
-    private Integer resultsPerPage;
+    private Integer resultsPerPage = 15;
 
-    @SerializedName("total_pages")
-    private Integer totalPages;
+    //@SerializedName("total_pages")
+    //private Integer totalPages;
 
     private List<Song> results;
 
@@ -40,11 +40,11 @@ public class SongsResponse {
         this.resultsPerPage = resultsPerPage;
     }
 
-    public Integer getTotalPages() {
-        return totalPages;
-    }
-
-    public void setTotalPages(Integer totalPages) {
-        this.totalPages = totalPages;
-    }
+//    public Integer getTotalPages() {
+//        return totalPages;
+//    }
+//
+//    public void setTotalPages(Integer totalPages) {
+//        this.totalPages = totalPages;
+//    }
 }

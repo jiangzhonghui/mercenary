@@ -1,4 +1,4 @@
-define(['text!./welcome.mustache' ], function (template) {
+define(['text!templates/welcome.mustache' ], function (template) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),

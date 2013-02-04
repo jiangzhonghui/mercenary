@@ -1,16 +1,19 @@
+global._ = _ = require('underscore');
+
 var express = require('express'),
-    app = express(),
-    db = require('mongojs').connect('mercenary', ['items']),
-    request = require('request').defaults({json: true}),
-    _ = require('underscore');
+    logger = require('graffiti'),
+    app = express();
 
 app.use(express.bodyParser());
+app.use(express.cookieParser());
 app.use(express.static(__dirname + '/../webapp'));
 app.use(express.favicon());
-app.use(express.logger('dev'));
+app.use(logger.express(express));
 
-require('./routes/item')(app, db, _);
-require('./routes/node')(app, db, request, _);
+require('./routes/mongook')();
+require('./routes/login')(app, logger);
+require('./routes/songIdx')(app, logger);
+require('./routes/song')(app, logger);
 
 app.listen(3000);
-console.log("Server is listening for connections on port 3000...");
+logger.info("Server is listening for connections on port 3000...");

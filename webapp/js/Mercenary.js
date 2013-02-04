@@ -11,22 +11,11 @@ requirejs.config({
         text: 'lib/text'
     },
     shim: {
-        'backbone': {
-            deps: [ 'underscore', 'jquery' ],
-            exports: 'Backbone'
-        },
-        'underscore': {
-            exports: '_'
-        },
-        'tablesorter': {
-            deps: ['jquery']
-        },
-        'tsWidgets': {
-            deps: ['tablesorter']
-        },
-        'Router': {
-            deps: [ 'backbone' ]
-        }
+        'backbone': { deps: [ 'underscore', 'jquery' ], exports: 'Backbone' },
+        'underscore': { exports: '_' },
+        'tablesorter': { deps: ['jquery'] },
+        'tsWidgets': { deps: ['tablesorter'] },
+        'Router': { deps: [ 'backbone' ] }
     }
 });
 
@@ -35,7 +24,7 @@ requirejs.onError = function (err) {
     console.log(err.requireModules);
 };
 
-requirejs(['Router', 'jquery', 'tablesorter', 'tsWidgets', 'underscore', 'backbone', 'hogan'], function (Router) {
+requirejs(['Router', 'tsWidgets', 'hogan'], function (Router) {
     var Mercenary = window.Mercenary = {};
 
     _.extend(Backbone.View.prototype, {

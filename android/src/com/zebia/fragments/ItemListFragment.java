@@ -25,6 +25,7 @@ import com.zebia.loaders.params.ItemsParamsMapper;
 import com.zebia.loaders.params.ParamsMapper;
 import com.zebia.loaders.params.RestParamBuilder;
 import com.zebia.loaders.SerialLoader;
+import com.zebia.loaders.params.SearchParams;
 import com.zebia.model.Item;
 import com.zebia.model.ItemsResponse;
 import com.zebia.utils.Animations;
@@ -246,7 +247,8 @@ public class ItemListFragment extends Fragment implements
         this.lastLoadedPage = 0;
 
         getLoaderManager().restartLoader(LOADER_ITEMS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);
+                new RestParamBuilder(getActivity(), paramsMapper)
+                        .putParam(SearchParams.ARTIST_NAME, searchQuery).build(), this);
 
         return true;
     }
@@ -287,12 +289,14 @@ public class ItemListFragment extends Fragment implements
 
     private void synchronization() {
         getLoaderManager().restartLoader(LOADER_ITEMS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);
+                new RestParamBuilder(getActivity(), paramsMapper)
+                        .putParam(SearchParams.ARTIST_NAME, searchQuery).build(), this);
     }
 
     private void loadNextPage() {
-        Bundle params = new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery)
-                .setPageToLoad(lastLoadedPage + 1).build();
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery)
+                .putParam(SearchParams.PAGE, lastLoadedPage + 1).build();
         getLoaderManager().restartLoader(LOADER_ITEMS_SEARCH, params, this);
     }
 }

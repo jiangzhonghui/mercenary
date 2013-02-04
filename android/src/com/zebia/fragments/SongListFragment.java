@@ -18,12 +18,15 @@ import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.zebia.R;
 import com.zebia.SettingsActivity;
+import com.zebia.SongActivity;
+import com.zebia.SongMapActivity;
 import com.zebia.adapter.SongArrayAdapter;
 import com.zebia.loaders.SerialLoader;
 import com.zebia.loaders.params.ParamsMapper;
 import com.zebia.loaders.params.RestParamBuilder;
+import com.zebia.loaders.params.SearchParams;
 import com.zebia.loaders.params.SongsParamsMapper;
-import com.zebia.model.Song;
+import com.zebia.model.SongStore;
 import com.zebia.model.SongsResponse;
 import com.zebia.utils.Animations;
 
@@ -37,7 +40,7 @@ public class SongListFragment extends Fragment implements
     private static final int LOADER_SONGS_SEARCH = 0x2;
     private static final int REQUEST_CODE_PREFERENCES = 1;
 
-    private static final String KEY_SAVED_PAGE = "CURRENT_PAGE";
+    private static final String SEARCH_QUERY = "CURRENT_PAGE";
 
     private SongArrayAdapter songsAdapter;
     private SearchView searchView;
@@ -45,7 +48,6 @@ public class SongListFragment extends Fragment implements
     private OnItemSelectedListener onItemSelectedListener;
     private PullToRefreshListView pullToRefreshListView;
 
-    private int lastLoadedPage = 1;
     private ParamsMapper paramsMapper;
 
     @Override
@@ -61,7 +63,7 @@ public class SongListFragment extends Fragment implements
         this.paramsMapper = new SongsParamsMapper();
 
         if (savedInstanceState != null) {
-            lastLoadedPage = savedInstanceState.getInt(KEY_SAVED_PAGE);
+            searchQuery = savedInstanceState.getString(SEARCH_QUERY);
         }
 
         getActivity().getActionBar().setDisplayShowTitleEnabled(false);
@@ -79,9 +81,8 @@ public class SongListFragment extends Fragment implements
         listView.setLayoutAnimation(Animations.listAnimation());
         listView.setOnItemClickListener(this);
 
-        // Initialize the Loader.
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).setForceLoad(false).build(), this);
+        // Cache initialisation
+        SongStore.init(getActivity());
     }
 
     @Override
@@ -97,12 +98,16 @@ public class SongListFragment extends Fragment implements
         searchView.setQueryHint("Song title");
         searchView.setOnQueryTextListener(this);
 
+        if (searchQuery != null) {
+            searchView.setQuery(searchQuery, false);
+        }
+
         this.searchView = searchView;
     }
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        //        menu.findItem(R.id.menu_clear_list).setVisible(true);
+        // menu.findItem(R.id.menu_clear_list).setVisible(true);
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -122,20 +127,24 @@ public class SongListFragment extends Fragment implements
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-        outState.putInt(KEY_SAVED_PAGE, lastLoadedPage);
+        outState.putString(SEARCH_QUERY, searchQuery);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     public void onResume() {
-        Log.d(LOG_TAG, "Begin onResume()");
         super.onResume();
+
+        if (SongStore.get().size() == 0) {
+            SongStore.restore();
+        }
+        updateViewFromStore();
     }
 
     @Override
     public void onPause() {
-        Log.d(LOG_TAG, "Begin onPause()");
         super.onPause();
+        SongStore.persist();
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -144,16 +153,14 @@ public class SongListFragment extends Fragment implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Log.d(LOG_TAG, "Begin onOptionsItemSelected()");
-
-        Toast.makeText(getActivity(), "Selected song: " + item.getTitle(), Toast.LENGTH_SHORT).show();
-
         switch (item.getItemId()) {
-            case R.id.menu_synchronisation_song:
-                synchronization();
+            case R.id.menu_map_songs:
+                Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
+                intent.putExtra(SongActivity.SONG_INDEX, -1); // All locations
+                startActivity(intent);
+
                 break;
             case R.id.menu_preferences_song:
-                // Launch an activity through intent
                 Intent launchPreferencesIntent = new Intent().setClass(getActivity(), SettingsActivity.class);
                 startActivityForResult(launchPreferencesIntent, REQUEST_CODE_PREFERENCES);
                 break;
@@ -168,8 +175,7 @@ public class SongListFragment extends Fragment implements
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        int itemIndex = position - 1;
-        onItemSelectedListener.onItemSelected(itemIndex, songsAdapter.getItem(itemIndex));
+        onItemSelectedListener.onItemSelected(position - 1);
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -196,30 +202,25 @@ public class SongListFragment extends Fragment implements
         pullToRefreshListView.onRefreshComplete();
         getActivity().setProgressBarIndeterminateVisibility(false);
 
-        Log.d(LOG_TAG, "Begin onLoadFinished()");
-
         int code = data.getCode();
-
         if (code == 200) {
-            lastLoadedPage = data.getData().getPage();
-            Integer totalPages = data.getData().getTotalPages();
-
-            if (lastLoadedPage == 1) {  // TODO: not good
-                songsAdapter.clear();
-            }
-            songsAdapter.addAll(data.getData().getResults());
-
-            // Is last page
-            PullToRefreshBase.Mode mode = PullToRefreshBase.Mode.DISABLED;
-            if (lastLoadedPage < totalPages) {
-                mode = PullToRefreshBase.Mode.PULL_FROM_END;
-            }
-            pullToRefreshListView.setMode(mode);
-
-            Toast.makeText(getActivity(), "Loaded page: " + lastLoadedPage, Toast.LENGTH_SHORT).show();
+            SongStore.fromSongsResponse(data.getData(), data.getData().getPage() != 0);
+            updateViewFromStore();
+            //Toast.makeText(getActivity(), "Loaded page: " + SongStore.getLastLoadedPage(), Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(getActivity(), "Failed to load data. Check your internet settings.",
                     Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void updateViewFromStore() {
+        songsAdapter.clear();
+        songsAdapter.addAll(SongStore.get());
+
+        if (SongStore.isLastPage()) {
+            pullToRefreshListView.setMode(PullToRefreshBase.Mode.DISABLED);
+        } else {
+            pullToRefreshListView.setMode(PullToRefreshBase.Mode.PULL_FROM_END);
         }
     }
 
@@ -236,13 +237,16 @@ public class SongListFragment extends Fragment implements
         searchView.setQuery("", false);
         searchView.setIconified(true);
 
+        searchView.setQuery(query, false);
+
         this.searchQuery = query;
-        this.lastLoadedPage = 0;
+        SongStore.setLastLoadedPage(-1);
 
         getActivity().setProgressBarIndeterminateVisibility(true);
 
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery).build();
+        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
 
         return true;
     }
@@ -254,7 +258,7 @@ public class SongListFragment extends Fragment implements
 
     // Fragment / Activity communication
     public interface OnItemSelectedListener {
-        public void onItemSelected(int index, Song item);
+        public void onItemSelected(int index);
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -266,15 +270,20 @@ public class SongListFragment extends Fragment implements
         String label = DateUtils.formatDateTime(getActivity().getApplicationContext(), System.currentTimeMillis(),
                 DateUtils.FORMAT_SHOW_TIME | DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_ABBREV_ALL);
 
-        // Update the LastUpdatedLabel
         refreshView.getLoadingLayoutProxy().setLastUpdatedLabel(label);
 
         if (refreshView.getCurrentMode() == PullToRefreshBase.Mode.PULL_FROM_END) {
-            Toast.makeText(getActivity(), "Page to load: " + (lastLoadedPage + 1), Toast.LENGTH_SHORT).show();
             loadNextPage();
         } else {
             synchronization();
         }
+    }
+
+    private void loadNextPage() {
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery)
+                .putParam(SearchParams.PAGE, SongStore.getLastLoadedPage() + 1).build();
+        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
     }
 
     // ---------------------------------------------------------------------------------------------------
@@ -282,13 +291,8 @@ public class SongListFragment extends Fragment implements
     // ---------------------------------------------------------------------------------------------------
 
     private void synchronization() {
-        getLoaderManager().restartLoader(LOADER_SONGS_SEARCH,
-                new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery).build(), this);
-    }
-
-    private void loadNextPage() {
-        Bundle params = new RestParamBuilder(getActivity(), paramsMapper).setSearchQuery(searchQuery)
-                .setPageToLoad(lastLoadedPage + 1).build();
+        Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
+                .putParam(SearchParams.ARTIST_NAME, searchQuery).build();
         getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
     }
 }
