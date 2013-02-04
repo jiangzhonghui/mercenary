@@ -10,7 +10,7 @@ app.use(express.static(__dirname + '/../webapp'));
 app.use(express.favicon());
 app.use(logger.express(express));
 
-require('./routes/mongook')();
+require('./routes/mongook')(logger);
 require('./routes/login')(app, logger);
 require('./routes/songIdx')(app, logger);
 require('./routes/song')(app, logger);

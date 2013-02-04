@@ -50,12 +50,18 @@ module.exports = function (app, logger) {
     });
 
     app.delete('/song/:id', function (req, res) {
-        if(Login.isLogged(req)) {
+        if (Login.isLogged(req)) {
             SongQuery.remove(req.param('id'), function (song) {
                 res.send(song);
             });
         } else {
             res.send({}, 401);
         }
+    });
+
+    app.get('/song/field/:field/:id', function (req, res) {
+        SongQuery.findField(req.param('field'), req.param('id'), function (field) {
+            res.send(field);
+        })
     });
 };

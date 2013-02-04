@@ -16,6 +16,15 @@ define(function () {
             var seconds = Math.ceil(secd);
 
             return minutes + ' min ' + seconds + ' s'
+        },
+        load: function (attr, next) {
+            $.get('/song/field/' + attr + '/' + this.id, function (response) {
+                if (response[attr]) {
+                    this.attributes[attr] = response[attr];
+                }
+                this.trigger('load');
+                if (next) next(this.attributes[attr]);
+            }.bind(this));
         }
     });
 });

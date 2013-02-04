@@ -43,6 +43,7 @@ requirejs(['Router', 'tsWidgets', 'hogan'], function (Router) {
     });
 
     Mercenary.events = _.extend({}, Backbone.Events);
+
     Mercenary.router = new Router();
     Backbone.history.start();
 });
