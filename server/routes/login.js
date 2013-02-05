@@ -1,6 +1,6 @@
 module.exports = function(app) {
 	app.post('/login', function(req, res) {
-		res.cookie('rememberme', req.param('name'), { maxAge: 900000, httpOnly: true });
+		res.cookie('rememberme', req.param('name'), { maxAge: 900000, httpOnly: false });
 		res.send({});
 	});
 

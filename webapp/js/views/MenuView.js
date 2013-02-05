@@ -11,7 +11,8 @@ define(['text!templates/menu.mustache', 'models/LoginModel'], function (template
         initialize: function () {
             this.model = new LoginModel();
             this.listenTo(this.model, 'sync error', this.renderLogin);
-            this.model.fetch();
+            if (document.cookie) this.model.fetch();
+            else this.renderLogin();
         },
         render: function () {
             this.$('ul').html(this.template.render());
@@ -25,23 +26,23 @@ define(['text!templates/menu.mustache', 'models/LoginModel'], function (template
             this.$('li').removeClass('active');
             if (index) this.$('li:nth-child(' + index + ')').addClass('active');
         },
-        renderLogin: function() {
-            if(this.model.get('name'))
+        renderLogin: function () {
+            if (this.model.get('name'))
                 $('#login').html(this.model.get('name') + '<button class="out">logout</button>');
-            else 
+            else
                 $('#login').html('<input></input><button class="in">login</button>');
         },
-        loginKb: function(event) {
-            if(event.which === 13)
+        loginKb: function (event) {
+            if (event.which === 13)
                 this.login(event);
         },
-        login: function(event) {
+        login: function (event) {
             event.preventDefault();
             var name = $('#login').find('input').val();
-            if(name)
+            if (name)
                 this.model.save({name: name});
         },
-        logout: function(event) {
+        logout: function (event) {
             event.preventDefault();
             this.model.sync('delete', this.model);
             this.model.clear();
