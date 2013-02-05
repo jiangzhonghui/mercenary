@@ -12,7 +12,7 @@ stop_on_error() {
 }
 
 echo "Refreshing mercenary git repository @ $(date +'%T - %D') ..."
-[[ -s USER_HOME.nvm/nvm.sh ]] && . $USER_HOME/.nvm/nvm.sh # This loads NVM
+[[ -s $USER_HOME/.nvm/nvm.sh ]] && . $USER_HOME/.nvm/nvm.sh # This loads NVM
 nvm use 0.8.17
 
 pushd $USER_HOME/mercenary
