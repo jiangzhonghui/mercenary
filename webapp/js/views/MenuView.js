@@ -28,9 +28,9 @@ define(['text!templates/menu.mustache', 'models/LoginModel'], function (template
         },
         renderLogin: function () {
             if (this.model.get('name'))
-                $('#login').html(this.model.get('name') + '<button class="out">logout</button>');
+                $('#login').html('<span class="name">' + this.model.get('name') + '</span><button class="out blue-button">logout</button>');
             else
-                $('#login').html('<input></input><button class="in">login</button>');
+                $('#login').html('<input type="text" placeholder="Nom"/><button class="in blue-button">login</button>');
         },
         loginKb: function (event) {
             if (event.which === 13)

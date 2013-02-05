@@ -102,7 +102,7 @@ body {
 		@media screen and (max-width: 920px) {
 			margin: 0 20px;
             #login { top: 50px; }
-            
+
 		}
 		@media screen and (min-width: 920px) {
 			width: 900px;
@@ -115,14 +115,24 @@ body {
         #login {
             min-width: 150px;
             min-height: 20px;
-            padding: 5px;
-            background-color: @blue-darken;
-            color: white;
+            padding: 4px 7px 6px;
+            background-color: @dark-grey;
             display: inline;
             position: absolute;
             right: 10px;
             border-bottom-right-radius: 5px;
             border-bottom-left-radius: 5px;
+            .box-shadow;
+
+            .in, .out {
+                float: right;
+            }
+
+            .name {
+                display: inline-block;
+                padding-top: 5px;
+                color: @light-grey;
+            }
         }
 	}
 }
@@ -393,12 +403,6 @@ body {
         float: left;
 
         input {
-            font-size: 14px;
-            padding: 4px 14px;
-            margin-bottom: 0;
-            .border-radius(15px);
-            background-color: #ffffff;
-            border: 1px solid #cccccc;
             @media screen and (max-width: 920px) {
                 max-width: 120px;
             }
@@ -507,7 +511,7 @@ body {
     }
 }
 
-// Common blue elements
+// Common elements
 
 .song-title {
     color: @blue-darken;
@@ -526,4 +530,13 @@ body {
     &:hover {
         .background-gradient(lighten(@blue, 40%), @blue-darken);
     }
+}
+
+input[type="text"] {
+    font-size: 14px;
+    padding: 4px 14px;
+    margin-bottom: 0;
+    .border-radius(15px);
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
 }
