@@ -1,5 +1,5 @@
 #!/bin/bash
-LOG_DIR=/home/mercenary/mercenary/logs
+LOG_DIR=/home/mercenary/logs
 
 stop_on_error() {
  if [ $? -ne 0 ] ; then

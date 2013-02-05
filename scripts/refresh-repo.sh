@@ -1,5 +1,4 @@
 #!/bin/sh
-REPO_DIR=/home/mercenary/mercenary
 LOG_DIR=/home/mercenary/logs
 
 stop_on_error() {
@@ -11,7 +10,7 @@ stop_on_error() {
  fi
 }
 
-pushd $REPO_DIR
+pushd /home/mercenary/mercenary
 git checkout release
 npm install
 stop_on_error "Unable to install modules dependencies"
