@@ -1,6 +1,6 @@
 #!/bin/sh
 
-source $REPO_DIR/scripts/common.sh
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
 
 echo "Refreshing mercenary git repository @ $(date +'%T - %D') ..."
 
