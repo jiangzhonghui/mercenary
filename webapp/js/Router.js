@@ -1,7 +1,8 @@
-define(['backbone', 'views/MenuView'], function (Backbone, MenuView) {
+define(['backbone', 'views/MenuView', 'views/LoginView'], function (Backbone, MenuView, LoginView) {
     return Backbone.Router.extend({
         initialize: function () {
             this.menu = new MenuView().render();
+            new LoginView();
         },
         routes: {
             '': 'welcome',
