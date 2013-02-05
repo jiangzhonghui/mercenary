@@ -10,6 +10,7 @@ stop_on_error() {
  fi
 }
 
+echo "Refreshing mercenary git repository @ $(date +'%T - %D') ..."
 pushd /home/mercenary/mercenary
 git checkout release
 npm install
