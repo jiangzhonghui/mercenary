@@ -6,7 +6,7 @@ export NODE_ENV=prod
 
 pushd $REPO_DIR/server
 npm install
-nohup supervisor -n exit server.js </dev/null > $LOG_DIR/nohup_server.log 2>&1 &
+nohup supervisor -q -n error  server.js </dev/null > $LOG_DIR/nohup_server.log 2>&1 &
 echo $$ > $LOG_DIR/nodejs.pid
 
 echo "**************************************************"

@@ -1,6 +1,5 @@
 #!/bin/bash
-REPO_DIR=/home/mercenary/mercenary
-LOG_DIR=$REPO_DIR/logs
+LOG_DIR=/home/mercenary/mercenary/logs
 
 stop_on_error() {
  if [ $? -ne 0 ] ; then
