@@ -3,8 +3,7 @@ define(['models/LoginModel'], function (LoginModel) {
         el: '#login',
         events: {
             'click button.in': 'login',
-            'click button.out': 'logout',
-            'keypress input': 'loginKb'
+            'click button.out': 'logout'
         },
         initialize: function () {
             this.model = new LoginModel();
@@ -16,11 +15,7 @@ define(['models/LoginModel'], function (LoginModel) {
             if (this.model.get('name'))
                 $('#login').html('<span class="name">' + this.model.get('name') + '</span><button class="out blue-button">logout</button>');
             else
-                $('#login').html('<input type="text" placeholder="Nom"/><button class="in blue-button">login</button>');
-        },
-        loginKb: function (event) {
-            if (event.which === 13)
-                this.login(event);
+                $('#login').html('<form><input type="text" placeholder="Nom"/><button class="in blue-button">login</button></form>');
         },
         login: function (event) {
             event.preventDefault();
