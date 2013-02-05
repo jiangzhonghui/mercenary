@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source $REPO_DIR/scripts/common.sh
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )/common.sh"
 
 pushd $SERVER_DIR
 
