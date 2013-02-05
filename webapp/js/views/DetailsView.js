@@ -9,15 +9,19 @@ define(['text!templates/details.mustache', 'models/SongModel'], function (templa
             this.model = new SongModel();
             this.model.id = this.options.songId;
             this.model.on('change', this.renderSong, this);
+            this.model.on('load', this.loadedElement, this);
         },
         render: function () {
             this.model.fetch();
             return this;
         },
         renderSong: function () {
+            this.model.load('segments_pitches');
             this.transition(this.template.render(this.model.forTemplate()));
         },
-        goBack:function() {
+        loadedElement: function () {
+        },
+        goBack: function () {
             window.history.back();
         }
     });

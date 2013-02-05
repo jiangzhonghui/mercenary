@@ -14,7 +14,7 @@ exports.save = function save(jsonSong, next) {
 }
 
 exports.findOne = function findOne(id, next) {
-    Song.findById(new ObjectId(id), function (err, song) {
+    Song.findById(id, Song.excludeLightArrays, function (err, song) {
         if (err) {
             return next(err);
         }
@@ -38,7 +38,7 @@ exports.update = function update(jsonSong, next) {
 }
 
 exports.remove = function remove(id, next) {
-    Song.remove({_id: new ObjectId(id)}, function (err, song) {
+    Song.remove({_id: id}, function (err, song) {
         if (err) {
             return next(err);
         }
@@ -58,6 +58,20 @@ exports.findAll = function findAll(search, next) {
             throw new Error('Song not found');
         }
         next(songs);
+    });
+}
+
+exports.findField = function (field, id, next) {
+    var fields = {};
+    fields[field] = 1;
+    Song.findById(id, fields, function (err, field) {
+        if (err) {
+            return next(err);
+        }
+        if (!field) {
+            throw new Error('Song not found');
+        }
+        next(field);
     });
 }
 

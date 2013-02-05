@@ -6,14 +6,14 @@ import android.support.v4.app.Fragment;
 import android.util.TypedValue;
 import android.view.*;
 import android.widget.ScrollView;
-import android.widget.SearchView;
 import android.widget.TextView;
+import com.google.android.gms.maps.model.LatLng;
 import com.zebia.R;
-import com.zebia.SettingsActivity;
 import com.zebia.SongActivity;
 import com.zebia.SongMapActivity;
 import com.zebia.model.Song;
 import com.zebia.model.SongStore;
+import com.zebia.utils.Geocoding;
 
 public class SongDetailsFragment extends Fragment {
     private int index;
@@ -77,6 +77,15 @@ public class SongDetailsFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
+        if(!hasLocation() && song.getArtist_location() != null){
+            //try to geocode address
+            LatLng latLng = Geocoding.reverseGeocoding(getActivity().getApplicationContext(), song.getArtist_location());
+            if(latLng != null){
+                song.setArtist_latitude((float)latLng.latitude);
+                song.setArtist_longitude((float)latLng.longitude);
+            }
+        }
+
         menu.findItem(R.id.menu_song_details_map).setVisible(hasLocation());
         super.onPrepareOptionsMenu(menu);
     }
