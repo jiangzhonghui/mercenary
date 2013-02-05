@@ -11,10 +11,17 @@ stop_on_error() {
 }
 
 echo "Refreshing mercenary git repository @ $(date +'%T - %D') ..."
+
 pushd /home/mercenary/mercenary
 git checkout release
-npm install
-stop_on_error "Unable to install modules dependencies"
 git pull --rebase >> $LOG_DIR/git-cron.log 2>&1
 popd
+
+pushd /home/mercenary/mercenary/server
+npm install
+stop_on_error "Unable to install modules dependencies"
+popd
+
+
+
 
