@@ -15,7 +15,7 @@ define(['models/LoginModel'], function (LoginModel) {
             if (this.model.get('name'))
                 $('#login').html('<span class="name">' + this.model.get('name') + '</span><button class="out blue-button">logout</button>');
             else
-                $('#login').html('<form><input type="text" placeholder="Nom"/><button class="in blue-button">login</button></form>');
+                $('#login').html('<form><input type="text" name="name" placeholder="Name"/><button class="in blue-button">login</button></form>');
         },
         login: function (event) {
             event.preventDefault();
