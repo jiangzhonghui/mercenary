@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.Window;
 import com.zebia.adapter.AppSectionsPagerAdapter;
-import com.zebia.adapter.SongDetailsCollectionAdapter;
 import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongListFragment;
 
@@ -29,7 +28,7 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
         requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 
         //setContentView(R.layout.song);
-        setContentView(R.layout.song);
+        setContentView(R.layout.song_list_pager);
 
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
@@ -55,7 +54,7 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
             showDetails(mCurCheckPosition);
         } else {
             appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-            ViewPager viewPager = (ViewPager) findViewById(R.id.pager_song_list);
+            ViewPager viewPager = (ViewPager) findViewById(R.id.song_list_pager);
             viewPager.setAdapter(appSectionsPagerAdapter);
         }
     }

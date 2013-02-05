@@ -36,7 +36,7 @@ public class SongDetailsActivity extends FragmentActivity implements ViewPager.O
         final ActionBar actionBar = getActionBar();
         actionBar.setHomeButtonEnabled(false);
 
-        viewPager = (ViewPager) findViewById(R.id.pager_song_details);
+        viewPager = (ViewPager) findViewById(R.id.song_detail_pager);
         viewPager.setAdapter(songDetailsCollectionAdapter);
         viewPager.setCurrentItem(songIndex);
         viewPager.setOnPageChangeListener(this);
