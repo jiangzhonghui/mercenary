@@ -8,7 +8,8 @@ requirejs.config({
         tsWidgets: 'lib/jquery.tablesorter.widgets.min',
         mustache: 'lib/mustache',
         hogan: 'lib/hogan',
-        text: 'lib/text'
+        text: 'lib/text',
+        async: 'lib/async'
     },
     shim: {
         'backbone': { deps: [ 'underscore', 'jquery' ], exports: 'Backbone' },
