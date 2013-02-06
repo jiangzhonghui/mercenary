@@ -1,7 +1,6 @@
 define(['text!templates/signup.mustache', 'models/UserModel'],
     function (template, UserModel) {
         return Backbone.View.extend({
-            el: '#body',
             template: Hogan.compile(template),
             events: {
                 'submit': 'submit'
@@ -22,6 +21,10 @@ define(['text!templates/signup.mustache', 'models/UserModel'],
                 }, {
                     success: function () {
                         Mercenary.router.navigate('#', {trigger: true});
+                        $('input[name="mail"]').val('');
+                        $('input[name="username"]').val('');
+                        $('input[name="city"]').val('');
+                        $('input[name="country"]').val('');
                         Backbone.trigger('signup');
                     },
                     error: function () {
