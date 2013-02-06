@@ -1,5 +1,5 @@
-define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/ArtistCollection'],
-    function (template, ResultView, GMapView, ArtistCollection) {
+define(['text!templates/search.mustache', './ResultView', 'models/ArtistCollection'],
+    function (template, ResultView, ArtistCollection) {
         return Backbone.View.extend({
             el: '#body',
             template: Hogan.compile(template),
@@ -16,13 +16,6 @@ define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/
                 this.transition(this.template.render());
                 this.restoreSearch();
                 return this;
-            },
-            renderGMap: function () {
-                this.gmap = new GMapView();
-                var self = this;
-                _.delay(function () {
-                    self.gmap.render();
-                }, 1);
             },
             searchArtists: function (event) {
                 var search = this.$('#searchForm').serializeArray(),
@@ -48,13 +41,6 @@ define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/
                 this.artists.fetch({data: $.param(searchWithPage)});
             },
             displayResults: function () {
-                if (!this.gmap) {
-                    this.renderGMap();
-                }
-                this.gmap.empty();
-                if (!this.artists.isEmpty()) this.gmap.$el.fadeIn();
-                else this.gmap.$el.fadeOut();
-
                 this.$('#nbResults').text(this.artists.size());
                 this.$('.search-infos').hide().fadeIn();
 
