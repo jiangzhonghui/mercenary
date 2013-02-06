@@ -1,30 +1,32 @@
 package com.zebia;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
-import android.view.KeyEvent;
-import android.view.View;
+import android.view.*;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Toast;
 import com.zebia.loaders.RESTLoader;
 import com.zebia.model.Login;
-
-import java.util.List;
 
 public class LoginActivity extends FragmentActivity implements View.OnClickListener, View.OnKeyListener,
         LoaderManager.LoaderCallbacks<RESTLoader.RESTResponse> {
 
     private static final String LOG_TAG = LoginActivity.class.getName();
     private static final String ARGS_URI = "ARGS_URI";
+    public static final String USER_MAIL_LOGIN = "USER_MAIL_LOGIN";
     private Button btnLogin;
     private EditText etUsername;
     private EditText etEmail;
     private EditText etCity;
+    private SharedPreferences sharedPreferences;
 
     /**
      * Called when the activity is first created.
@@ -44,26 +46,31 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 //        etUsername.setOnKeyListener(this);
 //        etEmail.setOnKeyListener(this);
 //        etCity.setOnKeyListener(this);
+
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String login = sharedPreferences.getString(USER_MAIL_LOGIN, "NONE-");
+        if (!"NONE-".equals(login)) {
+            startActivity();
+        }
     }
 
     @Override
     public void onClick(View v) {
-        Intent launchActivityIntent = null;
-
         switch (v.getId()) {
             case R.id.bt_login:
-
-                getSupportLoaderManager().restartLoader(1, getBundle(), this);
-
-//                launchActivityIntent = new Intent().setClass(this, SongActivity.class);
-//                startActivity(launchActivityIntent);
+                    getSupportLoaderManager().restartLoader(1, getBundle(), this);
                 break;
         }
     }
 
     private Bundle getBundle() {
-        // This is our REST action.
-        Uri twitterSearchUri = Uri.parse("http://10.1.1.57:3001/user");
+
+        String ip = sharedPreferences.getString(SettingsActivity.PREF_IP, "");
+        String port = sharedPreferences.getString(SettingsActivity.PREF_PORT, "3000");
+
+        Uri twitterSearchUri = Uri.parse("http://" + ip + ":" + port + "/user");
+
         Bundle params = new Bundle();
 
         Login login = new Login(etCity.getText().toString(), etEmail.getText().toString(), etUsername.getText().toString());
@@ -107,28 +114,48 @@ public class LoginActivity extends FragmentActivity implements View.OnClickListe
 
         // Check to see if we got an HTTP 200 code and have some data.
         if (code == 201) {
+            SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+            prefEditor.putString(USER_MAIL_LOGIN, etEmail.getText().toString());
+            prefEditor.commit();
 
-            Intent launchActivityIntent = new Intent().setClass(this, SongActivity.class);
-            startActivity(launchActivityIntent);
+            startActivity();
 
             Toast.makeText(this, "OK", Toast.LENGTH_SHORT).show();
-            // For really complicated JSON decoding I usually do my heavy lifting
-            // Gson and proper model classes, but for now let's keep it simple
-            // and use a utility method that relies on some of the built in
-            // JSON utilities on Android.
-            //List<Item> tweets = parse(json);
-
-            // Load our list adapter with our Tweets.
-            //mAdapter.clear();
-//            for (Item tweet : tweets) {
-//                mAdapter.add(tweet);
-//            }
         } else {
             Toast.makeText(this, "Failed to log in", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void startActivity() {
+        Intent launchActivityIntent = new Intent().setClass(this, SongActivity.class);
+        startActivity(launchActivityIntent);
+    }
+
     @Override
     public void onLoaderReset(android.support.v4.content.Loader<RESTLoader.RESTResponse> restResponseLoader) {
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_loging, menu);
+
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.menu_preferences_song:
+                Intent launchPreferencesIntent = new Intent().setClass(this, SettingsActivity.class);
+                startActivityForResult(launchPreferencesIntent, 1);
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

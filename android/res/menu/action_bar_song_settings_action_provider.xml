@@ -20,4 +20,9 @@
           android:title="@string/menu_preferences"
           android:visible="true" />
 
+    <item android:id="@+id/menu_logout_song"
+          android:showAsAction="never|withText"
+          android:title="@string/menu_logout"
+          android:visible="true" />
+
 </menu>
