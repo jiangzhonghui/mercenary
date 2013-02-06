@@ -1,5 +1,6 @@
 package com.zebia;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,12 +13,13 @@ import com.zebia.adapter.AppSectionsPagerAdapter;
 import com.zebia.fragments.SongDetailsFragment;
 import com.zebia.fragments.SongListFragment;
 
-public class SongActivity extends FragmentActivity implements SongListFragment.OnItemSelectedListener {
+public class SongActivity extends FragmentActivity implements SongListFragment.OnItemSelectedListener, ActionBar.TabListener {
     private boolean mDualPane;
     private int mCurCheckPosition = 0;
     public static final String SONG_INDEX = "song-index";
 
     private AppSectionsPagerAdapter appSectionsPagerAdapter;
+    private ViewPager viewPager;
 
     /**
      * Called when the activity is first created.
@@ -33,30 +35,38 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
         PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
 
         // Check to see if we have a frame in which to embed the details fragment directly in the containing UI.
-        View detailsFrame = findViewById(R.id.details_song);
-        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
+//        View detailsFrame = findViewById(R.id.details_song);
+        //mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
         if (savedInstanceState != null) {
             //getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE); // TODO
 
             // Restore last state for checked position.
-            mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
+            //mCurCheckPosition = savedInstanceState.getInt("curChoice", 0);
         }
 
-        if (mDualPane) {
-            SongListFragment songListFragment = new SongListFragment();
+        appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
+        viewPager = (ViewPager) findViewById(R.id.song_list_pager);
+        viewPager.setAdapter(appSectionsPagerAdapter);
 
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.list_song_fragment_layout, songListFragment);
-            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-            ft.commit();
+        final ActionBar actionBar = getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
-            showDetails(mCurCheckPosition);
-        } else {
-            appSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager());
-            ViewPager viewPager = (ViewPager) findViewById(R.id.song_list_pager);
-            viewPager.setAdapter(appSectionsPagerAdapter);
+        viewPager.setOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            @Override
+            public void onPageSelected(int position) {
+                actionBar.setSelectedNavigationItem(position);
+            }
+        });
+
+        // For each of the sections in the app, add a tab to the action bar.
+        for (int i = 0; i < appSectionsPagerAdapter.getCount(); i++) {
+            actionBar.addTab(
+                    actionBar.newTab()
+                            .setText(appSectionsPagerAdapter.getPageTitle(i))
+                            .setTabListener(this));
         }
+
     }
 
 
@@ -103,5 +113,18 @@ public class SongActivity extends FragmentActivity implements SongListFragment.O
             launchSongDetailsIntent.putExtra(SONG_INDEX, index);
             startActivity(launchSongDetailsIntent);
         }
+    }
+
+    @Override
+    public void onTabSelected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+        viewPager.setCurrentItem(tab.getPosition());
+    }
+
+    @Override
+    public void onTabUnselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
+    }
+
+    @Override
+    public void onTabReselected(ActionBar.Tab tab, android.app.FragmentTransaction ft) {
     }
 }

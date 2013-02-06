@@ -13,6 +13,7 @@ import com.zebia.SongActivity;
 import com.zebia.SongMapActivity;
 import com.zebia.model.Song;
 import com.zebia.model.SongStore;
+import com.zebia.model.SongWrapper;
 import com.zebia.utils.Geocoding;
 
 public class SongDetailsFragment extends Fragment {
@@ -77,16 +78,15 @@ public class SongDetailsFragment extends Fragment {
 
     @Override
     public void onPrepareOptionsMenu(Menu menu) {
-        if(!hasLocation() && song.getArtist_location() != null){
-            //try to geocode address
-            LatLng latLng = Geocoding.reverseGeocoding(getActivity().getApplicationContext(), song.getArtist_location());
-            if(latLng != null){
-                song.setArtist_latitude((float)latLng.latitude);
-                song.setArtist_longitude((float)latLng.longitude);
-            }
-        }
+//        if(!(new SongWrapper(song).hasLocation()) && song.getArtist_location() != null){
+//            //try to geocode address
+//            LatLng latLng = Geocoding.reverseGeocoding(getActivity().getApplicationContext(), song.getArtist_location());
+//            if(latLng != null){
+//                song.setArtist_latitude((float)latLng.latitude);
+//                song.setArtist_longitude((float)latLng.longitude);
+//            }
+//        }
 
-        menu.findItem(R.id.menu_song_details_map).setVisible(hasLocation());
         super.onPrepareOptionsMenu(menu);
     }
 
@@ -109,11 +109,6 @@ public class SongDetailsFragment extends Fragment {
 
     public Song getSong() {
         return song;
-    }
-
-    private boolean hasLocation() {
-        return song.getArtist_latitude() != null && song.getArtist_latitude() != 0.0
-                && song.getArtist_longitude() != null && song.getArtist_longitude() != 0.0;
     }
 
 }
