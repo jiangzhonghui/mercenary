@@ -16,9 +16,16 @@ define(['text!templates/signup.mustache', 'models/UserModel'],
             submit: function (event) {
                 event.preventDefault();
                 this.user.save({
-                    email: this.$('input[name="mail"]').val(),
+                    mail: this.$('input[name="mail"]').val(),
                     username: this.$('input[name="username"]').val(),
                     city: this.$('input[name="city"]').val() + ', ' + this.$('input[name="country"]').val()
+                }, {
+                    success: function () {
+                        Mercenary.router.navigate('#');
+                        Backbone.trigger('signup', {trigger: true});
+                    },
+                    error: function () {
+                    }
                 });
             }
         });

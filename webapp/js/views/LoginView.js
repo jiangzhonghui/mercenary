@@ -10,6 +10,7 @@ define(['models/LoginModel'], function (LoginModel) {
             this.listenTo(this.model, 'sync error', this.render);
             if (document.cookie) this.model.fetch();
             else this.render();
+            this.listenTo(Backbone, 'signup', this.refresh);
         },
         render: function () {
             var username = this.model.get('username');
@@ -23,6 +24,9 @@ define(['models/LoginModel'], function (LoginModel) {
             var name = $('#login').find('input').val();
             if (name)
                 this.model.save({name: name});
+        },
+        refresh: function () {
+            if (document.cookie) this.model.fetch();
         },
         logout: function (event) {
             event.preventDefault();
