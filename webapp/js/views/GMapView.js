@@ -8,10 +8,21 @@ define(['text!templates/infoWindow.mustache'], function (infoWindowTemplate) {
         render: function (artist) {
             console.log(artist);
             $.get('/artist/users/' + artist, function (response) {
-                console.log(response);
-            });
-            this.initGmaps();
-            this.initHeatmap();
+                var data = {};
+                var myArray = [];
+                data.max = 3;
+                _.each(response, function (user) {
+                    var coord = {
+                        lat: user.loc.latitude,
+                        lng: user.loc.longitude,
+                        count: 1
+                    }
+                    myArray.push(coord);
+                });
+                data.data = myArray;
+                this.initGmaps();
+                this.initHeatmap(data);
+            }.bind(this));
         },
         initGmaps: function () {
             var mapOptions = {
@@ -22,20 +33,14 @@ define(['text!templates/infoWindow.mustache'], function (infoWindowTemplate) {
             this.map = new google.maps.Map(document.getElementById('heatmapArea'),
                 mapOptions);
         },
-        initHeatmap: function () {
+        initHeatmap: function (data) {
             this.heatmap = new HeatmapOverlay(this.map, {
                 "radius": 30,
                 "visible": true,
                 "opacity": 40
             });
-            this.data = {
-                max: 10,
-                data: [
-                    {lat: 48.87525, lng: 2.31110, count: 8}
-                ]
-            }
             google.maps.event.addListenerOnce(this.map, "idle", function () {
-                this.heatmap.setDataSet(this.data);
+                this.heatmap.setDataSet(data);
             }.bind(this));
         }
     });

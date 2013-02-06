@@ -16,7 +16,6 @@ module.exports = function (app, db, logger) {
             logger.debug('you search with args %s : %s', queryName, search[queryName]);
         });
 
-
         if (page && results_per_page) {
             ArtistQuery.pagination(search, page, results_per_page, function (artists) {
                 _.each(artists, function(artist) {
@@ -35,7 +34,6 @@ module.exports = function (app, db, logger) {
             });
         }
     });
-
 
 
     app.get('/artist/:id', function (req, res) {
@@ -58,7 +56,6 @@ module.exports = function (app, db, logger) {
         });
     });
 
-
     app.get('/artist/field/:field/:id', function (req, res) {
         ArtistQuery.findField(req.param('field'), req.param('id'), function (field) {
             res.send(field);
@@ -72,7 +69,6 @@ module.exports = function (app, db, logger) {
             } else {
                 logger.error(err);
             }
-
         });
     });
 };
