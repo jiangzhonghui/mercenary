@@ -1,14 +1,16 @@
-define(['backbone', 'views/MenuView', 'views/LoginView'], function (Backbone, MenuView, LoginView) {
+define(['backbone', 'views/MenuView', 'views/LoginView', 'views/PushlineView'], function (Backbone, MenuView, LoginView, PushlineView) {
     return Backbone.Router.extend({
         initialize: function () {
             this.menu = new MenuView().render();
             new LoginView();
+            new PushlineView();
         },
         routes: {
             '': 'welcome',
             'list': 'list',
             'search': 'search',
-            'details/:id': 'details'
+            'details/:id': 'details',
+            'signup': 'signup'
         },
         welcome: function () {
             require([ 'views/WelcomeView' ], Mercenary.router.changeView);
@@ -27,6 +29,10 @@ define(['backbone', 'views/MenuView', 'views/LoginView'], function (Backbone, Me
                 Mercenary.router.changeView(view, {songId: songId});
             });
             this.menu.highlight();
+        },
+        signup: function () {
+            require([ 'views/SignupView' ], Mercenary.router.changeView);
+            this.menu.highlight(4);
         },
         changeView: function (View, options) {
             if (this.currentView) {

@@ -1,5 +1,5 @@
 var SongQuery = require('../db/queries/SongQuery');
-var Login = require('./login.js');
+var User = require('./user.js');
 
 module.exports = function (app, logger) {
 
@@ -50,7 +50,8 @@ module.exports = function (app, logger) {
     });
 
     app.delete('/song/:id', function (req, res) {
-        if (Login.isLogged(req)) {
+        var user = User.get(req);
+        if (user) {
             SongQuery.remove(req.param('id'), function (song) {
                 res.send(song);
             });

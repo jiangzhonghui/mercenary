@@ -10,18 +10,23 @@ define(['models/LoginModel'], function (LoginModel) {
             this.listenTo(this.model, 'sync error', this.render);
             if (document.cookie) this.model.fetch();
             else this.render();
+            this.listenTo(Backbone, 'signup', this.refresh);
         },
         render: function () {
-            if (this.model.get('name'))
-                $('#login').html('<span class="name">' + this.model.get('name') + '</span><button class="out blue-button">logout</button>');
+            var username = this.model.get('username');
+            if (username)
+                this.$el.html('<span class="name">Hello ' + username + '</span><button class="out blue-button">logout</button>');
             else
-                $('#login').html('<form><input type="text" name="name" placeholder="Name"/><button class="in blue-button">login</button></form>');
+                this.$el.html('<form><input type="text" name="name" placeholder="Name"/><button class="in blue-button">login</button></form>');
         },
         login: function (event) {
             event.preventDefault();
             var name = $('#login').find('input').val();
             if (name)
-                this.model.save({name: name});
+                this.model.save({mail: name});
+        },
+        refresh: function () {
+            if (document.cookie) this.model.fetch();
         },
         logout: function (event) {
             event.preventDefault();

@@ -1,4 +1,4 @@
-Zebia for Android
+Yawyl for Android
 =================
 
 Install android sdk

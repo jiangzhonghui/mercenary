@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:padding="20dp">
+
+    <!--<Button-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/start_items_activity"-->
+            <!--android:id="@+id/btn_start_items_activity" />-->
+
+    <!--<Button-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="@string/start_songs_activity"-->
+            <!--android:id="@+id/btn_start_songs_activity" />-->
+
+
+
+<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_weight="1"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:paddingLeft="8dp"
+                  android:paddingRight="8dp"
+                  android:paddingTop="4dp"
+                  android:paddingBottom="4dp">
+
+    </LinearLayout>-->
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Log In"
+            android:textSize="25dp"
+            android:id="@+id/textView" android:layout_gravity="center_horizontal"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="User name: "
+            android:textSize="18dp"
+            android:id="@+id/textView" android:layout_gravity="left|center_vertical"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="User name"
+
+            android:id="@+id/et_login_username" android:layout_gravity="center|bottom" />
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="18dp"
+            android:id="@+id/textView1" android:layout_gravity="left|center_vertical"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+
+            android:id="@+id/et_login_email"
+            android:layout_gravity="center|bottom"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City: "
+            android:textSize="18dp"
+            android:id="@+id/textView1" android:layout_gravity="left|center_vertical"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="City"
+            android:lines="1"
+            android:id="@+id/et_login_city" android:layout_gravity="center|bottom"/>
+
+
+<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="vertical"
+                  android:layout_weight="1"
+                  android:layout_width="fill_parent"
+                  android:layout_height="fill_parent"
+                  android:paddingLeft="8dp"
+                  android:paddingRight="8dp"
+                  android:paddingTop="4dp"
+                  android:paddingBottom="4dp">
+
+    </LinearLayout>-->
+
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:enabled="true"
+            android:id="@+id/bt_login"/>
+
+</LinearLayout>
+

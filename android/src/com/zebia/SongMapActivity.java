@@ -16,7 +16,7 @@ public class SongMapActivity extends FragmentActivity {
         SongMapFragment songMapFragment = new SongMapFragment();
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        ft.replace(R.id.song_map_fragment_layout, songMapFragment);
+        ft.replace(R.id.song_map_layout, songMapFragment);
         ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
         ft.commit();
 

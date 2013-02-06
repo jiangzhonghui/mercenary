@@ -10,10 +10,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.zebia.R;
 import com.zebia.model.Song;
-import com.zebia.model.SongStore;
 
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.TimeZone;
 
@@ -26,8 +24,8 @@ public class SongArrayAdapter extends ArrayAdapter<Song> {
     int layoutResourceId;
 
     public SongArrayAdapter(Context context) {
-        super(context, R.layout.song_list);
-        this.layoutResourceId = R.layout.song_list;
+        super(context, R.layout.song_list_item);
+        this.layoutResourceId = R.layout.song_list_item;
         this.context = context;
     }
 
