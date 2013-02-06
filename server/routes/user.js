@@ -67,7 +67,7 @@ module.exports = function(app, db, logger) {
 					var differences = _.difference(artists, user.artists);
 					if(!_.isEmpty(differences)) {
 						_.each(differences, function(difference) {
-							db.timeline.save({user: mail, artist: difference});
+							db.timeline.save({username: mail, artist: difference, type: 'like'});
 						});
 					}
 				}
