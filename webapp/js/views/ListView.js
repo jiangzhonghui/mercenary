@@ -5,7 +5,7 @@ define(['text!templates/list.mustache', 'text!templates/table-row.mustache', 'mo
             template: Hogan.compile(template),
             row: Hogan.compile(row),
             initialize: function () {
-                this.songs = new SongCollection();
+                this.artists = new SongCollection();
                 this.toScroll = true;
             },
             render: function () {
@@ -17,14 +17,14 @@ define(['text!templates/list.mustache', 'text!templates/table-row.mustache', 'mo
                     widgets: ["zebra"]
                 });
 
-                this.songs.on('reset', this.displayItems, this);
-                this.songs.fetch({data: {page: this.page, results_per_page: 30}});
+                this.artists.on('reset', this.displayItems, this);
+                this.artists.fetch({data: {page: this.page, results_per_page: 30}});
 
                 $(window).scroll(function () {
                     if ($(window).scrollTop() + $(window).height() >= ($(document).height() - 20) && this.toScroll) {
                         this.toScroll = false;
                         this.page++;
-                        this.songs.fetch({data: {page: this.page, results_per_page: 30}})
+                        this.artists.fetch({data: {page: this.page, results_per_page: 30}})
                     }
                 }.bind(this));
                 return this;
@@ -32,14 +32,14 @@ define(['text!templates/list.mustache', 'text!templates/table-row.mustache', 'mo
             displayItems: function () {
                 var self = this;
 
-                this.songs.each(function (song) {
+                this.artists.each(function (song) {
                     var $row = $(self.row.render(song.toJSON()));
                     $row.click(function () {
                         Mercenary.router.navigate('details/' + song.id, {trigger: true});
                     });
                     self.$('#items-table tbody').append($row);
                 });
-                this.toScroll = this.songs.size() >= 30;
+                this.toScroll = this.artists.size() >= 30;
                 $('#items-table').trigger('update');
             },
             close: function () {

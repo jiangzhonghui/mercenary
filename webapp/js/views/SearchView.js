@@ -1,16 +1,16 @@
-define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/SongCollection'],
-    function (template, ResultView, GMapView, SongCollection) {
+define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/ArtistCollection'],
+    function (template, ResultView, GMapView, ArtistCollection) {
         return Backbone.View.extend({
             el: '#body',
             template: Hogan.compile(template),
             events: {
-                'submit #searchForm': 'searchSongs',
+                'submit #searchForm': 'searchArtists',
                 'click .search-infos .prev': 'previousResults',
                 'click .search-infos .next': 'nextResults'
             },
             initialize: function () {
-                this.songs = new SongCollection();
-                this.songs.on('reset', this.displayResults, this);
+                this.artists = new ArtistCollection();
+                this.artists.on('reset', this.displayResults, this);
             },
             render: function () {
                 this.transition(this.template.render());
@@ -24,7 +24,7 @@ define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/
                     self.gmap.render();
                 }, 1);
             },
-            searchSongs: function (event) {
+            searchArtists: function (event) {
                 var search = this.$('#searchForm').serializeArray(),
                     searchWithPage;
 
@@ -45,22 +45,22 @@ define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/
                 })
                 this.keepSearch();
 
-                this.songs.fetch({data: $.param(searchWithPage)});
+                this.artists.fetch({data: $.param(searchWithPage)});
             },
             displayResults: function () {
                 if (!this.gmap) {
                     this.renderGMap();
                 }
                 this.gmap.empty();
-                if (!this.songs.isEmpty()) this.gmap.$el.fadeIn();
+                if (!this.artists.isEmpty()) this.gmap.$el.fadeIn();
                 else this.gmap.$el.fadeOut();
 
-                this.$('#nbResults').text(this.songs.size());
+                this.$('#nbResults').text(this.artists.size());
                 this.$('.search-infos').hide().fadeIn();
 
                 this.$('#results').empty();
-                this.songs.each(function (song) {
-                    this.$('#results').append(new ResultView({model: song}).render().el).hide().fadeIn();
+                this.artists.each(function (artist) {
+                    this.$('#results').append(new ResultView({model: artist}).render().el).hide().fadeIn();
                 });
 
                 this.refreshPagination();
@@ -70,16 +70,16 @@ define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/
                 this.$('#page').text(this.page + 1);
 
                 if (this.page === 0) this.$('.search-infos .prev').css('visibility', 'hidden');
-                if (this.songs.size() < 15) this.$('.search-infos .next').css('visibility', 'hidden');
-                if (this.songs.size() === -1) this.$('.page-wrapper').css('visibility', 'hidden');
+                if (this.artists.size() < 15) this.$('.search-infos .next').css('visibility', 'hidden');
+                if (this.artists.size() === -1) this.$('.page-wrapper').css('visibility', 'hidden');
             },
             previousResults: function () {
                 this.page--;
-                this.searchSongs();
+                this.searchArtists();
             },
             nextResults: function () {
                 this.page++;
-                this.searchSongs();
+                this.searchArtists();
             },
             restoreSearch: function () {
                 if (localStorage.currentSearch) {
@@ -89,7 +89,7 @@ define(['text!templates/search.mustache', './ResultView', './GMapView', 'models/
                     });
                     this.currentSearch = currentSearch;
                     this.page = parseInt(localStorage.searchPage) || 0;
-                    this.searchSongs();
+                    this.searchArtists();
                 }
             },
             keepSearch: function () {
