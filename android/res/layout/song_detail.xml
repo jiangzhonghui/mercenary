@@ -13,34 +13,6 @@
                   android:paddingTop="4dp"
                   android:paddingBottom="4dp">
 
-        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="horizontal"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content">
-
-            <TextView
-                    android:id="@+id/tx_detail_song_song_label"
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Song: "
-                    android:textStyle="bold"
-                    android:textSize="18dp"
-                    android:singleLine="true"
-                    android:textColor="#3baeff"
-                    />
-
-            <TextView
-                    android:id="@+id/tx_detail_song_title"
-                    xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="title"
-                    android:textSize="18dp"
-                    android:singleLine="true"
-                    android:textColor="#3baeff"/>
-        </LinearLayout>
-
         <TextView
                 android:id="@+id/tx_detail_song_details"
                 xmlns:android="http://schemas.android.com/apk/res/android"
