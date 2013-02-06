@@ -45,7 +45,9 @@ module.exports = function (app, db, logger) {
             request(url, function (error, response, body) {
               if (!error && response.statusCode == 200) {
                 XmlParser(body, function(error, result){
-                    artist.image = result.response.artist[0].image;
+                    if(result.response.length > 0) {
+                        artist.image = result.response.artist[0].image;
+                    }
                     res.send(artist);
                 });
               } else {
