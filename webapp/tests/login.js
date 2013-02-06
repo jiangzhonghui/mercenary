@@ -5,7 +5,6 @@ var Browser = require('zombie'),
 
 browser.visit(urlHome, {debug: false}, function (err, browser) {
     expect(browser.success).to.be.ok();
-    expect(browser.text('title')).to.be('Zebia');
 
     expect(browser.text('#login .name')).to.be('');
     expect(browser.query('#login .out')).to.be(undefined);
