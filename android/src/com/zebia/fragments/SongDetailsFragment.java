@@ -60,8 +60,14 @@ public class SongDetailsFragment extends Fragment {
 
         if (song != null) {
             TextView txArtist = (TextView) getView().findViewById(R.id.tx_detail_song_artist);
+            TextView txTerms = (TextView) getView().findViewById(R.id.tx_detail_song_year);
 
-            txArtist.setText(song.getArtist_name());
+            StringBuilder stringBuilder = new StringBuilder();
+            for(String tag : song.getArtist_terms()){
+                stringBuilder.append(tag).append(",");
+
+            }
+            txTerms.setText(stringBuilder.toString());
         }
     }
 

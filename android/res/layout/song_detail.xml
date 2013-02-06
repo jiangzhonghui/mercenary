@@ -21,7 +21,7 @@
                 android:text="Details: "
                 android:textStyle="bold"
                 android:textSize="18dp"
-                android:textColor="#f8ff7f"/>
+                android:textColor="#f4ff04"/>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                       android:orientation="horizontal"
@@ -35,7 +35,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Artist: "
-                    android:textSize="18dp"/>
+                    android:textSize="18dp"
+                    android:textColor="#00ffdc"/>
 
             <TextView
                     android:id="@+id/tx_detail_song_artist"
@@ -58,7 +59,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Album: "
-                    android:textSize="18dp"/>
+                    android:textSize="18dp"
+                    android:textColor="#00ffdc"/>
 
             <TextView
                     android:id="@+id/tx_detail_song_release"
@@ -70,19 +72,18 @@
         </LinearLayout>
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                      android:orientation="horizontal"
+                      android:orientation="vertical"
                       android:layout_width="wrap_content"
                       android:layout_height="wrap_content"
                       android:paddingLeft="15dp">
 
             <TextView
-                    android:id="@+id/tx_detail_song_year_label"
+                    android:id="@+id/tx_detail_song_release_label"
                     xmlns:android="http://schemas.android.com/apk/res/android"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Year: "
-                    android:textSize="18dp"/>
-
+                    android:text="Tags: "
+                    android:textSize="18dp" android:textColor="#00ffdc"/>
             <TextView
                     android:id="@+id/tx_detail_song_year"
                     xmlns:android="http://schemas.android.com/apk/res/android"

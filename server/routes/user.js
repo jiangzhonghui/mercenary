@@ -68,14 +68,14 @@ module.exports = function(app, db, logger) {
                     var alreadySavedIds = [];
                     if (user.artists) {
                         alreadySavedIds = user.artists.map(function (artist) {
-                        return artist.artist_id
+                        return artist._id
                     });
                     }
                     var diff = _.filter(artists, function (artist) {
-                        return !_.contains(alreadySavedIds, artist.artist_id);
+                        return !_.contains(alreadySavedIds, artist._id);
                     });
-                    db.timeline.save({username: req.body.username, artist: diff, type: 'like'}, {safe: true}, function () {
-                    });
+                    if(!_.isEmpty(diff))
+                    	db.timeline.save({username: req.body.username, artist: diff[0], type: 'like'}, {safe: true}, function() {});
                 }
 			});
 		}	
