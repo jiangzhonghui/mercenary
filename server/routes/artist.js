@@ -37,7 +37,6 @@ module.exports = function (app, db, logger) {
     });
 
 
-
     app.get('/artist/:id', function (req, res) {
         ArtistQuery.findOne(req.param('id'), function (artist) {
             artist.image = "toto";
@@ -58,7 +57,6 @@ module.exports = function (app, db, logger) {
         });
     });
 
-
     app.get('/artist/field/:field/:id', function (req, res) {
         ArtistQuery.findField(req.param('field'), req.param('id'), function (field) {
             res.send(field);
@@ -72,7 +70,6 @@ module.exports = function (app, db, logger) {
             } else {
                 logger.error(err);
             }
-
         });
     });
 };
