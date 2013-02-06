@@ -7,11 +7,6 @@ module.exports = function(app, db, logger) {
 			connectToAccount(req, res);
 	});
 
-	var unauthorized = function(res) {
-		res.statusCode = 401;
-		res.send();
-	};
-
 	var createAccount = function(req, res) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(user)
@@ -35,6 +30,9 @@ module.exports = function(app, db, logger) {
 	};
 
 	app.put('/user', function(req, res) {
+		if(!authenticated(req))
+			unauthorized(res);
+
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(!user)
 				unauthorized();
@@ -52,13 +50,20 @@ module.exports = function(app, db, logger) {
 	});
 
 	app.get('/user', function(req, res){
-		if(req.cookies && req.cookies.rememberme)
-			res.send(req.cookies.rememberme);
-		else {
-			res.statusCode = 401;
-			res.send();
-		}
+		if(!authenticated(req))
+			unauthorized(res);
+		
+		res.send(req.cookies.rememberme);
 	});
+
+	var unauthorized = function(res) {
+		res.statusCode = 401;
+		res.send();
+	};
+
+	var authenticated = function(req) {
+		return req.cookies && req.cookies.rememberme;
+	}
 };
 
 module.exports.get = function(req) {
