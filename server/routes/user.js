@@ -3,10 +3,8 @@ module.exports = function(app, db, logger) {
 	app.post('/user', function(req, res) {
 		if(req.body.city && req.body.username)
 			createAccount(req, res);
-		else if(authenticated(req))
-			connectToAccount(req, res);
 		else
-			unauthorized(res);
+			connectToAccount(req, res);
 	});
 
 	var createAccount = function(req, res) {
