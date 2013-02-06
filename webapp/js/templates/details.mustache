@@ -1,17 +1,22 @@
-<section>
+<div id="artist_details">
     <div class="blue-button details-back">Go back</div>
-    <h2>Artist Details</h2>
+    <section>
+        <h2>Artist Details</h2>
 
-    <div class="details">
-        <div class="music"></div>
-        <div>Name : <strong>{{artist_name}}</strong></div>
-        <br>
+        <div class="description">
+            <div class="music"></div>
+            <div>Name : <strong>{{artist_name}}</strong></div>
+            <br>
 
-        <div>Artist location : {{artist_location}}</div>
-        <div>Artist terms :
-            <ul class="music-styles">{{#artist_terms}}
-                <li>{{.}}</li>{{/artist_terms}}</ul>
+            <div>Artist location : {{artist_location}}</div>
+            <div>Artist terms :
+                <ul class="music-styles">{{#artist_terms}}
+                    <li>{{.}}</li>{{/artist_terms}}</ul>
+            </div>
+            <div id="heatmapArea"/>
         </div>
-        <div id="heatmapArea"/>
-    </div>
-</section>
+    </section>
+    <aside>
+        <h2>ASIDE</h2>
+    </aside>
+</div>
