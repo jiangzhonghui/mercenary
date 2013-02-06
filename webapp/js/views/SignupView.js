@@ -21,8 +21,8 @@ define(['text!templates/signup.mustache', 'models/UserModel'],
                     city: this.$('input[name="city"]').val() + ', ' + this.$('input[name="country"]').val()
                 }, {
                     success: function () {
-                        Mercenary.router.navigate('#');
-                        Backbone.trigger('signup', {trigger: true});
+                        Mercenary.router.navigate('#', {trigger: true});
+                        Backbone.trigger('signup');
                     },
                     error: function () {
                     }
