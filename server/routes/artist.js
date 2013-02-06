@@ -1,5 +1,5 @@
 var ArtistQuery = require('../db/queries/ArtistQuery');
-var Login = require('./login.js');
+var Login = require('./user.js');
 
 module.exports = function (app, logger) {
 
