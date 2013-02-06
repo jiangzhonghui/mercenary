@@ -19,7 +19,7 @@
 
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_weight="1"
                   android:layout_width="fill_parent"
@@ -29,7 +29,7 @@
                   android:paddingTop="4dp"
                   android:paddingBottom="4dp">
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <TextView
             android:layout_width="wrap_content"
@@ -82,7 +82,7 @@
             android:id="@+id/et_login_city" android:layout_gravity="center|bottom"/>
 
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!--    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                   android:orientation="vertical"
                   android:layout_weight="1"
                   android:layout_width="fill_parent"
@@ -92,13 +92,13 @@
                   android:paddingTop="4dp"
                   android:paddingBottom="4dp">
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <Button
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="Log in"
-            android:enabled="false"
+            android:enabled="true"
             android:id="@+id/bt_login"/>
 
 </LinearLayout>
