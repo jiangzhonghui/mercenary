@@ -66,7 +66,7 @@ module.exports = function (app, db, logger) {
     });
     app.get('/artist/users/:id', function (req, res) {
         var artistId = req.param('id');
-        db.users.find({ 'artists.artist_id' : { $in : [ ""+artistId] }}, function (err, users) {
+        db.users.find({ 'artists._id' : { $in : [ ""+artistId] }}, function (err, users) {
             if(!err){
                 res.send(users);
             } else {
