@@ -1,15 +1,18 @@
-module.exports = function(app) {
-	app.post('/login', function(req, res) {
-		res.cookie('rememberme', req.param('name'), { maxAge: 900000, httpOnly: false });
-		res.send({});
+module.exports = function(app, db, logger) {
+	app.post('/user', function(req, res) {
+		if(req.body.city && req.body.username) {
+			db.users.save(req.body);
+		}
+		res.cookie('rememberme', req.body.username, { maxAge: 900000, httpOnly: false });
+		res.send({}, 201);
 	});
 
-	app.delete('/login', function(req, res) {
+	app.delete('/user', function(req, res) {
 		res.clearCookie('rememberme');
 		res.send({});
 	});
 
-	app.get('/login', function(req, res){
+	app.get('/user', function(req, res){
 		if(req.cookies && req.cookies.rememberme)
 			res.send({name: req.cookies.rememberme});
 		else {
