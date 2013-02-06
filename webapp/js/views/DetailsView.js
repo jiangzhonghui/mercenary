@@ -32,17 +32,17 @@ define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView
             this.gmap = new GMapView();
             var self = this;
             _.delay(function () {
-                self.gmap.render();
+                self.gmap.render(this.model.id);
             }.bind(this), 1);
         },
-        fetchConcert: function() {
+        fetchConcert: function () {
             this.modelConcert.setArtist(this.model.get('artist_name'));
             this.modelConcert.fetch();
         },
-        renderConcert: function() {
+        renderConcert: function () {
             var events = this.modelConcert.get('events');
-            _.each(events.event, function(e) {
-                this.$('#venues').append('<li>' + e.venue.name + ' - ' +e.venue.location.city + ' - ' + e.venue.phonenumber + '</li>');
+            _.each(events.event, function (e) {
+                this.$('#venues').append('<li>' + e.venue.name + ' - ' + e.venue.location.city + ' - ' + e.venue.phonenumber + '</li>');
             });
         }
     });
