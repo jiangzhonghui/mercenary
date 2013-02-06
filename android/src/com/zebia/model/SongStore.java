@@ -11,65 +11,65 @@ import java.util.List;
 
 public class SongStore {
     private final static Gson gson = new Gson();
-    private static SerialCashDao<SongsResponse> cashDao;
+    private static SerialCashDao<Response> cashDao;
 
-    private static List<Song> songs = new ArrayList<Song>();
+    private static List<Artist> artists = new ArrayList<Artist>();
     private static int lastLoadedPage = -1;
     private static int resultsPerPage = 15;
 
     public static void init(Context context) {
-        cashDao = new SerialCashDao<SongsResponse>(new StorageItemsHelper(context, SongsResponse.class.getName()), SongsResponse.class);
+        cashDao = new SerialCashDao<Response>(new StorageItemsHelper(context, Response.class.getName()), Response.class);
     }
 
-    public static List<Song> get() {
-        return songs;
+    public static List<Artist> get() {
+        return artists;
     }
 
-    public static void add(Song song) {
-        songs.add(song);
+    public static void add(Artist song) {
+        artists.add(song);
     }
 
-    public static void addAll(Collection<? extends Song> songCollection) {
-        songs.addAll(songCollection);
+    public static void addAll(Collection<? extends Artist> songCollection) {
+        artists.addAll(songCollection);
     }
 
     public static void clear() {
-        songs.clear();
+        artists.clear();
     }
 
-    public static void remove(Song song) {
+    public static void remove(Artist song) {
         SongStore.remove(song);
     }
 
-    public static Song get(int songIndex) {
-        return songs.get(songIndex);
+    public static Artist get(int songIndex) {
+        return artists.get(songIndex);
     }
 
     public static String serialize() {
-        SongsResponse serial = new SongsResponse();
-        serial.setResults(songs);
+        Response serial = new Response();
+        serial.setResults(artists);
         serial.setPage(lastLoadedPage);
         return gson.toJson(serial);
     }
 
     public static void deserialize(String json) {
-        SongsResponse songsResponse = gson.fromJson(json, SongsResponse.class);
-        songs = songsResponse.getResults();
+        Response songsResponse = gson.fromJson(json, Response.class);
+        artists = songsResponse.getResults();
         lastLoadedPage = songsResponse.getPage();
     }
 
-    public static SongsResponse toSongResponse() {
-        SongsResponse serial = new SongsResponse();
-        serial.setResults(songs);
+    public static Response toSongResponse() {
+        Response serial = new Response();
+        serial.setResults(artists);
         serial.setPage(lastLoadedPage);
         return serial;
     }
 
-    public static void fromSongsResponse(SongsResponse songsResponse, boolean append) {
+    public static void fromSongsResponse(Response songsResponse, boolean append) {
         if (!append) {
-            songs.clear();
+            artists.clear();
         }
-        songs.addAll(songsResponse.getResults());
+        artists.addAll(songsResponse.getResults());
         lastLoadedPage = songsResponse.getPage();
         resultsPerPage = songsResponse.getResultsPerPage();
     }
@@ -84,7 +84,7 @@ public class SongStore {
 
     public static boolean isLastPage() {
         // TODO: not good
-        return songs.size() == 0 || songs.size() % resultsPerPage != 0;
+        return artists.size() == 0 || artists.size() % resultsPerPage != 0;
     }
 
     public static void persist() {
@@ -99,7 +99,7 @@ public class SongStore {
             throw new RuntimeException("Cache is not initialised");
         }
 
-        SongsResponse songsResponse = cashDao.restore();
+        Response songsResponse = cashDao.restore();
         if (songsResponse != null) {
             SongStore.fromSongsResponse(songsResponse, false);
         }

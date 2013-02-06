@@ -93,8 +93,8 @@ public class SongMapFragment extends SupportMapFragment implements GoogleMap.OnI
     private void addMarker(SongWrapper songWrapper) {
         Marker marker = getMap().addMarker(
                 new MarkerOptions().position(songWrapper.getLatLng())
-                        .title(songWrapper.getSong().getArtist_name())
-                        .snippet(songWrapper.getSong().getTitle()));
+                        .title(songWrapper.getSong().getArtist_name()));
+                      //  .snippet(songWrapper.getSong().getTitle()));
         markerSongMap.put(marker, songWrapper.getIndex());
     }
 
