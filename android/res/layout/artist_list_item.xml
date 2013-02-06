@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="fill_parent"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp"
+              android:paddingTop="8dp"
+              android:paddingBottom="8dp">
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tx_artist_name"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="placeholder"
+                android:textStyle="bold"
+                android:textSize="14dp"
+                android:singleLine="true"
+                android:textColor="#3baeff"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"/>
+        <TextView
+                android:id="@+id/tx_artist_id"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+
+                android:text="placeholder"
+                android:textSize="14dp"
+                android:singleLine="true"
+                android:textColor="#3baeff"
+                android:layout_weight="1"
+                android:layout_marginRight="10dp"/>
+
+        <ImageButton android:id="@+id/btn_favoris"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_gravity="right|bottom"
+                   android:background="@drawable/ic_rating_not_important"
+                   />
+    </LinearLayout>
+
+    <TextView
+            android:id="@+id/tx_artist_location"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="placeholder"
+            android:textSize="14dp" android:textColor="#fdff5a"/>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content">
+
+        <TextView
+                android:id="@+id/tx_artist_tags"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="italic"
+                android:layout_weight="1"
+                android:text="placeholder azkjehak akjzeh akjeha kejha kazjeh kajehazk jeh azkjeha "
+                android:textSize="14dp"/>
+    </LinearLayout>
+
+    <!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:orientation="horizontal"
+                  android:layout_width="wrap_content" android:layout_height="wrap_content"
+                  android:layout_gravity="right">
+
+        <TextView
+                android:id="@+id/tx_item_status"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/status_new"
+                android:textSize="8dp"
+                android:paddingBottom="2dp" android:paddingRight="4dp"
+                android:textColor="#f2f302"
+                />
+
+        <TextView
+                android:id="@+id/tx_item_owner"
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="By X"
+                android:textSize="8dp"
+                android:paddingBottom="2dp"
+                android:textColor="#ff9700"
+                />
+    </LinearLayout>-->
+
+</LinearLayout>

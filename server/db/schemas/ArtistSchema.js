@@ -16,7 +16,8 @@ var ArtistSchema = new mongoose.Schema({
     artist_mbtags: [String],
     artist_mbtags_count: [Number],
     artist_terms: [String],
-    similar_artists: [String]
+    similar_artists: [String],
+    image: String
 });
 
 module.exports = ArtistSchema;

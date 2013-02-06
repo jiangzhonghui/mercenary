@@ -11,6 +11,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.zebia.R;
 import com.zebia.SongActivity;
 import com.zebia.SongMapActivity;
+import com.zebia.model.Artist;
 import com.zebia.model.Song;
 import com.zebia.model.SongStore;
 import com.zebia.model.SongWrapper;
@@ -18,7 +19,7 @@ import com.zebia.utils.Geocoding;
 
 public class SongDetailsFragment extends Fragment {
     private int index;
-    private Song song;
+    private Artist song;
 
     public SongDetailsFragment() {
     }
@@ -63,10 +64,12 @@ public class SongDetailsFragment extends Fragment {
             TextView txTitle = (TextView) getView().findViewById(R.id.tx_detail_song_title);
             TextView txYear = (TextView) getView().findViewById(R.id.tx_detail_song_year);
 
+/*
             txArtist.setText(song.getArtist_name());
             txRelease.setText(song.getRelease());
             txTitle.setText(song.getTitle());
             txYear.setText(String.valueOf(song.getYear()));
+*/
         }
     }
 
@@ -107,7 +110,7 @@ public class SongDetailsFragment extends Fragment {
         return index;
     }
 
-    public Song getSong() {
+    public Artist getSong() {
         return song;
     }
 

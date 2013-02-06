@@ -25,12 +25,9 @@ define(['text!templates/signup.mustache', 'models/UserModel'],
                         Backbone.trigger('signup');
                     },
                     error: function () {
-                        var n = noty({
+                        noty({
                             text: 'Votre inscription n‘a pas pu aboutir.',
-                            type: 'error',
-                            dismissQueue: true,
-                            layout: 'bottomRight',
-                            theme: 'defaultTheme'
+                            type: 'error'
                         });
                     }
                 });

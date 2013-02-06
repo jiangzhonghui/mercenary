@@ -26,7 +26,7 @@ public class BaseParamsMapper implements ParamsMapper {
         if (mountPoint.length() > 0) {
             uriBuilder.appendPath(mountPoint);
         }
-        uriBuilder.appendPath("song");
+        uriBuilder.appendPath("artist");
         return uriBuilder;
     }
 

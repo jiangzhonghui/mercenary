@@ -2,8 +2,10 @@ package com.zebia.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -16,23 +18,22 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.zebia.R;
-import com.zebia.SettingsActivity;
-import com.zebia.SongActivity;
-import com.zebia.SongMapActivity;
+import com.zebia.*;
 import com.zebia.adapter.SongArrayAdapter;
 import com.zebia.loaders.SerialLoader;
 import com.zebia.loaders.params.ParamsMapper;
 import com.zebia.loaders.params.RestParamBuilder;
 import com.zebia.loaders.params.SearchParams;
 import com.zebia.loaders.params.SongsParamsMapper;
+import com.zebia.model.Artist;
+import com.zebia.model.Response;
 import com.zebia.model.SongStore;
 import com.zebia.model.SongsResponse;
 import com.zebia.utils.Animations;
 
 public class SongListFragment extends Fragment implements
         AdapterView.OnItemClickListener,
-        LoaderManager.LoaderCallbacks<SerialLoader.RestResponse<SongsResponse>>,
+        LoaderManager.LoaderCallbacks<SerialLoader.RestResponse<Response>>,
         SearchView.OnQueryTextListener,
         PullToRefreshBase.OnRefreshListener<ListView> {
 
@@ -159,6 +160,13 @@ public class SongListFragment extends Fragment implements
                 intent.putExtra(SongActivity.SONG_INDEX, -1); // All locations
                 startActivity(intent);
 
+            case R.id.menu_logout_song:
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+                prefEditor.putString(LoginActivity.USER_MAIL_LOGIN, "NONE-");
+                prefEditor.commit();
+
+
                 break;
             case R.id.menu_preferences_song:
                 Intent launchPreferencesIntent = new Intent().setClass(getActivity(), SettingsActivity.class);
@@ -183,7 +191,7 @@ public class SongListFragment extends Fragment implements
     // ---------------------------------------------------------------------------------------------------
 
     @Override
-    public Loader<SerialLoader.RestResponse<SongsResponse>> onCreateLoader(int id, Bundle args) {
+    public Loader<SerialLoader.RestResponse<Response>> onCreateLoader(int id, Bundle args) {
         Log.d(LOG_TAG, "Begin onCreateLoader()");
 
         if (args != null && args.containsKey(RestParamBuilder.ARGS_URI)) {
@@ -191,14 +199,15 @@ public class SongListFragment extends Fragment implements
             Bundle params = args.getParcelable(RestParamBuilder.ARGS_PARAMS);
             Boolean reload = args.getBoolean(RestParamBuilder.ARGS_RELOAD);
 
-            return new SerialLoader(getActivity(), SerialLoader.HTTPVerb.GET, action, params, reload, SongsResponse.class);
+            return new SerialLoader(getActivity(), SerialLoader.HTTPVerb.GET, action, params, reload, Response.class);
         }
 
         return null;
     }
 
+
     @Override
-    public void onLoadFinished(Loader<SerialLoader.RestResponse<SongsResponse>> loader, SerialLoader.RestResponse<SongsResponse> data) {
+    public void onLoadFinished(Loader<SerialLoader.RestResponse<Response>> loader, SerialLoader.RestResponse<Response> data) {
         pullToRefreshListView.onRefreshComplete();
         getActivity().setProgressBarIndeterminateVisibility(false);
 
@@ -225,7 +234,7 @@ public class SongListFragment extends Fragment implements
     }
 
     @Override
-    public void onLoaderReset(Loader<SerialLoader.RestResponse<SongsResponse>> loader) {
+    public void onLoaderReset(Loader<SerialLoader.RestResponse<Response>> loader) {
         Log.d(LOG_TAG, "Begin onLoaderReset()");
     }
 
@@ -246,6 +255,7 @@ public class SongListFragment extends Fragment implements
 
         Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
                 .putParam(SearchParams.ARTIST_NAME, searchQuery).build();
+
         getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
 
         return true;

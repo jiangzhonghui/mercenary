@@ -1,4 +1,4 @@
-define(['text!templates/details.mustache', 'models/SongModel'], function (template, SongModel) {
+define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView'], function (template, ArtistModel, GMapView) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
@@ -6,23 +6,30 @@ define(['text!templates/details.mustache', 'models/SongModel'], function (templa
             'click .details-back': 'goBack'
         },
         initialize: function () {
-            this.model = new SongModel();
-            this.model.id = this.options.songId;
-            this.model.on('change', this.renderSong, this);
+            this.model = new ArtistModel();
+            this.model.id = this.options.artistId;
+            this.model.on('change', this.renderArtist, this);
             this.model.on('load', this.loadedElement, this);
         },
         render: function () {
             this.model.fetch();
             return this;
         },
-        renderSong: function () {
-            this.model.load('segments_pitches');
+        renderArtist: function () {
             this.transition(this.template.render(this.model.forTemplate()));
+            this.renderGMap();
         },
         loadedElement: function () {
         },
         goBack: function () {
             window.history.back();
+        },
+        renderGMap: function () {
+            this.gmap = new GMapView();
+            var self = this;
+            _.delay(function () {
+                self.gmap.render();
+            }, 1);
         }
     });
 });
