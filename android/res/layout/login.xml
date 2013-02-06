@@ -48,8 +48,9 @@
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="User name"
-            android:id="@+id/et_login_username" android:layout_gravity="center|bottom"/>
+            android:hint="User name"
+
+            android:id="@+id/et_login_username" android:layout_gravity="center|bottom" />
 
     <TextView
             android:layout_width="wrap_content"
@@ -61,8 +62,10 @@
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Email"
-            android:id="@+id/et_login_email" android:layout_gravity="center|bottom"/>
+            android:hint="Email"
+
+            android:id="@+id/et_login_email"
+            android:layout_gravity="center|bottom"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -74,7 +77,8 @@
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="City"
+            android:hint="City"
+            android:lines="1"
             android:id="@+id/et_login_city" android:layout_gravity="center|bottom"/>
 
 
@@ -89,6 +93,13 @@
                   android:paddingBottom="4dp">
 
     </LinearLayout>
+
+    <Button
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Log in"
+            android:enabled="false"
+            android:id="@+id/bt_login"/>
 
 </LinearLayout>
 
