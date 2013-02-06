@@ -70,7 +70,7 @@ module.exports = function(app, db, logger) {
                     var diff = _.filter(artists, function (artist) {
                         return !_.contains(alreadySavedIds, artist.artist_id);
                     });
-                    db.timeline.save({username: mail, artist: diff, type: 'like'}, {safe: true}, function () {
+                    db.timeline.save({username: req.body.username, artist: diff, type: 'like'}, {safe: true}, function () {
                     });
                 }
 			});
