@@ -1,10 +1,28 @@
 module.exports = function(app, db, logger) {
 	app.post('/user', function(req, res) {
 		if(req.body.city && req.body.username) {
-			db.users.save(req.body);
+			db.users.findOne({mail: req.body.mail}, function(err, user) {
+				if(!user) {
+					db.users.save(req.body, function() {
+						res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
+						res.send(req.body, 201);
+					});
+				} else {
+					res.statusCode = 401;
+					res.send();
+				}
+			});
+		} else {
+			db.users.findOne({mail: req.body.mail}, function(err, user) {
+				if(user) {
+					res.cookie('rememberme', user, { maxAge: 900000, httpOnly: false });
+					res.send(user);
+				} else {
+					res.statusCode = 401;
+					res.send();
+				}
+			});
 		}
-		res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
-		res.send(req.body, 201);
 	});
 
 	app.delete('/user', function(req, res) {

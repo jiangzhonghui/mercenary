@@ -23,7 +23,7 @@ define(['models/LoginModel'], function (LoginModel) {
             event.preventDefault();
             var name = $('#login').find('input').val();
             if (name)
-                this.model.save({name: name});
+                this.model.save({mail: name});
         },
         refresh: function () {
             if (document.cookie) this.model.fetch();
