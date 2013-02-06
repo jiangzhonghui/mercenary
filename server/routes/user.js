@@ -34,6 +34,18 @@ module.exports = function(app, db, logger) {
 		});
 	};
 
+	app.put('/user', function(req, res) {
+		db.users.findOne({mail: req.body.mail}, function(err, user) {
+			if(!user)
+				unauthorized();
+
+			db.users.update({mail: req.body.mail}, {$set: {artists: req.body.artists}}, {safe: true}, function() {
+				user.artists = req.body.artists;
+				res.send(user);
+			});
+		});	
+	});
+
 	app.delete('/user', function(req, res) {
 		res.clearCookie('rememberme');
 		res.send({});
