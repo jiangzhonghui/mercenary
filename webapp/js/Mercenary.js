@@ -4,6 +4,7 @@ requirejs.config({
         backbone: 'lib/backbone-min',
         underscore: 'lib/underscore-min',
         jquery: 'lib/jquery-min',
+        noty: 'lib/noty',
         tablesorter: 'lib/jquery.tablesorter.min',
         tsWidgets: 'lib/jquery.tablesorter.widgets.min',
         mustache: 'lib/mustache',
@@ -16,6 +17,7 @@ requirejs.config({
         'underscore': { exports: '_' },
         'tablesorter': { deps: ['jquery'] },
         'tsWidgets': { deps: ['tablesorter'] },
+        'noty': {deps: ['jquery']},
         'Router': { deps: [ 'backbone' ] }
     }
 });
@@ -25,7 +27,7 @@ requirejs.onError = function (err) {
     console.log(err.requireModules);
 };
 
-requirejs(['Router', 'tsWidgets', 'hogan'], function (Router) {
+requirejs(['Router', 'tsWidgets', 'noty', 'hogan'], function (Router) {
     var Mercenary = window.Mercenary = {};
 
     _.extend(Backbone.View.prototype, {
