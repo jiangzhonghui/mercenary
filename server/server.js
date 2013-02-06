@@ -14,7 +14,7 @@ app.use(express.favicon());
 app.use(logger.express(express));
 
 require('./routes/mongook')(logger, config);
-require('./routes/login')(app, db, logger);
+require('./routes/user')(app, db, logger);
 require('./routes/songIdx')(app, logger);
 require('./routes/song')(app, logger);
 

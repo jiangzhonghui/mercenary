@@ -3,7 +3,7 @@ module.exports = function(app, db, logger) {
 		if(req.body.city && req.body.username) {
 			db.users.save(req.body);
 		}
-		res.cookie('rememberme', req.body.username, { maxAge: 900000, httpOnly: false });
+		res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
 		res.send(req.body, 201);
 	});
 
@@ -14,7 +14,7 @@ module.exports = function(app, db, logger) {
 
 	app.get('/user', function(req, res){
 		if(req.cookies && req.cookies.rememberme)
-			res.send({name: req.cookies.rememberme});
+			res.send(req.cookies.rememberme);
 		else {
 			res.statusCode = 401;
 			res.send();
@@ -22,6 +22,9 @@ module.exports = function(app, db, logger) {
 	});
 };
 
-module.exports.isLogged = function(req) {
-	return req.cookies && req.cookies.rememberme;
-};
+module.exports.get = function(req) {
+	if(req.cookies && req.cookies.rememberme)
+		return req.cookies.rememberme;
+	else 
+		return undefined;
+}
