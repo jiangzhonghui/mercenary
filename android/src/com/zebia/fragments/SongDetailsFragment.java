@@ -71,24 +71,24 @@ public class SongDetailsFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.action_bar_song_details, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_song_details_map:
-                Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
-                intent.putExtra(SongActivity.SONG_INDEX, index);
-                startActivity(intent);
-                break;
-        }
-
-        return true;
-    }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+//        super.onCreateOptionsMenu(menu, inflater);
+//        inflater.inflate(R.menu.action_bar_song_details, menu);
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        switch (item.getItemId()) {
+//            case R.id.menu_song_details_map:
+//                Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
+//                intent.putExtra(SongActivity.SONG_INDEX, index);
+//                startActivity(intent);
+//                break;
+//        }
+//
+//        return true;
+//    }
 
     public int getIndex() {
         return index;

@@ -55,7 +55,6 @@ public class SongMapFragment extends SupportMapFragment implements GoogleMap.OnI
         }
 
         getMap().setOnInfoWindowClickListener(this);
-
     }
 
     private void placeSongs(List<SongWrapper> songs) {
@@ -73,7 +72,6 @@ public class SongMapFragment extends SupportMapFragment implements GoogleMap.OnI
         }
         getMap().moveCamera(cameraUpdate);
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

@@ -136,9 +136,9 @@ public class SongListFragment extends Fragment implements
     public void onResume() {
         super.onResume();
 
-        if (SongStore.get().size() == 0) {
-            SongStore.restore();
-        }
+//        if (SongStore.get().size() == 0) {
+//            SongStore.restore();
+//        }
         updateViewFromStore();
     }
 

@@ -6,6 +6,6 @@
           android:showAsAction="always|withText"
           android:icon="@drawable/ic_action_locate"
           android:title="@string/menu_song_map"
-          android:enabled="false"/>
+            />
 
 </menu>

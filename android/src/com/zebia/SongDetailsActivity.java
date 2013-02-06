@@ -71,7 +71,7 @@ public class SongDetailsActivity extends FragmentActivity implements ViewPager.O
     @Override
     public void onPageSelected(int i) {
         Artist song = SongStore.get(i);
-        menuMapItem.setVisible(false); //new SongWrapper(song).hasLocation());
+        menuMapItem.setVisible(false);// //new SongWrapper(song).hasLocation());
     }
 
     @Override
