@@ -31,7 +31,7 @@ define(['backbone', 'views/MenuView', 'views/LoginView'], function (Backbone, Me
         },
         signup: function () {
             require([ 'views/SignupView' ], Mercenary.router.changeView);
-            this.menu.highlight();
+            this.menu.highlight(4);
         },
         changeView: function (View, options) {
             if (this.currentView) {
