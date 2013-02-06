@@ -5,7 +5,11 @@ define(['text!templates/infoWindow.mustache'], function (infoWindowTemplate) {
         currentMarkers: [],
         initialize: function () {
         },
-        render: function () {
+        render: function (artist) {
+            console.log(artist);
+            $.get('/artist/users/' + artist, function (response) {
+                console.log(response);
+            });
             this.initGmaps();
             this.initHeatmap();
         },

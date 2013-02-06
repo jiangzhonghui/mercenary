@@ -28,8 +28,8 @@ define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView
             this.gmap = new GMapView();
             var self = this;
             _.delay(function () {
-                self.gmap.render();
-            }, 1);
+                self.gmap.render(this.model.id);
+            }.bind(this), 1);
         }
     });
 });
