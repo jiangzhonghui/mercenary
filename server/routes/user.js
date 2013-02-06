@@ -64,13 +64,15 @@ module.exports = function(app, db, logger) {
 						res.send(user);
 					});
 
-					var differences = _.difference(artists, user.artists);
-					if(!_.isEmpty(differences)) {
-						_.each(differences, function(difference) {
-							db.timeline.save({username: mail, artist: difference, type: 'like'});
-						});
-					}
-				}
+                    var alreadySavedIds = user.artists.map(function (artist) {
+                        return artist.artist_id
+                    });
+                    var diff = _.filter(artists, function (artist) {
+                        return !_.contains(alreadySavedIds, artist.artist_id);
+                    });
+                    db.timeline.save({username: mail, artist: diff, type: 'like'}, {safe: true}, function () {
+                    });
+                }
 			});
 		}	
 	});
