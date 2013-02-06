@@ -2,6 +2,7 @@ define(function () {
     return Backbone.Model.extend({
         defaults: {
         },
+        idAttribute: '_id',
         urlRoot: 'artist',
         initialize: function () {
         },

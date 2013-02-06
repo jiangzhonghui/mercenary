@@ -1,4 +1,4 @@
-define(['text!templates/details.mustache', 'models/SongModel'], function (template, SongModel) {
+define(['text!templates/details.mustache', 'models/ArtistModel'], function (template, ArtistModel) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
@@ -6,17 +6,16 @@ define(['text!templates/details.mustache', 'models/SongModel'], function (templa
             'click .details-back': 'goBack'
         },
         initialize: function () {
-            this.model = new SongModel();
-            this.model.id = this.options.songId;
-            this.model.on('change', this.renderSong, this);
+            this.model = new ArtistModel();
+            this.model.id = this.options.artistId;
+            this.model.on('change', this.renderArtist, this);
             this.model.on('load', this.loadedElement, this);
         },
         render: function () {
             this.model.fetch();
             return this;
         },
-        renderSong: function () {
-            this.model.load('segments_pitches');
+        renderArtist: function () {
             this.transition(this.template.render(this.model.forTemplate()));
         },
         loadedElement: function () {
