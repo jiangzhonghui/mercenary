@@ -35,7 +35,7 @@ define(['text!templates/search.mustache', './ResultView', 'models/ArtistCollecti
                 searchWithPage.push({
                     name: "results_per_page",
                     value: "15"
-                })
+                });
                 this.keepSearch();
 
                 this.artists.fetch({data: $.param(searchWithPage)});
