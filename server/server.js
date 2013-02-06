@@ -17,6 +17,8 @@ require('./routes/mongook')(logger, config);
 require('./routes/user')(app, db, logger);
 require('./routes/songIdx')(app, logger);
 require('./routes/song')(app, logger);
+require('./routes/artist')(app, logger);
+
 
 app.listen(3000);
 logger.info("Server is listening for HTTP requests on port 3000...");
