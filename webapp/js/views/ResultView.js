@@ -4,7 +4,7 @@ define(['text!templates/result.mustache'], function (template) {
         template: Hogan.compile(template),
         events: {
             'click :not(.star)': 'seeDetails',
-            'click .star': 'starArtist'
+            'click .star:not(.favorite)': 'starArtist'
         },
         initialize: function () {
             if (Mercenary.user) this.listenTo(Mercenary.user, 'sync', this.render);
@@ -19,7 +19,7 @@ define(['text!templates/result.mustache'], function (template) {
         starArtist: function () {
             var self = this;
             Mercenary.user.get('artists').push({
-                artist_id: this.model.get('artist_id'),
+                _id: this.model.get('_id'),
                 artist_name: this.model.get('artist_name')
             });
             Mercenary.user.save();

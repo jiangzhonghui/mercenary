@@ -18,6 +18,7 @@ module.exports = function(app, db, logger) {
                     var body = req.body;
                     body.loc = location;
                     db.users.save(req.body, {safe: true}, function () {
+                        logger.info("User has been created");
                         res.cookie('rememberme', req.body, { maxAge: 900000000000, httpOnly: false });
                         res.send(req.body, 201);
                     });
@@ -32,7 +33,7 @@ module.exports = function(app, db, logger) {
             if (body && body.results.length !== 0) {
                 loc = body.results[0].geometry.location;
             }
-
+            logger.debug(city + "geolocated to " + loc);
             whenGeolocated({latitude: loc.lat, longitude: loc.lng});
         });
     };
@@ -64,13 +65,18 @@ module.exports = function(app, db, logger) {
 						res.send(user);
 					});
 
-					var differences = _.difference(artists, user.artists);
-					if(!_.isEmpty(differences)) {
-						_.each(differences, function(difference) {
-							db.timeline.save({username: mail, artist: difference, type: 'like'});
-						});
-					}
-				}
+                    var alreadySavedIds = [];
+                    if (user.artists) {
+                        alreadySavedIds = user.artists.map(function (artist) {
+                        return artist.artist_id
+                    });
+                    }
+                    var diff = _.filter(artists, function (artist) {
+                        return !_.contains(alreadySavedIds, artist.artist_id);
+                    });
+                    db.timeline.save({username: req.body.username, artist: diff, type: 'like'}, {safe: true}, function () {
+                    });
+                }
 			});
 		}	
 	});

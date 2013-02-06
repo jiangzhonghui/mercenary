@@ -7,39 +7,14 @@ define(['text!templates/pushline.mustache', 'text!templates/pushRow.mustache', '
             'click .toggle': 'toggle'
         },
         initialize: function () {
-            this.pushCollection = new PushCollection([
-                {title: "Mon préféré", content: "C'est Julien Clerc !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Britney !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Madonna !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Julien Clerc !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Britney !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Madonna !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Julien Clerc !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Britney !", date: 1360146126657},
-                {title: "Mon préféré", content: "C'est Madonna !"},
-                {title: "Mon préféré", content: "C'est Julien Clerc !"},
-                {title: "Mon préféré", content: "C'est Britney !"},
-                {title: "Mon préféré", content: "C'est Madonna !"},
-                {title: "Mon préféré", content: "C'est Julien Clerc !"},
-                {title: "Mon préféré", content: "C'est Britney !"},
-                {title: "Mon préféré", content: "C'est Madonna !"},
-                {title: "Mon préféré", content: "C'est Julien Clerc !"},
-                {title: "Mon préféré", content: "C'est Britney !"},
-                {title: "Mon préféré", content: "C'est Madonna !"},
-                {title: "Mon préféré", content: "C'est Julien Clerc !"},
-                {title: "Mon préféré", content: "C'est Britney !"},
-                {title: "Mon préféré", content: "C'est Madonna !"},
-                {title: "Mon préféré", content: "C'est MJ !"}
-            ]);
-            this.render();
+            this.pushCollection = new PushCollection();
+            this.pushCollection.on('reset', this.render, this);
+            this.pushCollection.fetch();
         },
         render: function () {
             var self = this;
 
             this.$el.html(this.template.render());
-            this.pushCollection = new PushCollection(this.pushCollection.sortBy(function (push) {
-                return push.get('date');
-            }));
             this.pushCollection.each(function (pushModel) {
                 self.$('ul').append(self.pushRowTemplate.render(pushModel.toJSON()));
             });
