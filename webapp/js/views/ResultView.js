@@ -24,7 +24,7 @@ define(['text!templates/result.mustache'], function (template) {
             });
             Mercenary.user.save();
             noty({
-                text: 'Artist' + this.model.get('artist_name') + ' has been starded !',
+                text: 'Artist ' + this.model.get('artist_name') + ' has been starred !',
                 type: 'success'
             });
         }
