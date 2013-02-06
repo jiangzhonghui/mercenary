@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_preferences_song"
+          android:showAsAction="never|withText"
+          android:icon="@drawable/ic_action_settings"
+          android:title="@string/menu_preferences"
+          android:visible="true" />
+
+</menu>

@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
+import com.zebia.AppSettings;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -160,7 +161,7 @@ public class RESTLoader extends AsyncTaskLoader<RESTLoader.RESTResponse> {
             }
 
             if (request != null) {
-                HttpClient client = new DefaultHttpClient();
+                HttpClient client = AppSettings.getClient();
 
                 // Let's send some useful debug information so we can monitor things
                 // in LogCat.

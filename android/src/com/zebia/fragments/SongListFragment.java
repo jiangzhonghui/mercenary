@@ -2,8 +2,10 @@ package com.zebia.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
@@ -16,10 +18,7 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import com.handmark.pulltorefresh.library.PullToRefreshBase;
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
-import com.zebia.R;
-import com.zebia.SettingsActivity;
-import com.zebia.SongActivity;
-import com.zebia.SongMapActivity;
+import com.zebia.*;
 import com.zebia.adapter.SongArrayAdapter;
 import com.zebia.loaders.SerialLoader;
 import com.zebia.loaders.params.ParamsMapper;
@@ -158,6 +157,13 @@ public class SongListFragment extends Fragment implements
                 Intent intent = new Intent().setClass(getActivity(), SongMapActivity.class);
                 intent.putExtra(SongActivity.SONG_INDEX, -1); // All locations
                 startActivity(intent);
+
+            case R.id.menu_logout_song:
+                SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getActivity());
+                SharedPreferences.Editor prefEditor = sharedPreferences.edit();
+                prefEditor.putString(LoginActivity.USER_MAIL_LOGIN, "NONE-");
+                prefEditor.commit();
+
 
                 break;
             case R.id.menu_preferences_song:

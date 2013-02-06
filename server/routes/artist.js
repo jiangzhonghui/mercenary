@@ -1,5 +1,7 @@
 var ArtistQuery = require('../db/queries/ArtistQuery');
 var User = require('./user.js');
+var Request = require('request').defaults({json: true})
+var XmlParser = require('xml2js').parseString;
 
 module.exports = function (app, logger) {
 
@@ -17,6 +19,10 @@ module.exports = function (app, logger) {
 
         if (page && results_per_page) {
             ArtistQuery.pagination(search, page, results_per_page, function (artists) {
+                _.each(artists, function(artist) {
+                     var i = Math.floor(Math.random() * 500);
+                     artist.image = "http://cdn.7static.com/static/img/artistimages/00/000/000/0000000" + i + "_150.jpg";
+                })
                 res.send({
                     page: page,
                     results_per_page: results_per_page,
@@ -25,7 +31,7 @@ module.exports = function (app, logger) {
             });
         } else {
             ArtistQuery.findAll(search, function (artists) {
-                res.send(artists);
+                res.send(artists);                
             });
         }
     });
@@ -34,7 +40,19 @@ module.exports = function (app, logger) {
 
     app.get('/artist/:id', function (req, res) {
         ArtistQuery.findOne(req.param('id'), function (artist) {
-            res.send(artist);
+            artist.image = "toto";
+            url = "http://api.7digital.com/1.2/artist/details?artistId=" + artist.artist_7digitalid + "&imageSize=100&oauth_consumer_key=7dqm93aabzws";
+            request(url, function (error, response, body) {
+              if (!error && response.statusCode == 200) {
+                XmlParser(body, function(error, result){
+                    artist.image = result.response.artist[0].image;
+                    res.send(artist);
+                });
+              } else {
+                console.log("ERROR STATUS " + response);
+                res.send(artist);
+              }
+            })
         });
     });
 
