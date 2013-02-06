@@ -45,6 +45,16 @@ requirejs(['Router', 'tsWidgets', 'noty', 'hogan'], function (Router) {
         }
     });
 
+    $.noty.defaults = {
+        layout: 'bottomRight',
+        theme: 'default',
+        dismissQueue: true, // If you want to use queue feature set this true
+        timeout: 4000, // delay for closing event. Set false for sticky notifications
+        force: true, // adds notification to the beginning of queue when set to true
+        modal: false,
+        closeWith: ['click'] // ['click', 'button', 'hover']
+    };
+
     Mercenary.events = _.extend({}, Backbone.Events);
 
     Mercenary.router = new Router();
