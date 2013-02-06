@@ -18,7 +18,7 @@ require('./routes/user')(app, db, logger);
 require('./routes/songIdx')(app, logger);
 require('./routes/song')(app, logger);
 require('./routes/concert')(app, logger);
-require('./routes/artist')(app, logger);
+require('./routes/artist')(app, db, logger);
 require('./routes/timeline')(app, db, logger);
 
 app.listen(3000);

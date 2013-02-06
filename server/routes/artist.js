@@ -3,7 +3,7 @@ var User = require('./user.js');
 var Request = require('request').defaults({json: true})
 var XmlParser = require('xml2js').parseString;
 
-module.exports = function (app, logger) {
+module.exports = function (app, db, logger) {
 
     app.get('/artist', function (req, res) {
         var search = {},
@@ -61,5 +61,16 @@ module.exports = function (app, logger) {
         ArtistQuery.findField(req.param('field'), req.param('id'), function (field) {
             res.send(field);
         })
+    });
+    app.get('/artist/users/:id', function (req, res) {
+        var artistId = req.param('id');
+        db.users.find({ 'artists.artist_id' : { $in : [ ""+artistId] }}, function (err, users) {
+            if(!err){
+                res.send(users);
+            } else {
+                logger.error(err);
+            }
+
+        });
     });
 };
