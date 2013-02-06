@@ -1,4 +1,4 @@
-define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView'], function (template, ArtistModel, GMapView) {
+define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView', 'models/ConcertModel'], function (template, ArtistModel, GMapView, ConcertModel) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
@@ -10,6 +10,9 @@ define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView
             this.model.id = this.options.artistId;
             this.model.on('change', this.renderArtist, this);
             this.model.on('load', this.loadedElement, this);
+
+            this.modelConcert = new ConcertModel();
+            this.modelConcert.on('sync', this.renderConcert, this);
         },
         render: function () {
             this.model.fetch();
@@ -18,6 +21,7 @@ define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView
         renderArtist: function () {
             this.transition(this.template.render(this.model.forTemplate()));
             this.renderGMap();
+            this.fetchConcert();
         },
         loadedElement: function () {
         },
@@ -30,6 +34,16 @@ define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView
             _.delay(function () {
                 self.gmap.render();
             }, 1);
+        },
+        fetchConcert: function() {
+            this.modelConcert.setArtist(this.model.get('artist_name'));
+            this.modelConcert.fetch();
+        },
+        renderConcert: function() {
+            var events = this.modelConcert.get('events');
+            _.each(events.event, function(e) {
+                this.$('#venues').append('<li>' + e.venue.name + ' - ' +e.venue.location.city + ' - ' + e.venue.phonenumber + '</li>');
+            });
         }
     });
 });
