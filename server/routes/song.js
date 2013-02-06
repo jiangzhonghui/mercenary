@@ -52,7 +52,6 @@ module.exports = function (app, logger) {
     app.delete('/song/:id', function (req, res) {
         var user = User.get(req);
         if (user) {
-            console.log(user);
             SongQuery.remove(req.param('id'), function (song) {
                 res.send(song);
             });
