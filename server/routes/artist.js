@@ -16,7 +16,6 @@ module.exports = function (app, db, logger) {
             logger.debug('you search with args %s : %s', queryName, search[queryName]);
         });
 
-
         if (page && results_per_page) {
             ArtistQuery.pagination(search, page, results_per_page, function (artists) {
                 _.each(artists, function(artist) {
