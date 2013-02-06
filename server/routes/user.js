@@ -41,6 +41,8 @@ module.exports = function(app, db, logger) {
 				user.artists = req.body.artists;
 				res.send(user);
 			});
+
+			console.log(_.difference(user.artists, req.body.artists));
 		});	
 	});
 
@@ -53,7 +55,9 @@ module.exports = function(app, db, logger) {
 		if(!authenticated(req))
 			unauthorized(res);
 		
-		res.send(req.cookies.rememberme);
+		db.users.findOne({mail: req.cookies.rememberme.mail}, function(err, user) {
+			res.send(user);
+		});
 	});
 
 	var unauthorized = function(res) {
