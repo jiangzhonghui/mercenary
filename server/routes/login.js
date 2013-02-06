@@ -4,7 +4,7 @@ module.exports = function(app, db, logger) {
 			db.users.save(req.body);
 		}
 		res.cookie('rememberme', req.body.username, { maxAge: 900000, httpOnly: false });
-		res.send({}, 201);
+		res.send(req.body, 201);
 	});
 
 	app.delete('/user', function(req, res) {
