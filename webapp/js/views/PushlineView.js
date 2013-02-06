@@ -3,6 +3,9 @@ define(['text!templates/pushline.mustache', 'text!templates/pushRow.mustache', '
         el: '#pushline',
         template: Hogan.compile(template),
         pushRowTemplate: Hogan.compile(pushRowTemplate),
+        events: {
+            'click .toggle': 'toggle'
+        },
         initialize: function () {
             this.pushCollection = new PushCollection([
                 {title: "Mon préféré", content: "C'est Julien Clerc !", date: 1360146126657},
@@ -41,6 +44,9 @@ define(['text!templates/pushline.mustache', 'text!templates/pushRow.mustache', '
                 self.$('ul').append(self.pushRowTemplate.render(pushModel.toJSON()));
             });
             return this;
+        },
+        toggle: function () {
+            this.$el.toggleClass('hide');
         }
     });
 });

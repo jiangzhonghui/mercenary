@@ -166,6 +166,9 @@ body {
 			}
 			@media screen and (min-width: 550px) and (max-width: 920px) {
 				.border-radius-top(15px);
+                &:last-child {
+                    margin-right: 40px
+                }
 			}
 			@media screen and (max-width: 920px) {
 				.background-gradient(#FDFDFD, #EEE);
@@ -526,6 +529,9 @@ aside {
     background: @light-grey;
     .box-shadow(-1px -1px 6px #555);
     padding: 10px;
+    .transition-property(color margin-top);
+    .transition-duration(0.3s);
+    .transition-timing-function(ease);
 
     h3 {
         font-size: 14px;
@@ -536,6 +542,16 @@ aside {
         list-style: none;
         padding: 10px 0;
         font-size: 12px;
+        width: 200px;
+    }
+
+    .toggle {
+        float: right;
+    }
+
+    &.hide {
+        h3, ul {display: none;}
+        width: 5px;
     }
 }
 
