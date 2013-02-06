@@ -10,7 +10,7 @@ module.exports = function(app, db, logger) {
 	var createAccount = function(req, res) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(user)
-				unauthorized();
+				unauthorized(res);
 
 			db.users.save(req.body, function() {
 				res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
@@ -22,7 +22,7 @@ module.exports = function(app, db, logger) {
 	var connectToAccount = function(req, res) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(!user)
-				unauthorized();
+				unauthorized(res);
 
 			res.cookie('rememberme', user, { maxAge: 900000, httpOnly: false });
 			res.send(user);
@@ -35,7 +35,7 @@ module.exports = function(app, db, logger) {
 
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(!user)
-				unauthorized();
+				unauthorized(res);
 
 			db.users.update({mail: req.body.mail}, {$set: {artists: req.body.artists}}, {safe: true}, function() {
 				user.artists = req.body.artists;
