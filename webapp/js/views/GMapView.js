@@ -1,4 +1,4 @@
-define(['text!templates/infoWindow.mustache'], function (infoWindowTemplate) {
+define(['text!templates/infoWindow.mustache', 'async!http://maps.google.com/maps/api/js?key=AIzaSyAInovLpMIXZHoapvG-gduf--guMd6FntQ&sensor=true!callback'], function (infoWindowTemplate) {
     return Backbone.View.extend({
         el: '#mapCanvas',
         infoWindowTemplate: Hogan.compile(infoWindowTemplate),
