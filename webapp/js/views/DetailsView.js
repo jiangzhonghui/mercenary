@@ -1,4 +1,4 @@
-define(['text!templates/details.mustache', 'models/ArtistModel'], function (template, ArtistModel) {
+define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView'], function (template, ArtistModel, GMapView) {
     return Backbone.View.extend({
         el: '#body',
         template: Hogan.compile(template),
@@ -22,6 +22,13 @@ define(['text!templates/details.mustache', 'models/ArtistModel'], function (temp
         },
         goBack: function () {
             window.history.back();
+        },
+        renderGMap: function () {
+            this.gmap = new GMapView();
+            var self = this;
+            _.delay(function () {
+                self.gmap.render();
+            }, 1);
         }
     });
 });

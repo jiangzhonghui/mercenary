@@ -8,7 +8,6 @@ define(['text!templates/result.mustache'], function (template) {
         },
         render: function () {
             this.$el.html(this.template.render(this.model.forTemplate()));
-            Backbone.trigger('gmap:add', this.model);
             return this;
         },
         seeDetails: function () {
@@ -19,7 +18,7 @@ define(['text!templates/result.mustache'], function (template) {
                 artist_id: this.model.get('artist_id'),
                 artist_name: this.model.get('artist_name')
             });
-            Mercenary.user.save();
+            Mercenary.user.save({success: this.render});
             console.log('Artist starred');
         }
     });

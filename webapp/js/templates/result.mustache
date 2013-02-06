@@ -1,4 +1,4 @@
-<div class="star"></div>
+{{#isLogged}}<div class="star {{#isFavorite}}favorite{{/isFavorite}}"></div>{{/isLogged}}
 <div>Artist : <span class="artist-name">{{artist_name}}</span></div>
 <div>Location : {{artist_location}}</div>
 {{#year}}<div>Year : {{year}}</div>{{/year}}
