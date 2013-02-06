@@ -12,8 +12,9 @@ define(['models/LoginModel'], function (LoginModel) {
             else this.render();
         },
         render: function () {
-            if (this.model.get('username'))
-                $('#login').html('<span class="name">Hello ' + this.model.get('username') + '</span><button class="out blue-button">logout</button>');
+            var username = this.model.get('username');
+            if (username)
+                $('#login').html('<span class="name">Hello ' + username + '</span><button class="out blue-button">logout</button>');
             else
                 $('#login').html('<form><input type="text" name="name" placeholder="Name"/><button class="in blue-button">login</button></form>');
         },
