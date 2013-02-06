@@ -23,7 +23,7 @@ if (typeof Object.create !== 'function') {
 
     var NotyObject = {
 
-        init:function (options) {
+        init: function (options) {
 
             // Mix in the passed in options with the default options
             this.options = $.extend({}, $.noty.defaults, options);
@@ -46,7 +46,7 @@ if (typeof Object.create !== 'function') {
             return this;
         }, // end init
 
-        _build:function () {
+        _build: function () {
 
             // Generating noty bar
             var $bar = $('<div class="noty_bar"></div>').attr('id', this.options.id);
@@ -87,7 +87,7 @@ if (typeof Object.create !== 'function') {
 
         }, // end _build
 
-        show:function () {
+        show: function () {
 
             var self = this;
 
@@ -143,7 +143,7 @@ if (typeof Object.create !== 'function') {
 
         }, // end show
 
-        close:function () {
+        close: function () {
 
             if (this.closed) return;
 
@@ -188,7 +188,7 @@ if (typeof Object.create !== 'function') {
                     if ($.notyRenderer.getLayoutCountFor(self) == 0) $(self.options.layout.container.selector).remove();
 
                     // Make sure self.$bar has not been removed before attempting to remove it
-                    if (typeof self.$bar !== 'undefined' && self.$bar !== null ) {
+                    if (typeof self.$bar !== 'undefined' && self.$bar !== null) {
                         self.$bar.remove();
                         self.$bar = null;
                         self.closed = true;
@@ -209,7 +209,7 @@ if (typeof Object.create !== 'function') {
 
         }, // end close
 
-        setText:function (text) {
+        setText: function (text) {
             if (!this.closed) {
                 this.options.text = text;
                 this.$bar.find('.noty_text').html(text);
@@ -217,7 +217,7 @@ if (typeof Object.create !== 'function') {
             return this;
         },
 
-        setType:function (type) {
+        setType: function (type) {
             if (!this.closed) {
                 this.options.type = type;
                 this.options.theme.style.apply(this);
@@ -226,7 +226,7 @@ if (typeof Object.create !== 'function') {
             return this;
         },
 
-        setTimeout:function (time) {
+        setTimeout: function (time) {
             if (!this.closed) {
                 var self = this;
                 this.options.timeout = time;
@@ -237,8 +237,8 @@ if (typeof Object.create !== 'function') {
             return this;
         },
 
-        closed:false,
-        shown:false
+        closed: false,
+        shown: false
 
     }; // end NotyObject
 
@@ -367,7 +367,7 @@ if (typeof Object.create !== 'function') {
             if (options)
                 options.text = text;
             else
-                options = {text:text};
+                options = {text: text};
 
             $.notyRenderer.init(options);
         };
@@ -378,33 +378,33 @@ if (typeof Object.create !== 'function') {
     };
 
     $.noty.defaults = {
-        layout:'top',
-        theme:'defaultTheme',
-        type:'alert',
-        text:'',
-        dismissQueue:true,
-        template:'<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-        animation:{
-            open:{height:'toggle'},
-            close:{height:'toggle'},
-            easing:'swing',
-            speed:500
+        layout: 'top',
+        theme: 'defaultTheme',
+        type: 'alert',
+        text: '',
+        dismissQueue: true,
+        template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+        animation: {
+            open: {height: 'toggle'},
+            close: {height: 'toggle'},
+            easing: 'swing',
+            speed: 500
         },
-        timeout:false,
-        force:false,
-        modal:false,
-        closeWith:['click'],
-        callback:{
-            onShow:function () {
+        timeout: false,
+        force: false,
+        modal: false,
+        closeWith: ['click'],
+        callback: {
+            onShow: function () {
             },
-            afterShow:function () {
+            afterShow: function () {
             },
-            onClose:function () {
+            onClose: function () {
             },
-            afterClose:function () {
+            afterClose: function () {
             }
         },
-        buttons:false
+        buttons: false
     };
 
     $(window).resize(function () {
@@ -421,14 +421,14 @@ function noty(options) {
     // This is for BC  -  Will be deleted on v2.2.0
     var using_old = 0
         , old_to_new = {
-            'animateOpen':'animation.open',
-            'animateClose':'animation.close',
-            'easing':'animation.easing',
-            'speed':'animation.speed',
-            'onShow':'callback.onShow',
-            'onShown':'callback.afterShow',
-            'onClose':'callback.onClose',
-            'onClosed':'callback.afterClose'
+            'animateOpen': 'animation.open',
+            'animateClose': 'animation.close',
+            'easing': 'animation.easing',
+            'speed': 'animation.speed',
+            'onShow': 'callback.onShow',
+            'onShown': 'callback.afterShow',
+            'onClose': 'callback.onClose',
+            'onClosed': 'callback.afterClose'
         };
 
     jQuery.each(options, function (key, value) {
@@ -513,14 +513,6 @@ function noty(options) {
         }
     }
 
-    // console.log(options);
-    // End of the BC
-
-    return jQuery.notyRenderer.init(options);
-}
-
-;(function($) {
-
     $.noty.layouts.bottomRight = {
         name: 'bottomRight',
         options: { // overrides options
@@ -529,7 +521,7 @@ function noty(options) {
         container: {
             object: '<ul id="noty_bottomRight_layout_container" />',
             selector: 'ul#noty_bottomRight_layout_container',
-            style: function() {
+            style: function () {
                 $(this).css({
                     bottom: 20,
                     right: 20,
@@ -564,23 +556,34 @@ function noty(options) {
     $.noty.themes.defaultTheme = {
         name: 'defaultTheme',
         helpers: {
-            borderFix: function() {
+            borderFix: function () {
                 if (this.options.dismissQueue) {
                     var selector = this.options.layout.container.selector + ' ' + this.options.layout.parent.selector;
                     switch (this.options.layout.name) {
                         case 'top':
                             $(selector).css({borderRadius: '0px 0px 0px 0px'});
-                            $(selector).last().css({borderRadius: '0px 0px 5px 5px'}); break;
-                        case 'topCenter': case 'topLeft': case 'topRight':
-                        case 'bottomCenter': case 'bottomLeft': case 'bottomRight':
-                        case 'center': case 'centerLeft': case 'centerRight': case 'inline':
-                        $(selector).css({borderRadius: '0px 0px 0px 0px'});
-                        $(selector).first().css({'border-top-left-radius': '5px', 'border-top-right-radius': '5px'});
-                        $(selector).last().css({'border-bottom-left-radius': '5px', 'border-bottom-right-radius': '5px'}); break;
+                            $(selector).last().css({borderRadius: '0px 0px 5px 5px'});
+                            break;
+                        case 'topCenter':
+                        case 'topLeft':
+                        case 'topRight':
+                        case 'bottomCenter':
+                        case 'bottomLeft':
+                        case 'bottomRight':
+                        case 'center':
+                        case 'centerLeft':
+                        case 'centerRight':
+                        case 'inline':
+                            $(selector).css({borderRadius: '0px 0px 0px 0px'});
+                            $(selector).first().css({'border-top-left-radius': '5px', 'border-top-right-radius': '5px'});
+                            $(selector).last().css({'border-bottom-left-radius': '5px', 'border-bottom-right-radius': '5px'});
+                            break;
                         case 'bottom':
                             $(selector).css({borderRadius: '0px 0px 0px 0px'});
-                            $(selector).first().css({borderRadius: '5px 5px 0px 0px'}); break;
-                        default: break;
+                            $(selector).first().css({borderRadius: '5px 5px 0px 0px'});
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
@@ -598,7 +601,7 @@ function noty(options) {
                 top: 0
             }
         },
-        style: function() {
+        style: function () {
 
             this.$bar.css({
                 overflow: 'hidden',
@@ -639,8 +642,12 @@ function noty(options) {
             });
 
             this.$bar.bind({
-                mouseenter: function() { $(this).find('.noty_close').fadeIn(); },
-                mouseleave: function() { $(this).find('.noty_close').fadeOut(); }
+                mouseenter: function () {
+                    $(this).find('.noty_close').fadeIn();
+                },
+                mouseleave: function () {
+                    $(this).find('.noty_close').fadeOut();
+                }
             });
 
             switch (this.options.layout.name) {
@@ -653,24 +660,30 @@ function noty(options) {
                         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
                     });
                     break;
-                case 'topCenter': case 'center': case 'bottomCenter': case 'inline':
-                this.$bar.css({
-                    borderRadius: '5px',
-                    border: '1px solid #eee',
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
-                });
-                this.$message.css({fontSize: '13px', textAlign: 'center'});
-                break;
-                case 'topLeft': case 'topRight':
-                case 'bottomLeft': case 'bottomRight':
-                case 'centerLeft': case 'centerRight':
-                this.$bar.css({
-                    borderRadius: '5px',
-                    border: '1px solid #eee',
-                    boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
-                });
-                this.$message.css({fontSize: '13px', textAlign: 'left'});
-                break;
+                case 'topCenter':
+                case 'center':
+                case 'bottomCenter':
+                case 'inline':
+                    this.$bar.css({
+                        borderRadius: '5px',
+                        border: '1px solid #eee',
+                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+                    });
+                    this.$message.css({fontSize: '13px', textAlign: 'center'});
+                    break;
+                case 'topLeft':
+                case 'topRight':
+                case 'bottomLeft':
+                case 'bottomRight':
+                case 'centerLeft':
+                case 'centerRight':
+                    this.$bar.css({
+                        borderRadius: '5px',
+                        border: '1px solid #eee',
+                        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)"
+                    });
+                    this.$message.css({fontSize: '13px', textAlign: 'left'});
+                    break;
                 case 'bottom':
                     this.$bar.css({
                         borderRadius: '5px 5px 0px 0px',
@@ -689,29 +702,44 @@ function noty(options) {
             }
 
             switch (this.options.type) {
-                case 'alert': case 'notification':
-                this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'}); break;
+                case 'alert':
+                case 'notification':
+                    this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'});
+                    break;
                 case 'warning':
                     this.$bar.css({backgroundColor: '#FFEAA8', borderColor: '#FFC237', color: '#826200'});
-                    this.$buttons.css({borderTop: '1px solid #FFC237'}); break;
+                    this.$buttons.css({borderTop: '1px solid #FFC237'});
+                    break;
                 case 'error':
                     this.$bar.css({backgroundColor: 'red', borderColor: 'darkred', color: '#FFF'});
                     this.$message.css({fontWeight: 'bold'});
-                    this.$buttons.css({borderTop: '1px solid darkred'}); break;
+                    this.$buttons.css({borderTop: '1px solid darkred'});
+                    break;
                 case 'information':
                     this.$bar.css({backgroundColor: '#57B7E2', borderColor: '#0B90C4', color: '#FFF'});
-                    this.$buttons.css({borderTop: '1px solid #0B90C4'}); break;
+                    this.$buttons.css({borderTop: '1px solid #0B90C4'});
+                    break;
                 case 'success':
                     this.$bar.css({backgroundColor: 'lightgreen', borderColor: '#50C24E', color: 'darkgreen'});
-                    this.$buttons.css({borderTop: '1px solid #50C24E'});break;
+                    this.$buttons.css({borderTop: '1px solid #50C24E'});
+                    break;
                 default:
-                    this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'}); break;
+                    this.$bar.css({backgroundColor: '#FFF', borderColor: '#CCC', color: '#444'});
+                    break;
             }
         },
         callback: {
-            onShow: function() { $.noty.themes.defaultTheme.helpers.borderFix.apply(this); },
-            onClose: function() { $.noty.themes.defaultTheme.helpers.borderFix.apply(this); }
+            onShow: function () {
+                $.noty.themes.defaultTheme.helpers.borderFix.apply(this);
+            },
+            onClose: function () {
+                $.noty.themes.defaultTheme.helpers.borderFix.apply(this);
+            }
         }
     };
 
-})(jQuery);
+    // console.log(options);
+    // End of the BC
+
+    return jQuery.notyRenderer.init(options);
+}

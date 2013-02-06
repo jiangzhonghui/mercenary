@@ -25,7 +25,13 @@ define(['text!templates/signup.mustache', 'models/UserModel'],
                         Backbone.trigger('signup');
                     },
                     error: function () {
-                        noty({text: 'noty - a jquery notification library!'});
+                        var n = noty({
+                            text: 'Votre inscription n‘a pas pu aboutir.',
+                            type: 'error',
+                            dismissQueue: true,
+                            layout: 'bottomRight',
+                            theme: 'defaultTheme'
+                        });
                     }
                 });
             }
