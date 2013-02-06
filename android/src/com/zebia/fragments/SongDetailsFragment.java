@@ -60,16 +60,8 @@ public class SongDetailsFragment extends Fragment {
 
         if (song != null) {
             TextView txArtist = (TextView) getView().findViewById(R.id.tx_detail_song_artist);
-            TextView txRelease = (TextView) getView().findViewById(R.id.tx_detail_song_release);
-            TextView txTitle = (TextView) getView().findViewById(R.id.tx_detail_song_title);
-            TextView txYear = (TextView) getView().findViewById(R.id.tx_detail_song_year);
 
-/*
             txArtist.setText(song.getArtist_name());
-            txRelease.setText(song.getRelease());
-            txTitle.setText(song.getTitle());
-            txYear.setText(String.valueOf(song.getYear()));
-*/
         }
     }
 
@@ -77,20 +69,6 @@ public class SongDetailsFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.action_bar_song_details, menu);
-    }
-
-    @Override
-    public void onPrepareOptionsMenu(Menu menu) {
-//        if(!(new SongWrapper(song).hasLocation()) && song.getArtist_location() != null){
-//            //try to geocode address
-//            LatLng latLng = Geocoding.reverseGeocoding(getActivity().getApplicationContext(), song.getArtist_location());
-//            if(latLng != null){
-//                song.setArtist_latitude((float)latLng.latitude);
-//                song.setArtist_longitude((float)latLng.longitude);
-//            }
-//        }
-
-        super.onPrepareOptionsMenu(menu);
     }
 
     @Override

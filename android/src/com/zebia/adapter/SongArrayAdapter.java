@@ -45,7 +45,7 @@ public class SongArrayAdapter extends ArrayAdapter<Artist> {
             holder.txtArtistId = (TextView) row.findViewById(R.id.tx_artist_id);
             holder.txtArtistLocation = (TextView) row.findViewById(R.id.tx_artist_location);
             holder.txtArtistMbTags = (TextView) row.findViewById(R.id.tx_artist_tags);
-            holder.favoriBton = (ImageButton) row.findViewById(R.id.btn_favoris);
+            //holder.favoriBton = (ImageButton) row.findViewById(R.id.btn_favoris);
 
             row.setTag(holder);
         } else {
