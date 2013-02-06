@@ -41,15 +41,28 @@
     <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Email"
+            android:text="User name: "
             android:textSize="18dp"
             android:id="@+id/textView" android:layout_gravity="left|center_vertical"/>
 
     <EditText
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:text="User name"
+            android:id="@+id/et_login_username" android:layout_gravity="center|bottom"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email: "
+            android:textSize="18dp"
+            android:id="@+id/textView1" android:layout_gravity="left|center_vertical"/>
+
+    <EditText
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
             android:text="Email"
-            android:id="@+id/et_email" android:layout_gravity="center|bottom"/>
+            android:id="@+id/et_login_email" android:layout_gravity="center|bottom"/>
 
     <TextView
             android:layout_width="wrap_content"
@@ -62,7 +75,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="City"
-            android:id="@+id/et_city" android:layout_gravity="center|bottom"/>
+            android:id="@+id/et_login_city" android:layout_gravity="center|bottom"/>
 
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
