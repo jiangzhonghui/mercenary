@@ -42,7 +42,7 @@ public class SongArrayAdapter extends ArrayAdapter<Artist> {
 
             holder = new SongHolder();
             holder.txtArtistName = (TextView) row.findViewById(R.id.tx_artist_name);
-            holder.txtArtistId = (TextView) row.findViewById(R.id.tx_artist_id);
+            //holder.txtArtistId = (TextView) row.findViewById(R.id.tx_artist_id);
             holder.txtArtistLocation = (TextView) row.findViewById(R.id.tx_artist_location);
             holder.txtArtistMbTags = (TextView) row.findViewById(R.id.tx_artist_tags);
             //holder.favoriBton = (ImageButton) row.findViewById(R.id.btn_favoris);
@@ -74,10 +74,14 @@ public class SongArrayAdapter extends ArrayAdapter<Artist> {
 
         public void fromSong(Artist artist) {
             txtArtistName.setText(artist.getArtist_name());
-            txtArtistId.setText(artist.getArtist_id());
+            //txtArtistId.setText(artist.getArtist_id());
             txtArtistLocation.setText(artist.getArtist_location());
-            txtArtistMbTags.setText(artist.getArtist_tags().toString());
-            //favoriBton.setBackground();TODO
+
+            StringBuilder stringBuilder = new StringBuilder();
+            for(String tag : artist.getArtist_tags()){
+                stringBuilder.append(tag).append(",");
+            }
+            txtArtistMbTags.setText(stringBuilder.toString());
         }
 
         private String durationToStr(float durationMs) {
