@@ -14,10 +14,14 @@ define(['models/LoginModel'], function (LoginModel) {
         },
         render: function () {
             var username = this.model.get('username');
-            if (username)
+            if (username) {
+                Mercenary.user = this.model;
                 this.$el.html('<span class="name">Hello ' + username + '</span><button class="out blue-button">logout</button>');
-            else
+            }
+            else {
+                delete Mercenary.user;
                 this.$el.html('<form><input type="text" name="name" placeholder="Name"/><button class="in blue-button">login</button></form>');
+            }
         },
         login: function (event) {
             event.preventDefault();

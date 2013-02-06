@@ -11,11 +11,12 @@ module.exports = function(app, db, logger) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(user)
 				unauthorized(res);
-
-			db.users.save(req.body, function() {
-				res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
-				res.send(req.body, 201);
-			});			
+			else {
+				db.users.save(req.body, function() {
+					res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
+					res.send(req.body, 201);
+				});
+			}			
 		});
 	};
 
@@ -23,9 +24,10 @@ module.exports = function(app, db, logger) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(!user)
 				unauthorized(res);
-
-			res.cookie('rememberme', user, { maxAge: 900000, httpOnly: false });
-			res.send(user);
+			else {
+				res.cookie('rememberme', user, { maxAge: 900000, httpOnly: false });
+				res.send(user);
+			}
 		});
 	};
 
@@ -36,11 +38,12 @@ module.exports = function(app, db, logger) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
 			if(!user)
 				unauthorized(res);
-
-			db.users.update({mail: req.body.mail}, {$set: {artists: req.body.artists}}, {safe: true}, function() {
-				user.artists = req.body.artists;
-				res.send(user);
-			});
+			else {
+				db.users.update({mail: req.body.mail}, {$set: {artists: req.body.artists}}, {safe: true}, function() {
+					user.artists = req.body.artists;
+					res.send(user);
+				});
+			}
 		});	
 	});
 
@@ -52,8 +55,11 @@ module.exports = function(app, db, logger) {
 	app.get('/user', function(req, res){
 		if(!authenticated(req))
 			unauthorized(res);
-		
-		res.send(req.cookies.rememberme);
+		else {
+			db.users.findOne({mail: req.cookies.rememberme.mail}, function(err, user) {
+				res.send(user);
+			});
+		}
 	});
 
 	var unauthorized = function(res) {

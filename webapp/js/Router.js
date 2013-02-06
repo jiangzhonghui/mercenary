@@ -24,9 +24,9 @@ define(['backbone', 'views/MenuView', 'views/LoginView', 'views/PushlineView'], 
             require([ 'views/SearchView' ], Mercenary.router.changeView);
             this.menu.highlight(3);
         },
-        details: function (songId) {
+        details: function (artistId) {
             require([ 'views/DetailsView' ], function (view) {
-                Mercenary.router.changeView(view, {songId: songId});
+                Mercenary.router.changeView(view, {artistId: artistId});
             });
             this.menu.highlight();
         },
