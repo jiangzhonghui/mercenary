@@ -16,7 +16,6 @@ module.exports = function (app, db, logger) {
             logger.debug('you search with args %s : %s', queryName, search[queryName]);
         });
 
-
         if (page && results_per_page) {
             ArtistQuery.pagination(search, page, results_per_page, function (artists) {
                 _.each(artists, function(artist) {
@@ -37,7 +36,6 @@ module.exports = function (app, db, logger) {
     });
 
 
-
     app.get('/artist/:id', function (req, res) {
         ArtistQuery.findOne(req.param('id'), function (artist) {
             artist.image = "toto";
@@ -45,7 +43,9 @@ module.exports = function (app, db, logger) {
             request(url, function (error, response, body) {
               if (!error && response.statusCode == 200) {
                 XmlParser(body, function(error, result){
-                    artist.image = result.response.artist[0].image;
+                    if(result.response && result.response.artist && result.response.artist.length > 0) {
+                        artist.image = result.response.artist[0].image;
+                    }
                     res.send(artist);
                 });
               } else {
@@ -56,7 +56,6 @@ module.exports = function (app, db, logger) {
         });
     });
 
-
     app.get('/artist/field/:field/:id', function (req, res) {
         ArtistQuery.findField(req.param('field'), req.param('id'), function (field) {
             res.send(field);
@@ -64,13 +63,12 @@ module.exports = function (app, db, logger) {
     });
     app.get('/artist/users/:id', function (req, res) {
         var artistId = req.param('id');
-        db.users.find({ 'artists.artist_id' : { $in : [ ""+artistId] }}, function (err, users) {
+        db.users.find({ 'artists._id' : { $in : [ ""+artistId] }}, function (err, users) {
             if(!err){
                 res.send(users);
             } else {
                 logger.error(err);
             }
-
         });
     });
 };

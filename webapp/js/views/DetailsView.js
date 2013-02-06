@@ -33,7 +33,7 @@ define(['text!templates/details.mustache', 'models/ArtistModel', 'views/GMapView
             var self = this;
             _.delay(function () {
                 self.gmap.render();
-            }, 1);
+            }.bind(this), 1);
         },
         fetchConcert: function() {
             this.modelConcert.setArtist(this.model.get('artist_name'));
