@@ -103,7 +103,7 @@ body {
 // amin
 .topArtists {
     width:100%;
-    background-color:#f1f1f1;
+    background-color:#d9effb;
     height:280px;
 }
 
@@ -398,6 +398,7 @@ a {
     .name {
         display: inline-block;
         padding-top: 5px;
+        padding-right: 5px;
         color: @grey;
     }
 }
@@ -708,8 +709,6 @@ input {
 	width: 100%;
 
 	section {
-		float: left;
-		width: 70%;
 		#heatmapArea {
 			width: 100%;
 			height: 300px;
@@ -751,4 +750,16 @@ input {
 	ul#venues {
 		list-style: none;
 	}
+}
+
+@media screen and (min-width: 920px) {
+	section.large {
+		position: relative;
+		margin-right: -800px;
+		right: 400px;
+	}
+}
+
+section.large ul {
+	list-style: none;
 }

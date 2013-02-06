@@ -9,7 +9,7 @@ define(['text!templates/pushline.mustache', 'text!templates/pushRow.mustache', '
         initialize: function () {
             this.pushCollection = new PushCollection();
             this.pushCollection.on('reset', this.render, this);
-            this.pushCollection.fetch();
+            this.loop();
         },
         render: function () {
             var self = this;
@@ -22,6 +22,14 @@ define(['text!templates/pushline.mustache', 'text!templates/pushRow.mustache', '
         },
         toggle: function () {
             this.$el.toggleClass('hide');
+        },
+        loop: function() {
+            this.pushCollection.fetch();
+
+            var self = this;
+            _.delay(function() {
+                self.loop();
+            }, 5000);
         }
     });
 });
