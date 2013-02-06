@@ -34,17 +34,28 @@ module.exports = function(app, db, logger) {
 	app.put('/user', function(req, res) {
 		if(!authenticated(req))
 			unauthorized(res);
+		else {
+			var mail = req.body.mail,
+				artists = req.body.artists;
 
-		db.users.findOne({mail: req.body.mail}, function(err, user) {
-			if(!user)
-				unauthorized(res);
-			else {
-				db.users.update({mail: req.body.mail}, {$set: {artists: req.body.artists}}, {safe: true}, function() {
-					user.artists = req.body.artists;
-					res.send(user);
-				});
-			}
-		});	
+			db.users.findOne({mail: mail}, function(err, user) {
+				if(!user)
+					unauthorized(res);
+				else {
+					db.users.update({mail: mail}, {$set: {artists: artists}}, {safe: true}, function() {
+						user.artists = artists;
+						res.send(user);
+					});
+
+					var differences = _.difference(artists, user.artists);
+					if(!_.isEmpty(differences)) {
+						_.each(differences, function(difference) {
+							db.timeline.save({user: mail, artist: difference});
+						});
+					}
+				}
+			});
+		}	
 	});
 
 	app.delete('/user', function(req, res) {
