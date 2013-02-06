@@ -4,10 +4,10 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class SongWrapper {
 
-    private Song song;
+    private Artist song;
     private int index = -1;
 
-    public SongWrapper(Song song) {
+    public SongWrapper(Artist song) {
         this.song = song;
     }
 
@@ -25,7 +25,7 @@ public class SongWrapper {
         return new LatLng(song.getArtist_latitude(), song.getArtist_longitude());
     }
 
-    public Song getSong() {
+    public Artist getSong() {
         return song;
     }
 

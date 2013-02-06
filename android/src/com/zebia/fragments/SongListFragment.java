@@ -25,13 +25,15 @@ import com.zebia.loaders.params.ParamsMapper;
 import com.zebia.loaders.params.RestParamBuilder;
 import com.zebia.loaders.params.SearchParams;
 import com.zebia.loaders.params.SongsParamsMapper;
+import com.zebia.model.Artist;
+import com.zebia.model.Response;
 import com.zebia.model.SongStore;
 import com.zebia.model.SongsResponse;
 import com.zebia.utils.Animations;
 
 public class SongListFragment extends Fragment implements
         AdapterView.OnItemClickListener,
-        LoaderManager.LoaderCallbacks<SerialLoader.RestResponse<SongsResponse>>,
+        LoaderManager.LoaderCallbacks<SerialLoader.RestResponse<Response>>,
         SearchView.OnQueryTextListener,
         PullToRefreshBase.OnRefreshListener<ListView> {
 
@@ -189,7 +191,7 @@ public class SongListFragment extends Fragment implements
     // ---------------------------------------------------------------------------------------------------
 
     @Override
-    public Loader<SerialLoader.RestResponse<SongsResponse>> onCreateLoader(int id, Bundle args) {
+    public Loader<SerialLoader.RestResponse<Response>> onCreateLoader(int id, Bundle args) {
         Log.d(LOG_TAG, "Begin onCreateLoader()");
 
         if (args != null && args.containsKey(RestParamBuilder.ARGS_URI)) {
@@ -197,14 +199,15 @@ public class SongListFragment extends Fragment implements
             Bundle params = args.getParcelable(RestParamBuilder.ARGS_PARAMS);
             Boolean reload = args.getBoolean(RestParamBuilder.ARGS_RELOAD);
 
-            return new SerialLoader(getActivity(), SerialLoader.HTTPVerb.GET, action, params, reload, SongsResponse.class);
+            return new SerialLoader(getActivity(), SerialLoader.HTTPVerb.GET, action, params, reload, Response.class);
         }
 
         return null;
     }
 
+
     @Override
-    public void onLoadFinished(Loader<SerialLoader.RestResponse<SongsResponse>> loader, SerialLoader.RestResponse<SongsResponse> data) {
+    public void onLoadFinished(Loader<SerialLoader.RestResponse<Response>> loader, SerialLoader.RestResponse<Response> data) {
         pullToRefreshListView.onRefreshComplete();
         getActivity().setProgressBarIndeterminateVisibility(false);
 
@@ -231,7 +234,7 @@ public class SongListFragment extends Fragment implements
     }
 
     @Override
-    public void onLoaderReset(Loader<SerialLoader.RestResponse<SongsResponse>> loader) {
+    public void onLoaderReset(Loader<SerialLoader.RestResponse<Response>> loader) {
         Log.d(LOG_TAG, "Begin onLoaderReset()");
     }
 
