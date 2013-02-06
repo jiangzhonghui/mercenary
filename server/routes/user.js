@@ -18,7 +18,7 @@ module.exports = function(app, db, logger) {
                     var body = req.body;
                     body.loc = location;
                     db.users.save(req.body, {safe: true}, function () {
-                        res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
+                        res.cookie('rememberme', req.body, { maxAge: 900000000000, httpOnly: false });
                         res.send(req.body, 201);
                     });
                 });
@@ -42,7 +42,7 @@ module.exports = function(app, db, logger) {
 			if(!user)
 				unauthorized(res);
 			else {
-				res.cookie('rememberme', user, { maxAge: 900000, httpOnly: false });
+				res.cookie('rememberme', user, { maxAge: 900000000000, httpOnly: false });
 				res.send(user);
 			}
 		});
