@@ -246,6 +246,7 @@ public class SongListFragment extends Fragment implements
 
         Bundle params = new RestParamBuilder(getActivity(), paramsMapper)
                 .putParam(SearchParams.ARTIST_NAME, searchQuery).build();
+
         getLoaderManager().restartLoader(LOADER_SONGS_SEARCH, params, this);
 
         return true;

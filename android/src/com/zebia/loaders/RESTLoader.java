@@ -12,6 +12,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.*;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -126,8 +127,19 @@ public class RESTLoader extends AsyncTaskLoader<RESTLoader.RESTResponse> {
                     HttpPost postRequest = (HttpPost) request;
 
                     if (mParams != null) {
-                        UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(paramsToList(mParams));
-                        postRequest.setEntity(formEntity);
+
+                        if (mParams.getString("BODY") != null) {
+                            StringEntity body = new StringEntity(mParams.getString("BODY"));
+                            body.setContentType("application/json");
+                            postRequest.setEntity(body);
+
+                            postRequest.setHeader("Content-Type", "application/json");
+                            postRequest.setHeader("Accept", "application/json");
+                        }
+                        else {
+                            UrlEncodedFormEntity formEntity = new UrlEncodedFormEntity(paramsToList(mParams));
+                            postRequest.setEntity(formEntity);
+                        }
                     }
                 }
                 break;
@@ -193,16 +205,19 @@ public class RESTLoader extends AsyncTaskLoader<RESTLoader.RESTResponse> {
 
     @Override
     protected void onStartLoading() {
-        if (mRestResponse != null) {
-            // We have a cached result, so we can just
-            // return right away.
-            super.deliverResult(mRestResponse);
-        }
 
-        // If our response is null or we have hung onto it for a long time,
-        // then we perform a force load.
-        if (mRestResponse == null || System.currentTimeMillis() - mLastLoad >= STALE_DELTA) forceLoad();
-        mLastLoad = System.currentTimeMillis();
+        forceLoad();
+
+//        if (mRestResponse != null) {
+//            // We have a cached result, so we can just
+//            // return right away.
+//            super.deliverResult(mRestResponse);
+//        }
+//
+//        // If our response is null or we have hung onto it for a long time,
+//        // then we perform a force load.
+//        if (mRestResponse == null || System.currentTimeMillis() - mLastLoad >= STALE_DELTA) forceLoad();
+//        mLastLoad = System.currentTimeMillis();
     }
 
     @Override
