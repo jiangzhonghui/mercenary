@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.AsyncTaskLoader;
 import android.util.Log;
 import com.google.gson.Gson;
+import com.zebia.AppSettings;
 import com.zebia.dao.SerialCashDao;
 import com.zebia.dao.StorageItemsHelper;
 import org.apache.http.HttpEntity;
@@ -152,7 +153,7 @@ public class SerialLoader<T> extends AsyncTaskLoader<SerialLoader.RestResponse> 
             }
 
             if (request != null) {
-                HttpClient client = new DefaultHttpClient();
+                HttpClient client = AppSettings.getClient(); //new DefaultHttpClient();
 
                 // Let's send some useful debug information so we can monitor things
                 // in LogCat.
