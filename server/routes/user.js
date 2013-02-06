@@ -1,3 +1,5 @@
+var request = require('request').defaults({json: true});
+
 module.exports = function(app, db, logger) {
 
 	app.post('/user', function(req, res) {
@@ -12,13 +14,28 @@ module.exports = function(app, db, logger) {
 			if(user)
 				unauthorized(res);
 			else {
-				db.users.save(req.body, function() {
-					res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
-					res.send(req.body, 201);
-				});
+                geocode(req.body.city, function (location) {
+                    var body = req.body;
+                    body.loc = location;
+                    db.users.save(req.body, {safe: true}, function () {
+                        res.cookie('rememberme', req.body, { maxAge: 900000, httpOnly: false });
+                        res.send(req.body, 201);
+                    });
+                });
 			}			
 		});
 	};
+
+    var geocode = function (city, whenGeolocated) {
+        request('http://maps.googleapis.com/maps/api/geocode/json?address=' + city + '&sensor=true', function (err, res, body) {
+            var loc = {lat: 48.8566140, lng: 2.35222190};//default Paris
+            if (body && body.results.length !== 0) {
+                loc = body.results[0].geometry.location;
+            }
+
+            whenGeolocated({latitude: loc.lat, longitude: loc.lng});
+        });
+    };
 
 	var connectToAccount = function(req, res) {
 		db.users.findOne({mail: req.body.mail}, function(err, user) {
