@@ -19,6 +19,10 @@ module.exports = function (app, logger) {
 
         if (page && results_per_page) {
             ArtistQuery.pagination(search, page, results_per_page, function (artists) {
+                _.each(artists, function(artist) {
+                     var i = Math.floor(Math.random() * 500);
+                     artist.image = "http://cdn.7static.com/static/img/artistimages/00/000/000/0000000" + i + "_150.jpg";
+                })
                 res.send({
                     page: page,
                     results_per_page: results_per_page,
