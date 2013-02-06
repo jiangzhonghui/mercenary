@@ -10,6 +10,8 @@ requirejs.config({
         mustache: 'lib/mustache',
         hogan: 'lib/hogan',
         text: 'lib/text',
+        heatmap: 'lib/heatmap',
+        heatmapgmaps: 'lib/heatmap-gmaps',
         async: 'lib/async'
     },
     shim: {
@@ -18,6 +20,9 @@ requirejs.config({
         'tablesorter': { deps: ['jquery'] },
         'tsWidgets': { deps: ['tablesorter'] },
         'noty': {deps: ['jquery']},
+        'heatmapgmaps': {
+            deps: ['heatmap', 'async!http://maps.google.com/maps/api/js?sensor=false']
+        },
         'Router': { deps: [ 'backbone' ] }
     }
 });
@@ -27,7 +32,7 @@ requirejs.onError = function (err) {
     console.log(err.requireModules);
 };
 
-requirejs(['Router', 'tsWidgets', 'noty', 'hogan'], function (Router) {
+requirejs(['Router', 'tsWidgets', 'noty', 'hogan', 'heatmap', 'heatmapgmaps'], function (Router) {
     var Mercenary = window.Mercenary = {};
 
     _.extend(Backbone.View.prototype, {
@@ -58,8 +63,8 @@ requirejs(['Router', 'tsWidgets', 'noty', 'hogan'], function (Router) {
             easing: 'swing',
             speed: 500 // opening & closing animation speed
         },
-        timeout: 4000, // delay for closing event. Set false for sticky notifications
-        force: true, // adds notification to the beginning of queue when set to true
+        timeout: false, // delay for closing event. Set false for sticky notifications
+        force: false, // adds notification to the beginning of queue when set to true
         modal: false,
         closeWith: ['click'], // ['click', 'button', 'hover']
         callback: {

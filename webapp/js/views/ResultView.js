@@ -19,7 +19,10 @@ define(['text!templates/result.mustache'], function (template) {
                 artist_name: this.model.get('artist_name')
             });
             Mercenary.user.save({success: this.render});
-            console.log('Artist starred');
+            noty({
+                text: 'Artist' + this.model.get('artist_name') + ' has been starded !',
+                type: 'success'
+            });
         }
     });
 });
