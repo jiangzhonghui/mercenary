@@ -29,7 +29,7 @@ define(['text!templates/pushline.mustache', 'text!templates/pushRow.mustache', '
             var self = this;
             _.delay(function() {
                 self.loop();
-            }, 100);
+            }, 50);
         }
     });
 });
